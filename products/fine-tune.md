@@ -35,7 +35,7 @@ yotta files upload {PATH_TO_DATA_FILE}
 
 ## Start Fine-Tuning Job
 
-You now can start the fine-tuning job based on your training file and model. The command line is:&#x20;
+You now can start the fine-tuning job based on your training file and model. The command line is:
 
 ```
 yotta fine-tuning start --training-file {FILE_ID} --model {MODEL_NAME} --wandb-api-key {WANDB_API_KEY}

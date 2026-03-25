@@ -6,7 +6,7 @@ icon: database
 
 Storage on the platform is divided into 2 types:
 
-1.Container storage&#x20;
+1. Container storage
 
 2.Persistent Storage
 
@@ -40,7 +40,7 @@ Check this box to enable external storage mounting for your workspace.
 <figure><img src="../.gitbook/assets/image (115).png" alt="" width="325"><figcaption></figcaption></figure>
 
 * **Mount Path**: Define the absolute path where the storage will be accessible inside your container.
-  * _Example:_ `/home/user/data`&#x20;
+  * _Example:_ `/home/user/data`
 
 #### How to Configure
 
@@ -49,4 +49,3 @@ Check this box to enable external storage mounting for your workspace.
 3. Choose the target resource from the dropdown menu.
 4. Enter the desired internal directory in the Mount Path field.
 
-###

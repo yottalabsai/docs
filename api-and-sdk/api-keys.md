@@ -6,7 +6,7 @@ icon: key
 
 ### What is an API Key
 
-An API key is a unique credential that authenticates your requests and operations within the Yottalabs AI Platform.&#x20;
+An API key is a unique credential that authenticates your requests and operations within the Yottalabs AI Platform.
 
 ### How to Access Your Own API Keys
 
@@ -16,7 +16,7 @@ Launch Console -> Settings -> Access Keys
 
 ### When You'll Need API Keys
 
-#### &#x20;Authorizing API Requests
+#### Authorizing API Requests
 
 All endpoints require API key authentication via the `X-Api-Key` header:
 

@@ -2,7 +2,7 @@
 description: >-
   Yotta Labs provides a simple and secure way to top up your account credit,
   enabling uninterrupted access to advanced features like GPU instances, AI
-  models, and more. Recharge your credit to continue
+  models, and more. Recharge your credit to continue using your services.
 icon: wallet
 ---
 
@@ -50,9 +50,7 @@ We support a variety of payment options for global accessibility:
   * When the balance reaches below the specified threshold (e.g., $10), you will receive an email alert notifying you of the low funds in your account.
   * This alert system helps you prevent any disruption in service.
 
-**It's disabled by default.** To enable it, tu
-
-rn on the feature switch and adjust the threshold. Hit "save" to save your preferences.
+**It's disabled by default.** To enable it, turn on the feature switch and adjust the threshold. Hit "save" to save your preferences.
 
 <figure><img src="../.gitbook/assets/image (111).png" alt=""><figcaption></figcaption></figure>
 
@@ -69,6 +67,5 @@ Use the dropdown menu to filter your billing history based on different time per
 1. **Day** – View billing data on a daily basis.
 2. **Week** – View billing data on a weekly basis.
 3. **Month** – View billing data on a monthly basis.
-4.
 
-    <figure><img src="../.gitbook/assets/image (113).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (113).png" alt=""><figcaption></figcaption></figure>

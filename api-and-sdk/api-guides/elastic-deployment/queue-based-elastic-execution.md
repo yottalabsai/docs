@@ -8,9 +8,9 @@ hidden: true
 
 ### Create Task
 
-**Endpoint:** `/openapi/v1/skywalker/tasks/create`&#x20;
+**Endpoint:** `/openapi/v1/skywalker/tasks/create`
 
-**Method:** `POST`&#x20;
+**Method:** `POST`
 
 **Description:** Creates a new task and submits it to the Elastic Queue. The task is assigned to a worker for execution, and the result is notified asynchronously via callback.
 
@@ -85,9 +85,9 @@ curl --location 'https://api.yottalabs.ai/openapi/v1/skywalker/tasks/create' \
 
 ### Get Task Details
 
-**Endpoint:** `/openapi/v1/skywalker/tasks/{userTaskId}`&#x20;
+**Endpoint:** `/openapi/v1/skywalker/tasks/{userTaskId}`
 
-**Method:** `GET`&#x20;
+**Method:** `GET`
 
 **Description:** Retrieves the details of a specific task.
 
@@ -161,9 +161,11 @@ curl --location 'https://api.yottalabs.ai/openapi/v1/skywalker/tasks/task_202511
 
 ### Get Processing Task Count
 
-**Endpoint:** `/openapi/v1/skywalker/tasks/processing/count`&#x20;
+**Endpoint:** `/openapi/v1/skywalker/tasks/processing/count`
 
-**Method:** `GET` **Description:** Retrieves the count of tasks that are currently pending or processing.
+**Method:** `GET`
+
+**Description:** Retrieves the count of tasks that are currently pending or processing.
 
 * **Rate Limiting:**
   * Per `X-Endpoint-ID`: 60 QPS.
@@ -206,9 +208,9 @@ curl --location 'https://api.yottalabs.ai/openapi/v1/skywalker/tasks/processing/
 
 ### List Tasks
 
-**Endpoint:** `/openapi/v1/skywalker/tasks`&#x20;
+**Endpoint:** `/openapi/v1/skywalker/tasks`
 
-**Method:** `GET`&#x20;
+**Method:** `GET`
 
 **Description:** Retrieves a paginated list of tasks.
 
@@ -294,9 +296,9 @@ Returns an object containing `data` with `items` (TaskDetail\[]) and `pagination
 
 ### Callback Notification
 
-**Endpoint:** `{userNotifyUrl}`&#x20;
+**Endpoint:** `{userNotifyUrl}`
 
-**Method:** `POST`&#x20;
+**Method:** `POST`
 
 **Description:** Task completion result notification (**Caller:** Skywalker → User Application). Skywalker actively calls the `notifyUrl` provided by the user during endpoint creation to notify the result.
 
