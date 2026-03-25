@@ -47,7 +47,7 @@ Where:
 * $$\sum{Weight_i}$$ is the sum of the weights of all GPUs in the pool.
 * $$Total Token Pool$$ is the total number of tokens allocated for distribution that week.
 
-## Token Pool Adjustment&#x20;
+## Token Pool Adjustment
 
 The size of the token pool will be reviewed and adjusted weekly based on the following factors:
 

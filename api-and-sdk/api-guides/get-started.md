@@ -80,8 +80,8 @@ curl -X POST https://api.yottalabs.ai/v2/serverless \
 
 #### 5. List and Monitor Resources
 
-```wasm
-##List VMs
+```bash
+# List VMs
 curl https://api.yottalabs.ai/v2/vms?page=1&size=10 \
   -H "X-Api-Key: {X-Api-Key}"
 

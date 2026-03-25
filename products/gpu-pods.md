@@ -16,14 +16,14 @@ When entering the **Pods** page:
 
 *   The system by default displays Pods in **In Progress** state, including:
 
-    * `Initializing` – Resources are being allocated; the Pod is deploying.If you&#x20;
+    * `Initializing` – Resources are being allocated; the Pod is deploying.
     * `Running` – The Pod is running normally.
     * `Terminating` – The Pod is being terminated; resources are being reclaimed.
 
     <figure><img src="../.gitbook/assets/image (145).png" alt="" width="375"><figcaption></figcaption></figure>
 *   There are buttons you can use at the bottom:
 
-    *   &#x20;:link: `Connect` You can connect your machine to specific ports, such as 8888 for Jupyter Notebook. We currently support both **SSH** and **HTTP** ports.
+    * :link: `Connect` You can connect your machine to specific ports, such as 8888 for Jupyter Notebook. We currently support both **SSH** and **HTTP** ports.
 
         <figure><img src="../.gitbook/assets/image (148).png" alt="" width="375"><figcaption></figcaption></figure>
 
@@ -46,7 +46,7 @@ When entering the **Pods** page:
       * Invalid image configuration
 
     <figure><img src="../.gitbook/assets/image (147).png" alt="" width="270"><figcaption></figcaption></figure>
-* There is a search bar where you can use Pod name to find your Pod (fuzzy search supported). You can also use **Pod Status** or **GPU Type** to filter Pods.&#x20;
+* There is a search bar where you can use Pod name to find your Pod (fuzzy search supported). You can also use **Pod Status** or **GPU Type** to filter Pods.
 
 ## ⚙️ Deploying a Pod
 
@@ -74,9 +74,9 @@ When entering the **Pods** page:
 
 Click **Edit** next to image name to further configure your image. We provided a list of official images compiled by Yotta Labs. Also, we allow users to select custom images including both **Public Images** and **Private Images**.
 
-Here are are few requirements if you want to build your custom image:
+Here are a few requirements if you want to build your custom image:
 
-* Must be compiled for **x86** architecture&#x20;
+* Must be compiled for **x86** architecture
 * Must be **Debian/Ubuntu**
 
 5. **Deploy**\
@@ -86,9 +86,9 @@ Here are are few requirements if you want to build your custom image:
 
 ## 💾 **System Volume**
 
-The System Volume would automatically mount a list of system directories on the created Pod. This ensures that software, configurations, and data stored within these directories are persistent even if the Pod is edited or restarted.&#x20;
+The System Volume would automatically mount a list of system directories on the created Pod. This ensures that software, configurations, and data stored within these directories are persistent even if the Pod is edited or restarted.
 
-#### **Supported Directories**&#x20;
+#### **Supported Directories**
 
 Read and write operations to the following directories will be persistent:
 
