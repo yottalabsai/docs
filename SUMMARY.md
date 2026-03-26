@@ -96,7 +96,7 @@
   * [Generating Images with Z-image Model Quickstart](tutorials/launch-templates/generating-images-with-z-image-model-quickstart.md)
 * [Set up MCP server and Agent Skills](tutorials/set-up-mcp-server-and-agent-skills.md)
 * [NemoClaw with Local Inference](tutorials/nemoclaw-with-local-inference.md)
-* [Page 1](tutorials/page-1.md)
+* [GRPO on GSM8K with Virtual Machine](tutorials/grpo-on-gsm8k-with-virtual-machine.md)
 
 ## Technology
 

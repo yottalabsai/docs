@@ -2,7 +2,7 @@
 description: >-
   Yotta Labs provides a simple and secure way to top up your account credit,
   enabling uninterrupted access to advanced features like GPU instances, AI
-  models, and more. Recharge your credit to continue using your services.
+  models, and more. Recharge your credit to continue
 icon: wallet
 ---
 
