@@ -70,6 +70,7 @@
   * [Elastic Deployment](api-and-sdk/api-reference-v1/elastic-deployment.md)
 * [API Reference - v2](api-and-sdk/api-reference-v2/README.md)
   * [Pods](api-and-sdk/api-reference-v2/pods.md)
+  * [Pods](api-and-sdk/api-reference-v2/pods-1.md)
   * [VMs](api-and-sdk/api-reference-v2/vms.md)
   * [Elastic Deployment](api-and-sdk/api-reference-v2/elastic-deployment.md)
 
