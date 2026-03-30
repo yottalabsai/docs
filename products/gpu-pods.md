@@ -212,7 +212,7 @@ You can also manage Pods programmatically via Yotta Labs’ **OpenAPI**.
 
 #### API Reference
 
-* [📘 API & SDK Documentation](https://docs.yottalabs.ai/yotta-labs/api-and-sdk/api-guides)
+* [📘 API & SDK Documentation](https://docs.yottalabs.ai/api-and-sdk/api-guides)
 
 > **Tip:**\
 > Always review the API documentation before calling endpoints to avoid common request errors (invalid parameters, insufficient balance, etc.).
@@ -237,6 +237,6 @@ You can also manage Pods programmatically via Yotta Labs’ **OpenAPI**.
 
 ## 🧩 Related Docs
 
-* [Pod API Reference](https://docs.yottalabs.ai/yotta-labs/api-and-sdk/api-guides)
-* [Billing](https://docs.yottalabs.ai/yotta-labs/products/billing)
+* [Pod API Reference](https://docs.yottalabs.ai/api-and-sdk/api-guides)
+* [Billing](https://docs.yottalabs.ai/products/billing)
 

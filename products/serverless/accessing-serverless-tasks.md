@@ -16,7 +16,7 @@ Example: Access via `curl`
 Each request must include the header: `Authorization: Bearer <YOUR_API_KEY>`\
 API keys can be found in **Settings → Access Keys**.
 
-See more details in [API keys doc](https://docs.yottalabs.ai/yotta-labs/api-and-sdk/api-keys)
+See more details in [API keys doc](https://docs.yottalabs.ai/api-and-sdk/api-keys)
 {% endhint %}
 
 ```bash

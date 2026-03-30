@@ -336,4 +336,4 @@ Ready to take things further? Consider exploring:
 
 Need more help? Check out:
 
-* [YottaLabs API Documentation](https://docs.yottalabs.ai/yotta-labs/api-and-sdk/api-spec/elastic-deployment)
+* [YottaLabs API Documentation](https://docs.yottalabs.ai/api-and-sdk/api-spec/elastic-deployment)

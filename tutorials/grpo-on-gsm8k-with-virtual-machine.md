@@ -20,7 +20,7 @@ This guide shows how to run a **working SkyRL training job on YottaLabs** virtua
 {% step %}
 ### Connect to your YottaLabs instance
 
-Start a virtual machine on our platform. See our [Virtual Machine Guide](https://docs.yottalabs.ai/yotta-labs/products/virtual-machines/launching-a-virtual-machine) for step-to-step tutorial.
+Start a virtual machine on our platform. See our [Virtual Machine Guide](https://docs.yottalabs.ai/products/virtual-machines/launching-a-virtual-machine) for step-to-step tutorial.
 
 From your local machine, SSH into the YottaLabs host, for example:
 
