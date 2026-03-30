@@ -17,10 +17,10 @@ If you still need assistance, please contact support to open a ticket and includ
 <summary>Where are tutorials, examples, and SDK references?</summary>
 
 You can find tutorials and step-by-step guides in our **Quickstart** documentation:\
-[https://docs.yottalabs.ai/yotta-labs/products/quickstart](https://docs.yottalabs.ai/yotta-labs/products/quickstart)
+[https://docs.yottalabs.ai/products/quickstart](https://docs.yottalabs.ai/products/quickstart)
 
 For API endpoints, authentication, and SDK/API references, see our **API Spec**:\
-[https://docs.yottalabs.ai/yotta-labs/api-and-sdk/api-spec](https://docs.yottalabs.ai/yotta-labs/api-and-sdk/api-spec)
+[https://docs.yottalabs.ai/api-and-sdk/api-spec](https://docs.yottalabs.ai/api-and-sdk/api-spec)
 
 </details>
 

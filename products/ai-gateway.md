@@ -129,7 +129,7 @@ Head to the **API** tab on the Nano Banana Pro model page. Copy the full Python 
 
 Open any text editor (Notepad, VS Code, or anything you have on hand). Paste the code in, then make two edits before saving:
 
-* Replace `"MY API Key"` with your actual API key from the Dashboard. See our official doc for API key [here](https://docs.yottalabs.ai/yotta-labs/api-and-sdk/api-keys)
+* Replace `"MY API Key"` with your actual API key from the Dashboard. See our official doc for API key [here](https://docs.yottalabs.ai/api-and-sdk/api-keys)
 * Replace the default prompt with your own
 
 Save the file as `run.py` in a folder of your choice, for example:

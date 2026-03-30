@@ -15,7 +15,7 @@ Queue Mode automatically adjusts the number of active workers based on incoming 
 
 <figure><img src="../../.gitbook/assets/image-20260113171057414.png" alt=""><figcaption></figcaption></figure>
 
-For more details in price and billing, see [Pricing & Billing | Yotta Labs](https://docs.yottalabs.ai/yotta-labs/products/elastic-deployment/pricing-and-billing)
+For more details in price and billing, see [Pricing & Billing | Yotta Labs](https://docs.yottalabs.ai/products/elastic-deployment/pricing-and-billing)
 
 ### Architecture
 
@@ -38,7 +38,7 @@ The intelligent queue sits at the center of the architecture, managing:
 
 **1. Configure Your Container**
 
-See [Launching a Deployment | Yotta Labs](https://docs.yottalabs.ai/yotta-labs/products/elastic-deployment/launching-a-deployment)
+See [Launching a Deployment | Yotta Labs](https://docs.yottalabs.ai/products/elastic-deployment/launching-a-deployment)
 
 **2.View/Edit/Clone Configurations**
 
