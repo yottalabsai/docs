@@ -77,9 +77,10 @@
 
 * [Custom Images](tutorials/custom-images/README.md)
   * [How to Build Custom Images](tutorials/custom-images/how-to-build-custom-images.md)
-* [Elastic Deployment](tutorials/elastic-deployment/README.md)
-  * [Guide to Elastic Deployment](tutorials/elastic-deployment/guide-to-elastic-deployment.md)
-  * [Queue-based Elastic Deployment Quickstart](tutorials/elastic-deployment/queue-based-elastic-deployment-quickstart.md)
+* [Serverless](tutorials/elastic-deployment/README.md)
+  * [Guide to Serverless](tutorials/elastic-deployment/guide-to-elastic-deployment.md)
+  * [Queue-based Serverless Quickstart](tutorials/elastic-deployment/queue-based-elastic-deployment-quickstart.md)
+* [Inference](tutorials/inference.md)
 * [Launch Templates](tutorials/launch-templates/README.md)
   * [Get Started in LLM Training with Pytorch 2.8.0](tutorials/launch-templates/get-started-in-llm-training-with-pytorch-2.8.0.md)
   * [Accelerating PyTorch Training with TorchDynamo and JIT](tutorials/launch-templates/accelerating-pytorch-training-with-torchdynamo-and-jit.md)
