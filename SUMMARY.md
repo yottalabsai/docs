@@ -69,7 +69,6 @@
   * [VMs](api-and-sdk/api-reference-v1/vms.md)
   * [Serverless](api-and-sdk/api-reference-v1/serverless.md)
 * [API Reference - v2](api-and-sdk/api-reference-v2/README.md)
-  * [Pods](api-and-sdk/api-reference-v2/pods.md)
   * [Pods](api-and-sdk/api-reference-v2/pods-1.md)
   * [VMs](api-and-sdk/api-reference-v2/vms.md)
   * [Serverless](api-and-sdk/api-reference-v2/serverless.md)
