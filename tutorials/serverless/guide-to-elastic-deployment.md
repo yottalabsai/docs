@@ -2,23 +2,23 @@
 icon: location-arrow
 ---
 
-# Guide to Elastic Deployment
+# Guide to Serverless
 
 ### **Introduction**
 
-This comprehensive guide explains how to use YottaLabs’ **Elastic Deployment** feature to quickly and reliably deploy **Qwen3-0.6B** model as containerized services  in a production environment.
+This comprehensive guide explains how to use YottaLabs’ **Serverless** feature to quickly and reliably deploy **Qwen3-0.6B** model as containerized services  in a production environment.
 
 ***
 
 ### **1. Background**
 
-Yotta Labs is a one-stop platform for AI application development. This Elastic Deployment feature is specifically designed for low-latency, high-concurrency inference services, supporting:
+Yotta Labs is a one-stop platform for AI application development. This Serverless feature is specifically designed for low-latency, high-concurrency inference services, supporting:
 
 * **Auto-scaling**
 * **Self-healing (Fault tolerance)**
 * **Multi-GPU scheduling**
 
-Unlike traditional static deployments, Elastic Deployment abstracts computing units (**Workers**) into stateless service instances that can be dynamically scaled.&#x20;
+Unlike traditional static deployments, Serverless abstracts computing units (**Workers**) into stateless service instances that can be dynamically scaled.&#x20;
 
 ***
 
@@ -33,7 +33,7 @@ Before deploying, you must obtain your identity credentials:
 1. Log in to the **YottaLabs Console**.
 2. Navigate to **Settings → Access Keys**.
 3. Generate and copy your **API Key**. This key is required for all automated operations and management interfaces.
-4. Return to the main menu and click on **Elastic Deployment** to begin.
+4. Return to the main menu and click on **Serverless** to begin.
 
 #### **Step 2: Image Configuration – Public vs. Private Registries**
 

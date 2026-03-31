@@ -2,7 +2,7 @@
 
 ### ALB Mode
 
-* Navigate to **Compute → Elastic Deployment** in the left menu.
+* Navigate to **Compute → Serverless** in the left menu.
 * Click the **Deploy** button in the top-right corner to start the deployment wizard.
 
 <figure><img src="../../.gitbook/assets/image (191).png" alt=""><figcaption></figcaption></figure>

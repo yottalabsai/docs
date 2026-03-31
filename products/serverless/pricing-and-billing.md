@@ -1,6 +1,6 @@
 # Pricing & Billing
 
-Elastic Deployment charges are calculated **hourly**, based on the actual compute and storage resources consumed.
+Serverless charges are calculated **hourly**, based on the actual compute and storage resources consumed.
 
 $$
 Total\ Cost= \sum(GPU_{rate} \times GPU_{count} + Storage_{rate}\times Storage_{size})
@@ -31,17 +31,17 @@ If a user deploys the following resources:
 
 * **Pay-as-you-go:** Billing stops immediately once resources are released.
 * **Unified multi-region billing:** The system aggregates resource usage across all regions.
-* **Transparent reporting:** Detailed per-worker billing breakdowns are available in the **Details** page of each **Elastic Deployment**.
+* **Transparent reporting:** Detailed per-worker billing breakdowns are available in the **Details** page of each **Serverless**.
 
 #### Deductions and Balance Policy
 
-* Charges are deducted as soon as an Elastic Deployment starts running.
-* When your **account balance approaches $0**, all running Elastic Deployments will be automatically terminated.
+* Charges are deducted as soon as an Serverless starts running.
+* When your **account balance approaches $0**, all running Serverlesss will be automatically terminated.
 
 #### Viewing Billing Details
 
 * Navigate to **Billing** from the left menu.
-* The Billing page displays all Elastic Deployment usage and cost details, including per-worker hourly charges and historical summaries.
+* The Billing page displays all Serverless usage and cost details, including per-worker hourly charges and historical summaries.
 
 <figure><img src="../../.gitbook/assets/image (190).png" alt=""><figcaption></figcaption></figure>
 

@@ -1,6 +1,6 @@
 # Service Mode
 
-We provide **three Service Modes** for Elastic Deployment:
+We provide **three Service Modes** for Serverless:
 
 ### &#x20;**ALB**
 

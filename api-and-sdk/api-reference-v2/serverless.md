@@ -1,4 +1,4 @@
-# Elastic Deployment
+# Serverless
 
 {% openapi-operation spec="yotta-platform-api" path="/v2/serverless" method="post" %}
 [OpenAPI yotta-platform-api](https://api.yottalabs.ai/v3/api-docs)

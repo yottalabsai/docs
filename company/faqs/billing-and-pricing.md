@@ -28,7 +28,7 @@ Yotta Labs bills compute and storage usage with **per-second precision**.
 You can view and export your invoices directly from the **Billing** page.
 
 1. Scroll to the bottom and find **Billing History**
-2. Select the service you want to review, such as **Pods**, **Virtual Machines**, or **Elastic Deployment**
+2. Select the service you want to review, such as **Pods**, **Virtual Machines**, or **Serverless**
 3. In the top-right corner, choose a time granularity (**Day / Week / Month**) and set a date range
 4. Click **Export** to download your invoice as a **P**
 

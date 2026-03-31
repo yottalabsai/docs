@@ -1,4 +1,4 @@
-# Elastic Deployment
+# Serverless
 
 ### Elastic Endpoints
 

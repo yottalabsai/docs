@@ -57,5 +57,5 @@ Once your account is ready, it’s time to deploy your first Pod:
 
 1. Create [API keys](../api-and-sdk/api-keys.md) to manage your infrastructure through code.
 2. Deep dive into the various [pricing policies](billing.md) available for different GPU tiers.
-3. Transition to [elastic deployment](serverless/) computing to develop robust, production-grade AI applications.
+3. Transition to [serverless](serverless/) computing to develop robust, production-grade AI applications.
 4. See our [FAQ page](../company/faqs/).

@@ -2,5 +2,5 @@
 icon: bolt
 ---
 
-# Elastic Deployment
+# Serverless
 

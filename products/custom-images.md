@@ -117,7 +117,7 @@ RUN apt-get update \
 After building and pushing your custom image to your registry:
 
 1. Log in to the **Yotta Console**.
-2. Navigate to **Compute → Elastic Deployment** or **Pod Management**.
+2. Navigate to **Compute → Serverless** or **Pod Management**.
 3. Select **Deploy**, then choose **Custom Image**.
 4. Enter the image name and configuration.
 5. Launch the Pod.
@@ -140,4 +140,4 @@ Your Pod will now run using your custom-built image — with full SSH and Jupyte
 
 ### Summary
 
-Yotta’s **Official Base Images** provide a optimized, GPU-ready foundation for AI workloads. By extending these images, developers can easily extend these images or bring their own, as long as SSH is enabled. Following the guidelines above ensures full compatibility with Yotta **Pods** and **Elastic Deployment**, enabling smooth development workflows with JupyterLab, SSH, and GPU acceleration.
+Yotta’s **Official Base Images** provide a optimized, GPU-ready foundation for AI workloads. By extending these images, developers can easily extend these images or bring their own, as long as SSH is enabled. Following the guidelines above ensures full compatibility with Yotta **Pods** and **Serverless**, enabling smooth development workflows with JupyterLab, SSH, and GPU acceleration.
