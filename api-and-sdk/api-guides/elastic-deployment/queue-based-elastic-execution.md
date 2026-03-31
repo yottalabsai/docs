@@ -24,7 +24,7 @@ hidden: true
 | Name          | Location | Type   | Required | Description           |
 | ------------- | -------- | ------ | -------- | --------------------- |
 | X-API-Key     | header   | string | required | Your API Key          |
-| X-Endpoint-ID | header   | string | required | Elastic Deployment ID |
+| X-Endpoint-ID | header   | string | required | Serverless ID |
 
 **Request Body (JSON)**
 
@@ -43,7 +43,7 @@ hidden: true
 ```bash
 curl --location 'https://api.yottalabs.ai/openapi/v1/skywalker/tasks/create' \
 --header 'X-API-Key: <your-api-key>' \
---header 'X-Endpoint-ID: <your-elastic-deployment-id>' \
+--header 'X-Endpoint-ID: <your-serverless-id>' \
 --header 'Content-Type: application/json' \
 --data '{
     "userTaskId": "task_20251111_001",
@@ -100,7 +100,7 @@ curl --location 'https://api.yottalabs.ai/openapi/v1/skywalker/tasks/create' \
 | Name          | Location | Type   | Required | Description           |
 | ------------- | -------- | ------ | -------- | --------------------- |
 | X-API-Key     | header   | string | required | Your API Key          |
-| X-Endpoint-ID | header   | string | required | Elastic Deployment ID |
+| X-Endpoint-ID | header   | string | required | Serverless ID |
 
 **Path Parameters**
 
@@ -176,7 +176,7 @@ curl --location 'https://api.yottalabs.ai/openapi/v1/skywalker/tasks/task_202511
 | Name          | Location | Type   | Required | Description           |
 | ------------- | -------- | ------ | -------- | --------------------- |
 | X-API-Key     | header   | string | required | Your API Key          |
-| X-Endpoint-ID | header   | string | required | Elastic Deployment ID |
+| X-Endpoint-ID | header   | string | required | Serverless ID |
 
 **Example — curl**
 
@@ -223,7 +223,7 @@ curl --location 'https://api.yottalabs.ai/openapi/v1/skywalker/tasks/processing/
 | Name          | Location | Type   | Required | Description           |
 | ------------- | -------- | ------ | -------- | --------------------- |
 | X-API-Key     | header   | string | required | Your API Key          |
-| X-Endpoint-ID | header   | string | required | Elastic Deployment ID |
+| X-Endpoint-ID | header   | string | required | Serverless ID |
 
 **Query Parameters**
 

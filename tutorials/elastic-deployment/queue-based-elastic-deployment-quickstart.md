@@ -2,9 +2,9 @@
 icon: location-arrow
 ---
 
-# Queue-based Elastic Deployment Quickstart
+# Queue-based Serverless Quickstart
 
-**Welcome!** This guide will walk you through setting up and testing YottaLabs' queue-based elastic deployment from start to finish.
+**Welcome!** This guide will walk you through setting up and testing YottaLabs' queue-based serverless from start to finish.
 
 ***
 
@@ -13,7 +13,7 @@ icon: location-arrow
 By the end of this guide, you'll have:
 
 * ✅ Built a queue-compatible worker image
-* ✅ Deployed it as a **QUEUE** elastic deployment
+* ✅ Deployed it as a **QUEUE** serverless
 * ✅ Submitted tasks through the Queue API
 * ✅ Monitored task status in real-time
 * ✅ Retrieved and verified task results
@@ -165,7 +165,7 @@ Push the image to Dockerhub for future use. Create,for example, `yotta-queue-tes
 
 ### Step 3: Deploy to YottaLabs
 
-#### Create Your Elastic Deployment
+#### Create Your Serverless
 
 Head to the **YottaLabs Console** and configure:
 
@@ -336,4 +336,4 @@ Ready to take things further? Consider exploring:
 
 Need more help? Check out:
 
-* [YottaLabs API Documentation](https://docs.yottalabs.ai/api-and-sdk/api-spec/elastic-deployment)
+* [YottaLabs API Documentation](https://docs.yottalabs.ai/api-and-sdk/api-spec/serverless)

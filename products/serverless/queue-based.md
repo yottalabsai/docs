@@ -15,7 +15,7 @@ Queue Mode automatically adjusts the number of active workers based on incoming 
 
 <figure><img src="../../.gitbook/assets/image-20260113171057414.png" alt=""><figcaption></figcaption></figure>
 
-For more details in price and billing, see [Pricing & Billing | Yotta Labs](https://docs.yottalabs.ai/products/elastic-deployment/pricing-and-billing)
+For more details in price and billing, see [Pricing & Billing | Yotta Labs](https://docs.yottalabs.ai/products/serverless/pricing-and-billing)
 
 ### Architecture
 
@@ -38,7 +38,7 @@ The intelligent queue sits at the center of the architecture, managing:
 
 **1. Configure Your Container**
 
-See [Launching a Deployment | Yotta Labs](https://docs.yottalabs.ai/products/elastic-deployment/launching-a-deployment)
+See [Launching a Deployment | Yotta Labs](https://docs.yottalabs.ai/products/serverless/launching-a-deployment)
 
 **2.View/Edit/Clone Configurations**
 
@@ -64,7 +64,7 @@ It would guide you back to configuration setting page. Try cloning or editing by
 
 <figure><img src="../../.gitbook/assets/image-20260113172526963.png" alt=""><figcaption></figcaption></figure>
 
-❗️Every time you click `pause` to terminate, the original service would stop. Once restarted, new worker IDs will be assigned, and uptime will reset, counting from zero again.If no volume is mounted, all temporary files and caches will be lost. Resuming the elastic deployment will require reloading the container image and re-downloading the model.
+❗️Every time you click `pause` to terminate, the original service would stop. Once restarted, new worker IDs will be assigned, and uptime will reset, counting from zero again.If no volume is mounted, all temporary files and caches will be lost. Resuming the serverless will require reloading the container image and re-downloading the model.
 
 * Run
 
