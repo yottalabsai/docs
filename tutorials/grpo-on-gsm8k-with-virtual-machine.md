@@ -2,7 +2,7 @@
 icon: rainbow
 ---
 
-# Page 1
+# GRPO on GSM8K with Virtual Machine
 
 This guide shows how to run a **working SkyRL training job on YottaLabs** virtual machine using:
 
@@ -18,7 +18,7 @@ This guide shows how to run a **working SkyRL training job on YottaLabs** virtua
 
 {% stepper %}
 {% step %}
-### Connect to your YottaLabs instance
+#### Connect to your YottaLabs instance
 
 Start a virtual machine on our platform. See our [Virtual Machine Guide](https://docs.yottalabs.ai/products/virtual-machines/launching-a-virtual-machine) for step-to-step tutorial.
 
@@ -32,7 +32,7 @@ Once connected, you should be on the remote machine as `root`.
 {% endstep %}
 
 {% step %}
-### Start the SkyRL Docker container
+#### Start the SkyRL Docker container
 
 Run the official training container with GPU access enabled:
 
@@ -62,7 +62,7 @@ Once the container starts, you should land inside a shell that looks roughly lik
 {% endstep %}
 
 {% step %}
-### Clone the SkyRL repository
+#### Clone the SkyRL repository
 
 Inside the container, run:
 
@@ -78,7 +78,7 @@ At this point you should be in:
 {% endstep %}
 
 {% step %}
-### Prepare the GSM8K dataset
+#### Prepare the GSM8K dataset
 
 Generate the parquet files SkyRL expects for training and validation:
 
@@ -105,7 +105,7 @@ That confirms the data preparation step is done.
 {% endstep %}
 
 {% step %}
-### Export your W\&B API key
+#### Export your W\&B API key
 
 SkyRL logs this run to Weights & Biases, so set your API key before training:
 
@@ -125,7 +125,7 @@ A nonzero result means the variable is present.
 {% endstep %}
 
 {% step %}
-### Launch training
+#### Launch training
 
 Here is the exact single-GPU training command.
 
@@ -137,7 +137,7 @@ uv run --isolated --extra fsdp -m skyrl.train.entrypoints.main_base data.train_d
 
 Let us briefly decode the important parts so the command is not just a magic spell.
 
-### Data
+#### Data
 
 ```
 data.train_data="['$HOME/data/gsm8k/train.parquet']"
@@ -146,7 +146,7 @@ data.val_data="['$HOME/data/gsm8k/validation.parquet']"
 
 These point SkyRL to the GSM8K parquet files you just generated.
 
-### Algorithm
+#### Algorithm
 
 ```
 trainer.algorithm.advantage_estimator="grpo"
@@ -154,7 +154,7 @@ trainer.algorithm.advantage_estimator="grpo"
 
 This tells SkyRL to train with **GRPO**.
 
-### Base model
+#### Base model
 
 ```
 trainer.policy.model.path="Qwen/Qwen2.5-1.5B-Instruct"
@@ -162,7 +162,7 @@ trainer.policy.model.path="Qwen/Qwen2.5-1.5B-Instruct"
 
 This is the policy model being trained.
 
-### Training strategy
+#### Training strategy
 
 ```
 trainer.strategy=fsdp2
@@ -172,7 +172,7 @@ trainer.placement.policy_num_gpus_per_node=1
 
 This configures a **single-GPU FSDP2 run** and keeps the components colocated appropriately for a one-GPU machine.
 
-### Evaluation
+#### Evaluation
 
 ```
 trainer.eval_batch_size=1024
@@ -187,7 +187,7 @@ This tells SkyRL to:
 * evaluate every 5 steps
 * save checkpoints every 10 steps
 
-### Inference engine
+#### Inference engine
 
 ```
 generator.inference_engine.backend=vllm
@@ -198,7 +198,7 @@ generator.inference_engine.weight_sync_backend=nccl
 
 This uses **vLLM** for rollout generation with a **single engine** and **tensor parallel size 1**, which matches a single-GPU setup.
 
-### Environment
+#### Environment
 
 ```
 environment.env_class=gsm8k
@@ -208,7 +208,7 @@ This tells SkyRL to use the GSM8K task environment for reward computation and ev
 {% endstep %}
 
 {% step %}
-### What a healthy startup looks like
+#### What a healthy startup looks like
 
 After launching training, you should see logs that indicate the system is booting correctly.
 
@@ -236,7 +236,7 @@ These lines tell you:
 {% endstep %}
 
 {% step %}
-### What is happening during training?
+#### What is happening during training?
 
 One full **reinforcement learning training step** in SkyRL looks like:
 
@@ -312,7 +312,7 @@ At a high level, SkyRL is doing this loop over and over:
 
 ***
 
-#### 1. The model first generates an answer
+**1. The model first generates an answer**
 
 The log starts with a concrete example prompt:
 
@@ -336,7 +336,7 @@ So in plain English:
 
 ***
 
-#### 2. SkyRL converts the generated outputs into training tensors
+**2. SkyRL converts the generated outputs into training tensors**
 
 Next you see:
 
@@ -365,7 +365,7 @@ A good mental model is:
 
 ***
 
-#### 3. SkyRL computes logprobs, values, and rewards
+**3. SkyRL computes logprobs, values, and rewards**
 
 Then training enters one of the expensive stages:
 
@@ -393,7 +393,7 @@ So the trainer is doing a lot of token-level computation here.
 
 ***
 
-#### 4. SkyRL computes advantages and returns
+**4. SkyRL computes advantages and returns**
 
 Next:
 
@@ -431,7 +431,7 @@ This stage is fast because the heavy model forward work already happened in the 
 
 ***
 
-#### 5. SkyRL updates the policy
+**5. SkyRL updates the policy**
 
 Then the trainer starts the actual model update:
 
@@ -459,7 +459,7 @@ In human terms:
 
 ***
 
-#### 6. The updated weights are synced back to inference
+**6. The updated weights are synced back to inference**
 
 After the policy update, you see:
 
@@ -479,7 +479,7 @@ It is short compared with the training phases, but it is important because it cl
 
 ***
 
-#### 7. One full RL step is now complete
+**7. One full RL step is now complete**
 
 Then SkyRL reports:
 
