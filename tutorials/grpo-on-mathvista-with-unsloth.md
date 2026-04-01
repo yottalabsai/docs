@@ -7,7 +7,7 @@ icon: brain-circuit
 > :sloth:This tutorial is created based on [Unsloth official notebooks](https://unsloth.ai/docs/get-started/unsloth-notebooks).&#x20;
 
 **Model:** Qwen3-VL-8B-Instruct (4-bit QLoRA)\
-**Algorithm:** GRPO / GSPO (Group Relative Policy Optimization)\
+**Algorithm:** Group Relative Policy Optimization\
 **Task:** Teaching a VLM to solve math problems from images
 
 ### What Are We Solving?

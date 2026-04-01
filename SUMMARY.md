@@ -98,6 +98,7 @@
 * [NemoClaw with Local Inference](tutorials/nemoclaw-with-local-inference.md)
 * [GRPO on GSM8K with SkyRL](tutorials/grpo-on-gsm8k-with-virtual-machine.md)
 * [GRPO on MathVista with Unsloth](tutorials/grpo-on-mathvista-with-unsloth.md)
+* [Fine-tune a Reasoning Model to Think in Target Language with Unsloth](tutorials/fine-tune-a-reasoning-model-to-think-in-target-language-with-unsloth.md)
 
 ## Technology
 
