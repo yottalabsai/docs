@@ -33,15 +33,13 @@ Standard supervised fine-tuning (SFT) requires ground-truth reasoning traces. GR
 
 ## Section 1 — YottaLabs Platform&#x20;
 
-Before running any code in this notebook, you need to spin up a GPU Pod on YottaLabs.&#x20;
+Before running any code in this notebook, you need to spin up a  vitrual machine on YottaLabs.&#x20;
 
 {% stepper %}
 {% step %}
 #### Recommended GPU Configuration
 
-| GPU           | VRAM  | Speed vs A100 | Recommended? | Note                                 |
-| ------------- | ----- | ------------- | ------------ | ------------------------------------ |
-| **H100 80GB** | 80 GB | 2×            | ⭐ **Best**   | Plenty of headroom, fastest training |
+<table><thead><tr><th>GPU</th><th width="128">VRAM</th><th>Speed vs A100</th><th>Recommended?</th><th>Note</th></tr></thead><tbody><tr><td><strong>H100 80GB</strong></td><td>80 GB</td><td>2×</td><td>⭐ <strong>Best</strong></td><td>Plenty of headroom, fastest training</td></tr></tbody></table>
 
 {% hint style="info" %}
 **TL;DR:** Use **1× H100 80GB**. With 4-bit QLoRA the model uses \~25 GB, giving you lots of room.
@@ -49,9 +47,9 @@ Before running any code in this notebook, you need to spin up a GPU Pod on Yotta
 {% endstep %}
 
 {% step %}
-#### Launch a Pod
+#### Launch the VM&#x20;
 
-To get started with our pods, see our [official doc](https://docs.yottalabs.ai/products/gpu-pods)
+To get started with our VM , see our [official doc](https://docs.yottalabs.ai/products/virtual-machines/launching-a-virtual-machine)
 {% endstep %}
 {% endstepper %}
 
@@ -69,19 +67,19 @@ The YottaLabs base image already has **PyTorch 2.8 + CUDA 12.8** pre-installed. 
 # Install Unsloth and the full training stack
 # This takes ~2-3 minutes on first run
 
-import subprocess, sys
-def run(cmd):
-    """Run a shell command and stream output."""
-    result = subprocess.run([sys.executable, "-m", "pip", "install", "unsloth"])
-    return result.returncode
-
-# Core Unsloth stack
-run("pip install -q unsloth")
-run("pip install -q sentencepiece protobuf 'datasets>=3.4.1,<4.0.0' 'huggingface_hub>=0.34.0' hf_transfer safetensors pillow")
-
-# Pinned versions for Qwen3-VL compatibility
-run("pip install -q transformers==4.57.0")
-run("pip install -q --no-deps trl==0.26.2")
+%%capture
+import os, re
+if "COLAB_" not in "".join(os.environ.keys()):
+    !pip install unsloth
+else:
+    # Do this only in Colab notebooks! Otherwise use pip install unsloth
+    import torch; v = re.match(r"[0-9]{1,}\.[0-9]{1,}", str(torch.__version__)).group(0)
+    xformers = "xformers==" + ("0.0.33.post1" if v=="2.9" else "0.0.32.post2" if v=="2.8" else "0.0.29.post3")
+    !pip install --no-deps bitsandbytes accelerate {xformers} peft trl triton cut_cross_entropy unsloth_zoo
+    !pip install sentencepiece protobuf "datasets>=3.4.1,<4.0.0" "huggingface_hub>=0.34.0" hf_transfer
+    !pip install --no-deps unsloth
+!pip install transformers==4.57.0
+!pip install --no-deps trl==0.26.2
 
 print("\n✅ All dependencies installed successfully!")
 
@@ -126,20 +124,16 @@ We load **Qwen3-VL-8B-Instruct** in **4-bit quantization** (QLoRA). This reduces
 ```python
 from unsloth import FastVisionModel
 import torch
-
-# ── Configuration ─────────────────────────────────────────────────────────────
-MAX_SEQ_LENGTH = 16384   # Must be this long for VLMs (image tokens are expensive)
-LORA_RANK      = 16      # Higher rank = more expressive, but slower & more VRAM
-                         # Try rank 32 if you have H200 or want better accuracy
-
-print("Loading Qwen3-VL-8B-Instruct (this downloads ~5 GB, takes ~2 min) ...")
+max_seq_length = 16384 # Must be this long for VLMs
+lora_rank = 16 # Larger rank = smarter, but slower
 
 model, tokenizer = FastVisionModel.from_pretrained(
-    model_name             = "unsloth/Qwen3-VL-8B-Instruct-unsloth-bnb-4bit",
-    max_seq_length         = MAX_SEQ_LENGTH,
-    load_in_4bit           = True,     # QLoRA: float16 → 4-bit
-    fast_inference         = False,    # Set True only for inference, not training
-    gpu_memory_utilization = 0.85,     # Reserve ~15% VRAM for GRPO buffers
+    model_name = "unsloth/Qwen3-VL-8B-Instruct-unsloth-bnb-4bit",
+    max_seq_length = max_seq_length,
+    load_in_4bit = True, # False for LoRA 16bit
+    fast_inference = False, # Enable vLLM fast inference
+    gpu_memory_utilization = 0.8, # Reduce if out of memory
+
 )
 
 print("\n✅ Model loaded!")
@@ -177,9 +171,7 @@ model = FastVisionModel.get_peft_model(
     use_gradient_checkpointing = "unsloth",        # Unsloth's memory-efficient checkpointing
 )
 
-# Count trainable parameters
-trainable = sum(p.numel() for p in model.parameters() if p.requires_grad)
-total     = sum(p.numel() for p in model.parameters())
+
 print(f"✅ LoRA adapters attached!")
 print(f"   Trainable params: {trainable:,}  ({100*trainable/total:.2f}% of total)")
 print(f"   Total params:     {total:,}")
@@ -220,13 +212,9 @@ The original images vary in size. Resizing to a fixed 512×512:
 
 ```python
 from datasets import load_dataset
+from trl import GRPOConfig, GRPOTrainer
 
-print("Loading MathVista testmini split ...")
-dataset = load_dataset("AI4Math/MathVista", split="testmini")
-print(f"Raw dataset size: {len(dataset)} examples")
-print(f"Columns: {dataset.column_names}")
-print(f"\nSample question: {dataset[0]['question']}")
-print(f"Sample answer:   {dataset[0]['answer']}")
+dataset = load_dataset("AI4Math/MathVista", split = "testmini")
 
 ```
 {% endstep %}
@@ -243,28 +231,30 @@ def is_numeric_answer(example):
     try:
         float(example["answer"])
         return True
-    except (ValueError, TypeError):
+    except:
         return False
 
 dataset = dataset.filter(is_numeric_answer)
-print(f"After numeric filter: {len(dataset)} examples remain")
 
 ```
 
 ```python
 # Step 2: Resize images to 512×512 and ensure RGB format
 # This keeps token count consistent and avoids memory spikes on large images.
-
 def resize_images(example):
-    example["decoded_image"] = example["decoded_image"].resize((512, 512))
+    image = example["decoded_image"]
+    image = image.resize((512, 512))
+    example["decoded_image"] = image
     return example
-
-def convert_to_rgb(example):
-    if example["decoded_image"].mode != "RGB":
-        example["decoded_image"] = example["decoded_image"].convert("RGB")
-    return example
-
 dataset = dataset.map(resize_images)
+
+# Then convert to RGB
+def convert_to_rgb(example):
+    image = example["decoded_image"]
+    if image.mode != "RGB":
+        image = image.convert("RGB")
+    example["decoded_image"] = image
+    return example
 dataset = dataset.map(convert_to_rgb)
 
 print(f"✅ Images preprocessed: {len(dataset)} examples")
@@ -292,67 +282,44 @@ This is similar to DeepSeek-R1's `<think>` / `</think>` format. The two-part str
 2. **Reward correctness** — is the number inside `<SOLUTION>` correct?
 
 ```python
-# Define the structured output tags
+# Define the delimiter variables for clarity and easy modification
 REASONING_START = "<REASONING>"
-REASONING_END   = "</REASONING>"
-SOLUTION_START  = "<SOLUTION>"
-SOLUTION_END    = "</SOLUTION>"
+REASONING_END = "</REASONING>"
+SOLUTION_START = "<SOLUTION>"
+SOLUTION_END = "</SOLUTION>"
 
 def make_conversation(example):
-    """
-    Format each example into the Qwen3-VL multi-modal chat format.
-    
-    The prompt instructs the model to:
-      1. Show its reasoning between <REASONING> tags
-      2. Give a single float answer between <SOLUTION> tags
-    """
+    # Define placeholder constants if they are not defined globally
+    # The user's text prompt
     text_content = (
-        f"{example['question']}. Also first provide your reasoning or working out"
+        f"{example['question']}. Also first provide your reasoning or working out"\
         f" on how you would go about solving the question between {REASONING_START} and {REASONING_END}"
         f" and then your final answer between {SOLUTION_START} and (put a single float here) {SOLUTION_END}"
     )
+
+    # Construct the prompt in the desired multi-modal format
     prompt = [
         {
             "role": "user",
             "content": [
-                {"type": "image"},   # image placeholder — actual pixels come from the 'image' column
-                {"type": "text", "text": text_content},
+                {"type": "image"},  # Placeholder for the image
+                {"type": "text", "text": text_content},  # The text part of the prompt
             ],
-        }
+        },
     ]
-    return {
-        "prompt": prompt,
-        "image":  example["decoded_image"],
-        "answer": example["answer"],
-    }
+    # The actual image data is kept separate for the processor
+    return {"prompt": prompt, "image": example["decoded_image"], "answer": example["answer"]}
 
 train_dataset = dataset.map(make_conversation)
 
-# GRPOTrainer expects the image column to be named exactly "image"
+# We're reformatting dataset like this because decoded_images are the actual images
+# The "image": example["decoded_image"] does not properly format the dataset correctly
+
+# 1. Remove the original 'image' column
 train_dataset = train_dataset.remove_columns("image")
+
+# 2. Rename 'decoded_image' to 'image'
 train_dataset = train_dataset.rename_column("decoded_image", "image")
-
-print(f"✅ Dataset ready for training: {len(train_dataset)} examples")
-print(f"\nSample prompt structure:")
-import json
-print(json.dumps(train_dataset[0]["prompt"], indent=2))
-
-```
-{% endstep %}
-
-{% step %}
-#### Step 4 — Sanity check examples
-
-```python
-# Sanity check: inspect a few examples
-print("=== Example 0 ===")
-print(f"Question: {train_dataset[0]['prompt'][0]['content'][1]['text'][:100]}...")
-print(f"Answer:   {train_dataset[0]['answer']}")
-print()
-print("=== Example 100 ===")
-print(f"Question: {train_dataset[100]['prompt'][0]['content'][1]['text'][:100]}...")
-print(f"Answer:   {train_dataset[100]['answer']}")
-
 ```
 {% endstep %}
 {% endstepper %}
@@ -393,83 +360,49 @@ Qwen-VL models have a known degenerate mode where they repeat `addCriterion` and
 {% endhint %}
 
 ```python
+# Reward functions
 import re
 
-def formatting_reward_func(completions, **kwargs):
-    """
-    Reward: did the model produce well-structured output with exactly one
-    <REASONING> block and one <SOLUTION> block?
-    
-    Returns a list of float scores, one per completion.
-    """
-    thinking_pattern = rf"{REASONING_START}(.*?){REASONING_END}"
-    answer_pattern   = rf"{SOLUTION_START}(.*?){SOLUTION_END}"
+def formatting_reward_func(completions,**kwargs):
+    import re
+    thinking_pattern = f'{REASONING_START}(.*?){REASONING_END}'
+    answer_pattern = f'{SOLUTION_START}(.*?){SOLUTION_END}'
 
     scores = []
     for completion in completions:
-        # GRPOTrainer may pass completions as lists of message dicts
         if isinstance(completion, list):
             completion = completion[0]["content"] if completion else ""
-
-        score = 0.0
-
-        # +1.0 for exactly one <REASONING> block
-        if len(re.findall(thinking_pattern, completion, re.DOTALL)) == 1:
+        score = 0
+        thinking_matches = re.findall(thinking_pattern, completion, re.DOTALL)
+        answer_matches = re.findall(answer_pattern, completion, re.DOTALL)
+        if len(thinking_matches) == 1:
+            score += 1.0
+        if len(answer_matches) == 1:
             score += 1.0
 
-        # +1.0 for exactly one <SOLUTION> block
-        if len(re.findall(answer_pattern, completion, re.DOTALL)) == 1:
-            score += 1.0
-
-        # -2.0 penalty for degenerate Qwen-VL repetition (addCriterion / newline spam)
-        # See: https://unsloth.ai/docs/new/vision-reinforcement-learning-vlm-rl
-        if len(completion) > 0:
-            cleaned = completion.replace("addCriterion", "").replace("\n", "")
-            spam_ratio = (len(completion) - len(cleaned)) / len(completion)
-            if spam_ratio >= 0.5:
+        # Fix up addCriterion issues
+        # See https://unsloth.ai/docs/new/vision-reinforcement-learning-vlm-rl#qwen-2.5-vl-vision-rl-issues-and-quirks
+        # Penalize on excessive addCriterion and newlines
+        if len(completion) != 0:
+            removal = completion.replace("addCriterion", "").replace("\n", "")
+            if (len(completion)-len(removal))/len(completion) >= 0.5:
                 score -= 2.0
 
         scores.append(score)
     return scores
 
 
-def correctness_reward_func(prompts, completions, answer, **kwargs):
-    """
-    Reward: does the number inside <SOLUTION>...</SOLUTION> match the ground truth?
-    
-    +2.0 for exact float match, 0.0 otherwise.
-    """
-    answer_pattern = rf"{SOLUTION_START}(.*?){SOLUTION_END}"
+def correctness_reward_func(prompts, completions, answer, **kwargs) -> list[float]:
+    answer_pattern = f'{SOLUTION_START}(.*?){SOLUTION_END}'
 
-    # Normalise completions to plain strings
-    completions = [
-        (c[0]["content"] if c else "") if isinstance(c, list) else c
-        for c in completions
-    ]
-
-    responses = [re.findall(answer_pattern, c, re.DOTALL) for c in completions]
-
-    # Print first sample for monitoring during training
-    print("-" * 60)
-    print(f"Ground truth answer: {answer[0]}")
-    print(f"Model response (truncated):\n{completions[0][:300]}")
-    print("-" * 60)
-
+    completions = [(c[0]["content"] if c else "") if isinstance(c, list) else c for c in completions]
+    responses = [re.findall(answer_pattern, completion, re.DOTALL) for completion in completions]
+    q = prompts[0]
+    print('-'*20, f"Question:\n{q}", f"\nAnswer:\n{answer[0]}", f"\nResponse:{completions[0]}")
     return [
-        2.0 if len(r) == 1 and a == r[0].strip()
-        else 0.0
+        2.0 if len(r)==1 and a == r[0].replace('\n','') else 0.0
         for r, a in zip(responses, answer)
     ]
-
-
-print("✅ Reward functions defined!")
-print()
-print("Testing reward functions on dummy data ...")
-
-# Quick unit test
-test_good = f"{REASONING_START}2 + 2 = 4{REASONING_END} {SOLUTION_START}4.0{SOLUTION_END}"
-test_bad  = "The answer is 4."
-test_spam = "addCriterion\n" * 50
 
 print(f"  Good response score:  {formatting_reward_func([test_good])}  (expected [2.0])")
 print(f"  Missing tags score:   {formatting_reward_func([test_bad])}   (expected [0.0])")
@@ -484,39 +417,25 @@ print(f"  Spam response score:  {formatting_reward_func([test_spam])}  (expected
 Before training, let's run the model on a sample problem to establish a **baseline**. This shows us what the model can already do, and gives us a qualitative benchmark to compare against after training.
 
 ```python
-from transformers import TextStreamer
-
-# Run inference on example #100 from the dataset
-idx   = 100
-image  = train_dataset[idx]["image"]
-prompt = train_dataset[idx]["prompt"]
-answer = train_dataset[idx]["answer"]
-
-print(f"Ground truth answer: {answer}\n")
-print("Model output (streaming):")
-print("-" * 60)
+image = train_dataset[100]["image"]
+prompt = train_dataset[100]["prompt"]
 
 inputs = tokenizer(
     image,
     prompt,
     add_special_tokens = False,
-    return_tensors     = "pt",
+    return_tensors = "pt",
 ).to("cuda")
 
-text_streamer = TextStreamer(tokenizer, skip_prompt=True)
-_ = model.generate(
-    **inputs,
-    streamer       = text_streamer,
-    max_new_tokens = 1024,
-    use_cache      = True,
-    temperature    = 1.0,
-    min_p          = 0.1,
-)
-print("\n" + "-" * 60)
-print("👆 Notice: the model may not yet use <REASONING>/<SOLUTION> tags correctly.")
-print("   After GRPO training, it will follow the structured format reliably.")
-
+from transformers import TextStreamer
+text_streamer = TextStreamer(tokenizer, skip_prompt = True)
+_ = model.generate(**inputs, streamer = text_streamer, max_new_tokens = 1024,
+                   use_cache = True, temperature = 1.0, min_p = 0.1)
 ```
+
+{% hint style="info" %}
+Use `%pip install "jinja2>=3.1.0"` if there are any compatible errors.
+{% endhint %}
 
 ***
 
@@ -554,56 +473,33 @@ This improves training stability, especially for long completions typical of VLM
 | `num_train_epochs`            | 1.0         | Full pass over the dataset (\~600 steps)                 |
 
 ```python
-%pip install mergekit
-```
-
-```python
-%pip install --upgrade pydantic pydantic-core
-```
-
-```python
-import os
 from trl import GRPOConfig, GRPOTrainer
-
-OUTPUT_DIR    = "/workspace/outputs"
-LORA_SAVE_DIR = "/workspace/grpo_lora"
-os.makedirs(OUTPUT_DIR, exist_ok=True)
-
-# ── Training Configuration ────────────────────────────────────────────────────
 training_args = GRPOConfig(
-    # Optimiser
-    learning_rate              = 5e-6,
-    adam_beta1                 = 0.9,
-    adam_beta2                 = 0.99,
-    weight_decay               = 0.1,
-    warmup_ratio               = 0.1,
-    lr_scheduler_type          = "cosine",
-    optim                      = "adamw_8bit",    # 8-bit Adam saves ~4 GB VRAM
-    max_grad_norm              = 0.1,             # Critical for RL stability!
-
-    # Batch / accumulation
+    learning_rate = 5e-6,
+    adam_beta1 = 0.9,
+    adam_beta2 = 0.99,
+    weight_decay = 0.1,
+    warmup_ratio = 0.1,
+    lr_scheduler_type = "cosine",
+    optim = "adamw_8bit",
+    logging_steps = 1,
+    log_completions = False,
     per_device_train_batch_size = 1,
-    gradient_accumulation_steps = 4,              # Effective batch = 4
+    gradient_accumulation_steps = 1, # Increase to 4 for smoother training
+    num_generations = 2, # Decrease if out of memory
+    max_prompt_length = 1024,
+    max_completion_length = 1024,
+    num_train_epochs = 0.5, # Set to 1 for a full training run
+    # max_steps = 60,
+    save_steps = 60,
+    max_grad_norm = 0.1,
+    report_to = "none", # Can use Weights & Biases
+    output_dir = "outputs",
 
-    # GRPO-specific
-    num_generations            = 4,               # Rollouts per step (reduce to 2 if OOM)
-    max_prompt_length          = 1024,
-    max_completion_length      = 1024,
-
-    # Training duration
-    num_train_epochs           = 1.0,             # Set to 0.5 for a quick test run
-    save_steps                 = 60,
-    logging_steps              = 1,
-    log_completions            = False,
-
-    # Logging (set report_to="wandb" to enable Weights & Biases)
-    report_to                  = "none",
-    output_dir                 = OUTPUT_DIR,
-
-    # GSPO settings (Unsloth extension for sequence-level importance sampling)
-    importance_sampling_level  = "sequence",
+    # Below enables GSPO:
+    importance_sampling_level = "sequence",
     mask_truncated_completions = False,
-    loss_type                  = "dr_grpo",
+    loss_type = "dr_grpo",
 )
 
 print("✅ Training configuration set!")
@@ -616,28 +512,26 @@ print(f"   Max grad norm:    {training_args.max_grad_norm}")
 ```
 
 ```python
-# Build the GRPOTrainer
 trainer = GRPOTrainer(
-    model            = model,
-    args             = training_args,
-    processing_class = tokenizer,          # handles image + text tokenisation
-    reward_funcs     = [
-        formatting_reward_func,            # +2.0 max: structural compliance
-        correctness_reward_func,           # +2.0 max: numerical correctness
+    model = model,
+    args = training_args,
+    # Pass the processor to handle multimodal inputs
+    processing_class = tokenizer,
+    reward_funcs = [
+        formatting_reward_func,
+        correctness_reward_func,
     ],
-    train_dataset    = train_dataset,
+    train_dataset = train_dataset,
 )
-
 print("✅ GRPOTrainer initialised. Starting training ...")
 print("   (You will see reward values logged each step)")
 print("   Watch for 'rewards/formatting' and 'rewards/correctness' to increase over time.\n")
-
-# ─── LAUNCH TRAINING ──────────────────────────────────────────────────────────
 trainer.train()
-
 print("\n🎉 Training complete!")
 
 ```
+
+<figure><img src="../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
 ***
 
@@ -650,66 +544,20 @@ Now let's run the same inference test as Section 6, but with the trained model. 
 3. **Coherent reasoning** — the `<REASONING>` block should show sensible working-out steps
 
 ```python
+image = train_dataset[165]["image"]
+prompt = train_dataset[165]["prompt"]
+
+inputs = tokenizer(
+    image,
+    prompt,
+    add_special_tokens = False,
+    return_tensors = "pt",
+).to("cuda")
+
 from transformers import TextStreamer
-
-# Run inference on the same example as before (index 100)
-idx   = 100
-image  = train_dataset[idx]["image"]
-prompt = train_dataset[idx]["prompt"]
-answer = train_dataset[idx]["answer"]
-
-print(f"Ground truth answer: {answer}\n")
-print("Trained model output (streaming):")
-print("-" * 60)
-
-inputs = tokenizer(
-    image,
-    prompt,
-    add_special_tokens = False,
-    return_tensors     = "pt",
-).to("cuda")
-
-text_streamer = TextStreamer(tokenizer, skip_prompt=True)
-_ = model.generate(
-    **inputs,
-    streamer       = text_streamer,
-    max_new_tokens = 1024,
-    use_cache      = True,
-    temperature    = 1.0,
-    min_p          = 0.1,
-)
-print("\n" + "-" * 60)
-
-```
-
-```python
-# Test on a fresh example not seen during training evaluation
-idx   = 165
-image  = train_dataset[idx]["image"]
-prompt = train_dataset[idx]["prompt"]
-answer = train_dataset[idx]["answer"]
-
-print(f"Ground truth answer: {answer}\n")
-print("Model output on fresh example:")
-print("-" * 60)
-
-inputs = tokenizer(
-    image,
-    prompt,
-    add_special_tokens = False,
-    return_tensors     = "pt",
-).to("cuda")
-
-text_streamer = TextStreamer(tokenizer, skip_prompt=True)
-_ = model.generate(
-    **inputs,
-    streamer       = text_streamer,
-    max_new_tokens = 1024,
-    use_cache      = True,
-    temperature    = 1.0,
-    min_p          = 0.1,
-)
-print("\n" + "-" * 60)
+text_streamer = TextStreamer(tokenizer, skip_prompt = True)
+_ = model.generate(**inputs, streamer = text_streamer, max_new_tokens = 1024,
+                   use_cache = True, temperature = 1.0, min_p = 0.1)
 
 ```
 

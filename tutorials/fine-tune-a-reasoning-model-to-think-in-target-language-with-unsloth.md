@@ -25,17 +25,15 @@ Reward signal breakdown (max total = 16.5 per step):
 
 ***
 
-## &#x20;Section 1 — YottaLabs Platform
+## Section 1 — YottaLabs Platform&#x20;
 
-Before running any code in this notebook, you need to spin up a GPU Pod on YottaLabs.&#x20;
+Before running any code in this notebook, you need to spin up a vitrual machine on YottaLabs.&#x20;
 
 {% stepper %}
 {% step %}
 #### Recommended GPU Configuration
 
-| GPU           | VRAM  | Speed vs A100 | Recommended? | Note                                 |
-| ------------- | ----- | ------------- | ------------ | ------------------------------------ |
-| **H100 80GB** | 80 GB | 2×            | ⭐ **Best**   | Plenty of headroom, fastest training |
+<table><thead><tr><th>GPU</th><th width="128">VRAM</th><th>Speed vs A100</th><th>Recommended?</th><th>Note</th></tr></thead><tbody><tr><td><strong>H100 80GB</strong></td><td>80 GB</td><td>2×</td><td>⭐ <strong>Best</strong></td><td>Plenty of headroom, fastest training</td></tr></tbody></table>
 
 {% hint style="info" %}
 **TL;DR:** Use **1× H100 80GB**. With 4-bit QLoRA the model uses \~25 GB, giving you lots of room.
@@ -43,11 +41,13 @@ Before running any code in this notebook, you need to spin up a GPU Pod on Yotta
 {% endstep %}
 
 {% step %}
-#### Launch a Pod
+#### Launch the VM&#x20;
 
-To get started with our pods, see our [official doc](https://docs.yottalabs.ai/products/gpu-pods)
+To get started with our VM , see our [official doc](https://docs.yottalabs.ai/products/virtual-machines/launching-a-virtual-machine)
 {% endstep %}
 {% endstepper %}
+
+***
 
 ## Section 2 — Environment Setup
 
@@ -69,55 +69,14 @@ Additionally, we install **`langid`** — a fast language identification library
 | `langid`       | latest  | Language detection for the consistency reward           |
 
 ```python
-import sys
-
-def pip(*args):
-    """Install packages using the current Python interpreter — works in any environment."""
-    import subprocess
-    return subprocess.run([sys.executable, "-m", "pip"] + list(args), check=False).returncode
-
-print("Step 1/3: Installing Unsloth + vLLM (this may take 3–5 minutes) ...")
-pip("install", "-q", "--upgrade", "uv")
-
-# Use uv for fast dependency resolution where possible
-import subprocess
-subprocess.run(
-    f"{sys.executable} -m uv pip install -qqq --upgrade "
-    "vllm bitsandbytes xformers unsloth torchvision pillow",
-    shell=True
-)
-
-print("Step 2/3: Pinning transformers and trl for DeepSeek-R1 compatibility ...")
-pip("install", "-q", "transformers==4.56.2")
-pip("install", "-q", "--no-deps", "trl==0.22.2")
-
-print("Step 3/3: Installing langid for language detection reward ...")
-pip("install", "-q", "langid")
-
-print("\n✅ All dependencies installed successfully!")
-```
-
-```python
-# Verify the environment
-import torch, langid
-
-assert torch.cuda.is_available(), "❌ No GPU — check your Pod configuration!"
-
-gpu_name = torch.cuda.get_device_name(0)
-vram_gb  = torch.cuda.get_device_properties(0).total_memory / 1e9
-
-print(f"✅ GPU:        {gpu_name}")
-print(f"   VRAM:       {vram_gb:.1f} GB")
-print(f"   PyTorch:    {torch.__version__}")
-print(f"   CUDA:       {torch.version.cuda}")
-
-# Quick langid sanity check
-lang, _ = langid.classify("Hello world")
-assert lang == "en", f"langid sanity check failed: got {lang}"
-print(f"\n✅ langid working correctly (detected 'Hello world' as: {lang})")
-
-if vram_gb < 40:
-    print("\n⚠️  WARNING: Less than 40 GB VRAM. Set gpu_memory_utilization=0.7 and num_generations=2.")
+%%capture
+import os
+os.environ["UNSLOTH_VLLM_STANDBY"] = "1" # [NEW] Extra 30% context lengths!
+if "COLAB_" not in "".join(os.environ.keys()):
+    # If you're not in Colab, just use pip install or uv pip install
+    !pip install unsloth vllm
+else:
+    pass # For Colab / Kaggle, we need extra instructions hidden below \/
 ```
 
 ## Section 3 — Load DeepSeek-R1-0528-Qwen3-8B
@@ -143,44 +102,33 @@ We use `lora_alpha = rank * 2` here (alpha = 64 for rank 32). This is a common t
 | `gpu_memory_utilization` | 0.9         | High — vLLM needs KV cache VRAM                                          |
 
 ```python
-import os
-os.environ["UNSLOTH_VLLM_STANDBY"] = "1"  # Enables ~30% longer context windows with vLLM Standby
-
+%pip install langid -qq
 from unsloth import FastLanguageModel
 import torch
-
-# ── Configuration ─────────────────────────────────────────────────────────────
-MAX_SEQ_LENGTH = 1024   # Increase to 4096+ for longer/more complex reasoning chains
-LORA_RANK      = 32     # Higher rank = more expressive adapters
-
-print("Loading DeepSeek-R1-0528-Qwen3-8B (~5 GB download, ~2 min) ...")
+max_seq_length = 1024 # Can increase for longer reasoning traces
+lora_rank = 32 # Larger rank = smarter, but slower
 
 model, tokenizer = FastLanguageModel.from_pretrained(
-    model_name             = "unsloth/DeepSeek-R1-0528-Qwen3-8B",
-    max_seq_length         = MAX_SEQ_LENGTH,
-    load_in_4bit           = True,          # QLoRA: reduces model to ~5 GB VRAM
-    fast_inference         = True,          # ← Enable vLLM for fast GRPO rollouts
-    max_lora_rank          = LORA_RANK,
-    gpu_memory_utilization = 0.9,           # High — vLLM KV cache needs space
+    model_name = "unsloth/DeepSeek-R1-0528-Qwen3-8B",
+    max_seq_length = max_seq_length,
+    load_in_4bit = True, # False for LoRA 16bit
+    fast_inference = True, # Enable vllm fast inference
+    max_lora_rank = lora_rank,
+    gpu_memory_utilization = 0.9, # Reduce if out of memory
 )
 
 model = FastLanguageModel.get_peft_model(
     model,
-    r              = LORA_RANK,
+    r = lora_rank, # Choose any number > 0 ! Suggested 8, 16, 32, 64, 128
     target_modules = [
-        "q_proj", "k_proj", "v_proj", "o_proj",   # Attention projections
-        "gate_proj", "up_proj", "down_proj",       # MLP (FFN) layers
+        "q_proj", "k_proj", "v_proj", "o_proj",
+        "gate_proj", "up_proj", "down_proj",
     ],
-    lora_alpha                = LORA_RANK * 2,      # alpha = 2× rank → faster convergence
-    use_gradient_checkpointing = "unsloth",
-    random_state               = 3407,
+    lora_alpha = lora_rank*2, # *2 speeds up training
+    use_gradient_checkpointing = "unsloth", # Reduces memory usage
+    random_state = 3407,
 )
 
-trainable = sum(p.numel() for p in model.parameters() if p.requires_grad)
-total     = sum(p.numel() for p in model.parameters())
-print(f"\n✅ Model ready!")
-print(f"   Trainable: {trainable:,} params ({100*trainable/total:.2f}%)")
-print(f"   VRAM used: {torch.cuda.memory_allocated()/1e9:.2f} GB")
 ```
 
 ## Section 4 — Understanding the DeepSeek-R1 Chat Template
@@ -292,11 +240,8 @@ Raw DAPO-Math (17k examples)
 
 ```python
 from datasets import load_dataset
-
-print("Loading DAPO-Math-17k (English split) ...")
-dataset = load_dataset("open-r1/DAPO-Math-17k-Processed", "en", split="train")
-print(f"Raw dataset: {len(dataset)} examples")
-print(f"Columns: {dataset.column_names}")
+dataset = load_dataset("open-r1/DAPO-Math-17k-Processed", "en", split = "train")
+dataset
 ```
 
 ```python
