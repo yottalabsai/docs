@@ -4,11 +4,11 @@ icon: whale
 
 # Fine-tune a Reasoning Model to Think in Target Language with Unsloth
 
-> :sloth:This tutorial is created based on [Unsloth official notebooks](https://unsloth.ai/docs/get-started/unsloth-notebooks).&#x20;
+> 🦥 This tutorial is created based on [Unsloth official notebooks](https://unsloth.ai/docs/get-started/unsloth-notebooks).
 
 **Model:** DeepSeek-R1-0528-Qwen3-8B (4-bit QLoRA + vLLM fast inference)\
 **Algorithm:** GRPO (Group Relative Policy Optimization)\
-**Dataset:** [DAPO-Math-17k](https://huggingface.co/datasets/open-r1/DAPO-Math-17k-Processed)<br>
+**Dataset:** [DAPO-Math-17k](https://huggingface.co/datasets/open-r1/DAPO-Math-17k-Processed)
 
 ***
 
@@ -25,41 +25,35 @@ Reward signal breakdown (max total = 16.5 per step):
 
 ***
 
-## Section 1 — YottaLabs Platform&#x20;
+## Section 1 — YottaLabs Platform
 
-Before running any code in this notebook, you need to spin up a vitrual machine on YottaLabs.&#x20;
+Before running any code in this notebook, you need to spin up a virtual machine on YottaLabs.
 
-{% stepper %}
-{% step %}
-#### Recommended GPU Configuration
+### Recommended GPU Configuration
 
-<table><thead><tr><th>GPU</th><th width="128">VRAM</th><th>Speed vs A100</th><th>Recommended?</th><th>Note</th></tr></thead><tbody><tr><td><strong>H100 80GB</strong></td><td>80 GB</td><td>2×</td><td>⭐ <strong>Best</strong></td><td>Plenty of headroom, fastest training</td></tr></tbody></table>
+| GPU           | VRAM  | Speed vs A100 | Recommended? | Note                                 |
+| ------------- | ----- | ------------- | ------------ | ------------------------------------ |
+| **H100 80GB** | 80 GB | 2×            | ⭐ **Best**   | Plenty of headroom, fastest training |
 
-{% hint style="info" %}
-**TL;DR:** Use **1× H100 80GB**. With 4-bit QLoRA the model uses \~25 GB, giving you lots of room.
-{% endhint %}
-{% endstep %}
+> **TL;DR:** Use **1× H100 80GB**. With 4-bit QLoRA the model uses \~25 GB, giving you lots of room.
 
-{% step %}
-#### Launch the VM&#x20;
+### Launch the VM
 
-To get started with our VM , see our [official doc](https://docs.yottalabs.ai/products/virtual-machines/launching-a-virtual-machine)
-{% endstep %}
-{% endstepper %}
+To get started with our VM, see our [official doc](https://docs.yottalabs.ai/products/virtual-machines/launching-a-virtual-machine).
 
 ***
 
 ## Section 2 — Environment Setup
 
 {% hint style="info" %}
-Run all cells from here inside your YottaLabs Pod via Jupyter&#x20;
+Run all cells from here inside your YottaLabs Pod via Jupyter.
 {% endhint %}
 
 ### Key Differences from Standard Unsloth Setup
 
 This notebook uses **vLLM** for fast GRPO rollout generation. vLLM dramatically speeds up the `num_generations` sampling step — instead of running the model sequentially for each rollout, vLLM batches them with continuous batching and PagedAttention.
 
-Additionally, we install **`langid`** — a fast language identification library used in our language-consistency reward function.
+Additionally, we install `langid` — a fast language identification library used in our language-consistency reward function.
 
 | Package        | Version | Why pinned                                              |
 | -------------- | ------- | ------------------------------------------------------- |
@@ -78,6 +72,32 @@ if "COLAB_" not in "".join(os.environ.keys()):
 else:
     pass # For Colab / Kaggle, we need extra instructions hidden below \/
 ```
+
+```python
+#@title Colab Extra Install { display-mode: "form" }
+%%capture
+import os
+!pip install --upgrade -qqq uv
+if "COLAB_" not in "".join(os.environ.keys()):
+    # If you're not in Colab, just use pip install!
+    !pip install unsloth vllm
+else:
+    try: import numpy, PIL; _numpy = f'numpy=={numpy.__version__}'; _pil = f'pillow=={PIL.__version__}'
+    except: _numpy = "numpy"; _pil = "pillow"
+    try: import subprocess; is_t4 = "Tesla T4" in str(subprocess.check_output(["nvidia-smi"]))
+    except: is_t4 = False
+    _vllm, _triton = ('vllm==0.9.2', 'triton==3.2.0') if is_t4 else ('vllm==0.15.1', 'triton')
+    !uv pip install -qqq --upgrade {_vllm} {_numpy} {_pil} torchvision bitsandbytes xformers unsloth
+    !uv pip install -qqq {_triton}
+!uv pip install transformers==4.56.2
+!uv pip install --no-deps trl==0.22.2
+```
+
+```python
+!pip install langid -qq
+```
+
+***
 
 ## Section 3 — Load DeepSeek-R1-0528-Qwen3-8B
 
@@ -102,7 +122,6 @@ We use `lora_alpha = rank * 2` here (alpha = 64 for rank 32). This is a common t
 | `gpu_memory_utilization` | 0.9         | High — vLLM needs KV cache VRAM                                          |
 
 ```python
-%pip install langid -qq
 from unsloth import FastLanguageModel
 import torch
 max_seq_length = 1024 # Can increase for longer reasoning traces
@@ -128,8 +147,9 @@ model = FastLanguageModel.get_peft_model(
     use_gradient_checkpointing = "unsloth", # Reduces memory usage
     random_state = 3407,
 )
-
 ```
+
+***
 
 ## Section 4 — Understanding the DeepSeek-R1 Chat Template
 
@@ -140,77 +160,46 @@ DeepSeek-R1 models use special tokens to delimit the **internal reasoning chain*
 We programmatically find the special tokens rather than hardcoding them, making this code robust across model variants:
 
 ```python
-# Auto-discover the special reasoning tokens from the tokenizer vocabulary
 reasoning_start = None
-reasoning_end   = None
-user_token      = None
+reasoning_end = None
+user_token = None
 assistant_token = None
 
 for token in tokenizer.get_added_vocab().keys():
     if "think" in token and "/" in token:
-        reasoning_end   = token   # e.g. </think>
+        reasoning_end = token
     elif "think" in token:
-        reasoning_start = token   # e.g. <think>
+        reasoning_start = token
     elif "user" in token:
-        user_token      = token
+        user_token = token
     elif "assistant" in token:
         assistant_token = token
 
-print(f"Reasoning start token: {repr(reasoning_start)}")
-print(f"Reasoning end token:   {repr(reasoning_end)}")
-print(f"User token:            {repr(user_token)}")
-print(f"Assistant token:       {repr(assistant_token)}")
-
-assert reasoning_start and reasoning_end, "❌ Could not find <think> tokens — check model/tokenizer!"
-print("\n✅ All special tokens found!")
+system_prompt = \
+f"""You are given a problem.
+Think about the problem and provide your working out.
+You must think in Bahasa Indonesia."""
+system_prompt
 ```
 
 ### System Prompt for Language Targeting
 
-We instruct the model to reason in **Bahasa Indonesia** via the system prompt. The language-consistency reward function (Section 5) then reinforces this behaviour during training.
+We instruct the model to reason in **Bahasa Indonesia** via the system prompt. The language-consistency reward function (Section 6) then reinforces this behaviour during training.
 
 {% hint style="info" %}
 Design principle: the system prompt _asks_ for the target language; the reward function _enforces_ it. Neither alone is sufficient — both are needed for reliable steering.
 {% endhint %}
 
 ```python
-# System prompt that instructs the model to reason in Bahasa Indonesia
-system_prompt = (
-    "You are given a problem.\n"
-    "Think about the problem and provide your working out.\n"
-    "You must think in Bahasa Indonesia."
-)
-
-print("System prompt:")
-print("-" * 50)
-print(system_prompt)
-print("-" * 50)
+print(tokenizer.apply_chat_template([
+    {"role" : "user", "content" : "What is 1+1?"},
+    {"role" : "assistant", "content" : f"<think>I think it's 2.2</think>2"},
+    {"role" : "user", "content" : "What is 1+1?"},
+    {"role" : "assistant", "content" : f"<think>I think it's 2.2</think>2"},
+], tokenize = False, add_generation_prompt = True))
 ```
 
-```python
-# Visualise how the chat template formats a conversation
-# This shows exactly what the model "sees" as input tokens
-
-example_conversation = [
-    {"role": "user",      "content": "What is 1+1?"},
-    {"role": "assistant", "content": f"<think>I think it's 2.</think>2"},
-    {"role": "user",      "content": "What is 3+3?"},
-    {"role": "assistant", "content": f"<think>That would be 6.</think>6"},
-]
-
-formatted = tokenizer.apply_chat_template(
-    example_conversation,
-    tokenize              = False,
-    add_generation_prompt = True,
-)
-
-print("Formatted conversation (what the model sees):")
-print("=" * 60)
-print(formatted)
-print("=" * 60)
-print("\n👆 Notice the <think> / </think> tags wrapping the reasoning.")
-print("   GRPOTrainer prepends <think> automatically — the model must close it and then give the answer.")
-```
+***
 
 ## Section 5 — Prepare the DAPO-Math Dataset
 
@@ -226,18 +215,6 @@ GRPO requires every prompt in a batch to fit within `max_prompt_length`. Rather 
 
 ### Data Pipeline
 
-```
-Raw DAPO-Math (17k examples)
-        │
-        ▼  apply_chat_template → count tokens
-        │
-        ▼  filter: keep bottom 90% by token length
-        │
-        ▼  format: add system prompt, extract answer field
-        │
-   Train Dataset (~15k examples, ready for GRPOTrainer)
-```
-
 ```python
 from datasets import load_dataset
 dataset = load_dataset("open-r1/DAPO-Math-17k-Processed", "en", split = "train")
@@ -245,82 +222,50 @@ dataset
 ```
 
 ```python
-# Inspect a raw example before formatting
-print("=== Raw prompt (first example) ===")
-print(dataset[0]["prompt"])
-print()
-print("=== Raw solution (first example) ===")
-print(dataset[0]["solution"][:300], "...")
+dataset[0]["prompt"]
 ```
 
 ```python
-# Answer extraction helper
-# For DAPO-Math the solution IS the answer — no #### parsing needed.
-# (For GSM8K you would use: text.split("####")[1].strip())
+dataset[0]["solution"]
+```
 
-def extract_answer(text):
-    """
-    Extract the answer field from a solution string.
-    DAPO-Math solutions are already clean — we return them as-is.
-    For GSM8K, uncomment the #### split logic.
-    """
-    # GSM8K style (uncomment if switching datasets):
-    # if "####" in text:
-    #     return text.split("####")[1].strip()
+```python
+def extract_hash_answer(text):
+    # if "####" not in text: return None
+    # return text.split("####")[1].strip()
     return text
+extract_hash_answer(dataset[0]["solution"])
+```
 
-# Format the full dataset with system prompt and answer extraction
+```python
 dataset = dataset.map(lambda x: {
-    "prompt": [
+    "prompt" : [
         {"role": "system", "content": system_prompt},
         {"role": "user",   "content": x["prompt"]},
     ],
-    "answer": extract_answer(x["solution"]),
+    "answer": extract_hash_answer(x["solution"]),
 })
-
-print(f"\nFormatted dataset: {len(dataset)} examples")
-print("\nFirst example prompt structure:")
-import json
-print(json.dumps(dataset[0]["prompt"], indent=2))
+dataset[0]
 ```
 
 ```python
-# Filter out the top 10% longest prompts to avoid truncation
-# This is critical — truncated math problems make training noise, not signal.
+tokenized = dataset.map(
+    lambda x: {"tokens" : tokenizer.apply_chat_template(x["prompt"], add_generation_prompt = True, tokenize = True)},
+    batched = True,
+)
+print(tokenizer.decode(tokenized[0]["tokens"]))
+tokenized = tokenized.map(lambda x: {"L" : len(x["tokens"])})
 
 import numpy as np
+maximum_length = int(np.quantile(tokenized["L"], 0.9))
+print("Max Length = ", maximum_length)
 
-print("Tokenising prompts to measure lengths ...")
-tokenized = dataset.map(
-    lambda x: {
-        "tokens": tokenizer.apply_chat_template(
-            x["prompt"],
-            add_generation_prompt=True,
-            tokenize=True,
-        )
-    },
-    batched=True,
-)
-tokenized = tokenized.map(lambda x: {"L": len(x["tokens"])})
-
-# Find the 90th percentile cutoff
-lengths       = np.array(tokenized["L"])
-max_length_90 = int(np.quantile(lengths, 0.9))
-
-print(f"Token length stats:")
-print(f"  Min:        {lengths.min()}")
-print(f"  Median:     {int(np.median(lengths))}")
-print(f"  90th pct:   {max_length_90}  ← cutoff")
-print(f"  Max:        {lengths.max()}")
-
-# Apply the filter
-keep_indices = np.where(lengths <= max_length_90)[0]
-dataset      = dataset.select(keep_indices)
+# Filter only samples smaller than 90% max length
+dataset = dataset.select(np.where(np.array(tokenized["L"]) <= maximum_length)[0])
 del tokenized
-
-print(f"\n✅ After filtering: {len(dataset)} examples ({len(keep_indices)/len(lengths)*100:.1f}% retained)")
-print(f"   Max prompt length for training: {max_length_90 + 1} tokens")
 ```
+
+***
 
 ## Section 6 — Five Reward Functions
 
@@ -342,262 +287,214 @@ Completion
 
 ### Why Multiple Rewards?
 
-* **`match_format_exactly`** gives a strong binary signal for correct structure
-* **`match_format_approximately`** provides gradient even for near-miss formatting
-* **`check_answer`** rewards exact string matches and ratio-based proximity
-* **`check_numbers`** catches cases where the answer is embedded in a sentence
-* **`language_consistency`** is the novel reward that steers the reasoning language
+* `match_format_exactly` gives a strong binary signal for correct structure
+* `match_format_approximately` provides gradient even for near-miss formatting
+* `check_answer` rewards exact string matches and ratio-based proximity
+* `check_numbers` catches cases where the answer is embedded in a sentence
+* `language_consistency` is the novel reward that steers the reasoning language
 
 Using multiple rewards is better than one composite reward because each signal is cleaner and easier to tune independently.
 
 ```python
 import re
 
-# Regex that matches everything after the closing </think> token
-# This captures the model's final answer (after the reasoning chain ends)
+# Add optional EOS token matching
 solution_end_regex = rf"{reasoning_end}(.*)"
-match_format       = re.compile(solution_end_regex, re.DOTALL)
 
-# Number extraction regex — handles negatives, decimals, and commas (e.g. 123,456)
-match_numbers = re.compile(
-    r".*?[\s]{0,}([-]?[\d\.\,]{1,})",
-    flags=re.MULTILINE | re.DOTALL,
-)
-
-# ── Quick unit tests ──────────────────────────────────────────────────────────
-print("Testing match_format regex:")
-print(f"  Valid:   {match_format.findall('<think>steps</think>The answer is 4.')}")
-print(f"  No tag:  {match_format.findall('The answer is 4.')}")
-
-print("\nTesting match_numbers regex:")
-print(f"  '0.34':    {match_numbers.findall('  0.34  ')}")
-print(f"  '123,456': {match_numbers.findall('  123,456  ')}")
-print(f"  '-0.234':  {match_numbers.findall('  -0.234  ')}")
-print(f"  '17':      {match_numbers.findall('17')}")
+match_format = re.compile(solution_end_regex, re.DOTALL)
+match_format
 ```
 
 ```python
-# ── Reward 1: Exact format match ─────────────────────────────────────────────
+match_format.findall(
+    "Let me think!</think>"\
+    f"Hence, the solution is 2.",
+)
+```
 
+```python
+match_format.findall(
+    "<think>Let me think!</think>"\
+    f"\n\nHence, the solution is 2",
+)
+```
+
+```python
 def match_format_exactly(completions, **kwargs):
-    """
-    +3.0 if the completion contains a valid </think>...answer structure.
-    
-    This is the primary structural reward — it fires only when the model
-    correctly closes the reasoning block and transitions to the answer.
-    """
     scores = []
     for completion in completions:
+        score = 0
         response = completion[0]["content"]
-        score = 3.0 if match_format.search(response) is not None else 0.0
+        # Match if format is seen exactly!
+        if match_format.search(response) is not None: score += 3.0
         scores.append(score)
     return scores
+```
 
-
-# ── Reward 2: Approximate format match ───────────────────────────────────────
-
+```python
 def match_format_approximately(completions, **kwargs):
-    """
-    Partial credit for tag structure: +0.5 per correct tag count.
-    Penalises repeated tags (-1.0 each) which indicates degenerate looping.
-    
-    Note: We don't reward <think> since GRPOTrainer always prepends it.
-    We only score </think> — the model must learn to close the tag.
-    """
     scores = []
     for completion in completions:
+        score = 0
         response = completion[0]["content"]
-        score = 0.0
-        # <think> is prepended automatically — penalise if the model adds another
+        # Count how many keywords are seen - we penalize if too many!
+        # If we see 1, then plus some points!
+
+        # No need to reward <think> since we always prepend it!
         score += 0.5 if response.count(reasoning_start) == 1 else -1.0
-        # </think> must appear exactly once
         score += 0.5 if response.count(reasoning_end)   == 1 else -1.0
         scores.append(score)
     return scores
-
-
-print("✅ Structural reward functions defined!")
-print()
-# Unit tests
-test_good  = f"<think>working...</think>42"
-test_multi = f"<think>step1</think><think>step2</think>42"
-test_none  = "The answer is 42."
-print(f"  Good response:   format_exactly={match_format_exactly([[{'content': test_good}]])}, "
-      f"format_approx={match_format_approximately([[{'content': test_good}]])}")
-print(f"  Multi-think:     format_exactly={match_format_exactly([[{'content': test_multi}]])}, "
-      f"format_approx={match_format_approximately([[{'content': test_multi}]])}")
-print(f"  No tags:         format_exactly={match_format_exactly([[{'content': test_none}]])}, "
-      f"format_approx={match_format_approximately([[{'content': test_none}]])}")
 ```
 
 ```python
-# ── Reward 3: Answer correctness (string + ratio-based) ──────────────────────
-
 def check_answer(prompts, completions, answer, **kwargs):
-    """
-    Reward based on how close the extracted answer is to the ground truth.
-    
-    Scoring tiers:
-      +5.0  Exact string match
-      +3.5  Match after stripping whitespace
-      +2.0  Numeric ratio within 10% (0.9 ≤ guess/true ≤ 1.1)
-      +1.5  Numeric ratio within 20%
-      -2.5  Wrong numeric answer (parseable but incorrect)
-      -4.5  Answer not parseable as float
-      -2.0  No </think> found — cannot extract answer
-    
-    The ratio-based rewards help during early training when the model is
-    learning to produce the right magnitude, even if not perfectly precise.
-    """
+    question = prompts[0][-1]["content"]
     responses = [completion[0]["content"] for completion in completions]
-    extracted = [
-        m.group(1) if (m := match_format.search(r)) is not None else None
+
+    extracted_responses = [
+        guess.group(1)
+        if (guess := match_format.search(r)) is not None else None \
         for r in responses
     ]
 
     scores = []
-    for guess, true_answer in zip(extracted, answer):
+    for guess, true_answer in zip(extracted_responses, answer):
+        score = 0
         if guess is None:
             scores.append(-2.0)
             continue
+        # Correct answer gets 5 points!
         if guess == true_answer:
-            scores.append(5.0)
+            score += 5.0
+        # Match if spaces are seen, but less reward
         elif guess.strip() == true_answer.strip():
-            scores.append(3.5)
+            score += 3.5
         else:
+            # We also reward it if the answer is close via ratios!
+            # Ie if the answer is within some range, reward it!
             try:
                 ratio = float(guess) / float(true_answer)
-                if   0.9 <= ratio <= 1.1: scores.append(2.0)
-                elif 0.8 <= ratio <= 1.2: scores.append(1.5)
-                else:                     scores.append(-2.5)
+                if   ratio >= 0.9 and ratio <= 1.1: score += 2.0
+                elif ratio >= 0.8 and ratio <= 1.2: score += 1.5
+                else: score -= 2.5 # Penalize wrong answers
             except:
-                scores.append(-4.5)
+                score -= 4.5 # Penalize
+        scores.append(score)
     return scores
-
-
-print("✅ check_answer defined!")
 ```
 
 ```python
-# ── Reward 4: Numeric extraction + float comparison ──────────────────────────
-
-PRINTED_TIMES     = 0
-PRINT_EVERY_STEPS = 5    # Print a sample every N steps to monitor training progress
-
-def check_numbers(prompts, completions, answer, **kwargs):
-    """
-    Float-based answer comparison using a more aggressive number extraction.
-    
-    Complements check_answer by handling cases where the answer is embedded
-    in a sentence: 'The result is $20.' → extracts 20.0
-    
-    Also removes commas: '1,234' → 1234.0
-    
-    Prints a training sample every PRINT_EVERY_STEPS for monitoring.
-    """
-    global PRINTED_TIMES
-
-    question  = prompts[0][-1]["content"]
-    responses = [completion[0]["content"] for completion in completions]
-    extracted = [
-        m.group(1) if (m := match_numbers.search(r)) is not None else None
-        for r in responses
-    ]
-
-    if PRINTED_TIMES % PRINT_EVERY_STEPS == 0:
-        print("*" * 20 + f" Step sample (printed every {PRINT_EVERY_STEPS} steps)")
-        print(f"Question:  {question[:120]}...")
-        print(f"Answer:    {answer[0]}")
-        print(f"Response:  {responses[0][:200]}...")
-        print(f"Extracted: {extracted[0]}")
-        print()
-    PRINTED_TIMES += 1
-
-    scores = []
-    for guess, true_answer in zip(extracted, answer):
-        if guess is None:
-            scores.append(-2.5)
-            continue
-        try:
-            true_f = float(true_answer.strip())
-            guess_f = float(guess.strip().replace(",", ""))
-            scores.append(3.5 if guess_f == true_f else -1.5)
-        except:
-            scores.append(0.0)   # non-numeric answer — neutral score
-    return scores
-
-
-print("✅ check_numbers defined!")
+match_numbers = re.compile(
+    r".*?[\s]{0,}([-]?[\d\.\,]{1,})",
+    flags = re.MULTILINE | re.DOTALL
+)
+print(match_numbers.findall("  0.34  "))
+print(match_numbers.findall("  123,456  "))
+print(match_numbers.findall("  -0.234  "))
+print(match_numbers.findall("17"))
 ```
 
 ```python
-# ── Reward 5: Language consistency (Bahasa Indonesia) ────────────────────────
-# Inspired by DeepSeek-R1 paper Section 3.3: "Language Consistency Reward"
-
 import langid
 
 def get_lang(text: str) -> str:
-    """Detect the language of a text string. Returns ISO 639-1 code or 'und' for empty."""
     if not text:
         return "und"
     lang, _ = langid.classify(text)
     return lang
 
-# Quick test
-print("Language detection sanity checks:")
-print(f"  English:    '{get_lang('Hello, how are you?')}' (expected: en)")
-print(f"  Indonesian: '{get_lang('Aku berpikir kalau ini adalah jawaban yang benar')}' (expected: id)")
-print(f"  Chinese:    '{get_lang('我在这里')}' (expected: zh)")
+
+print(get_lang("Hello, How are you")) # This should return en
+print(get_lang("Aku berpikir kalau aku adalah kamu")) # This should return id
+print(get_lang("我在这里")) # This should return zh
 ```
 
 ```python
+import re
+
 def format_and_language_reward_func(completions, **kwargs):
-    """
-    Reward the model for generating reasoning traces in Bahasa Indonesia.
-    
-    Scoring:
-      +5.0  Detected as Indonesian ('id') — target language achieved!
-      -3.0  Detected as English ('en')   — model defaulted to English
-      -3.0  Detected as Chinese ('zh')   — base model leaks Chinese
-      -5.0  Any other language or malformed completion
-    
-    This directly implements the 'language consistency reward' from the
-    DeepSeek-R1 paper, which was used to prevent language mixing in
-    the base model's reasoning chains.
-    """
     scores = []
+
     for completion_item in completions:
-        # Validate completion structure
-        if (not completion_item or
-                not isinstance(completion_item[0], dict) or
-                "content" not in completion_item[0]):
+        if not completion_item or not isinstance(completion_item[0], dict) or "content" not in completion_item[0]:
             scores.append(-5.0)
-            print(f"⚠️  Malformed completion, assigning -5.0: {completion_item}")
+            print(f"Warning: Malformed completion item, assigning default low score: {completion_item}")
             continue
 
         content = completion_item[0]["content"]
-        lang    = get_lang(content)
 
-        if   lang == "id": scores.append( 5.0)
-        elif lang == "en": scores.append(-3.0)
-        elif lang == "zh": scores.append(-3.0)
-        else:              scores.append(-5.0)
+        lang = get_lang(content)
+
+        if lang == 'id':
+            score = 5.0
+        elif lang == 'en':
+            score = -3.0
+        elif lang == 'zh':
+            score = -3.0
+        else:
+            score = -5.0
+
+        scores.append(score)
 
     return scores
-
-
-# ── Unit test ─────────────────────────────────────────────────────────────────
-test_completions = [
-    [{"role": "assistant", "content": "Saya berpikir bahwa jawabannya adalah 12 karena 3 × 4 = 12."}],  # Indonesian
-    [{"role": "assistant", "content": "I think the answer is 12 because 3 × 4 = 12."}],                 # English
-    [{"role": "assistant", "content": "我认为答案是12，因为3×4=12。"}],                                    # Chinese
-]
-results = format_and_language_reward_func(completions=test_completions)
-print("Language reward test:")
-print(f"  Indonesian: {results[0]}  (expected  5.0)")
-print(f"  English:    {results[1]}  (expected -3.0)")
-print(f"  Chinese:    {results[2]}  (expected -3.0)")
 ```
+
+```python
+prompts = [
+    [{"role": "assistant", "content": "What is the result of (1 + 2) * 4?"}],
+    [{"role": "assistant", "content": "What is the result of (3 + 1) * 2?"}],
+]
+completions = [
+    [{"role": "assistant", "content": "<think>The sum of 1 and 2 is 3, which we multiply by 4 to get 12.</think><answer>(1 + 2) * 4 = 12</answer>"}],
+    [{"role": "assistant", "content": "The sum of 3 and 1 is 4, which we multiply by 2 to get 8. So (3 + 1) * 2 = 8."}],
+]
+format_and_language_reward_func(prompts = prompts, completions = completions)
+```
+
+```python
+global PRINTED_TIMES
+PRINTED_TIMES = 0
+global PRINT_EVERY_STEPS
+PRINT_EVERY_STEPS = 5
+
+def check_numbers(prompts, completions, answer, **kwargs):
+    question = prompts[0][-1]["content"]
+    responses = [completion[0]["content"] for completion in completions]
+
+    extracted_responses = [
+        guess.group(1)
+        if (guess := match_numbers.search(r)) is not None else None \
+        for r in responses
+    ]
+
+    scores = []
+    # Print only every few steps
+    global PRINTED_TIMES
+    global PRINT_EVERY_STEPS
+    if PRINTED_TIMES % PRINT_EVERY_STEPS == 0:
+        print(
+            '*'*20 + f"Question:\n{question}", f"\nAnswer:\n{answer[0]}", f"\nResponse:\n{responses[0]}", f"\nExtracted:\n{extracted_responses[0]}"
+        )
+    PRINTED_TIMES += 1
+
+    for guess, true_answer in zip(extracted_responses, answer):
+        if guess is None:
+            scores.append(-2.5)
+            continue
+        # Convert to numbers
+        try:
+            true_answer = float(true_answer.strip())
+            # Remove commas like in 123,456
+            guess       = float(guess.strip().replace(",", ""))
+            scores.append(3.5 if guess == true_answer else -1.5)
+        except:
+            scores.append(0)
+            continue
+    return scores
+```
+
+***
 
 ## Section 7 — Configure & Launch GRPO Training
 
@@ -614,119 +511,83 @@ We configure `SamplingParams` separately from `GRPOConfig` — vLLM uses its own
 
 ### Sequence Length Calculation
 
-We compute `max_completion_length` dynamically from the measured max prompt length, ensuring the total sequence always fits within `MAX_SEQ_LENGTH`:
-
-```
-max_completion_length = MAX_SEQ_LENGTH - max_prompt_length - 1
-```
-
-This prevents silent truncation of reasoning chains, which would produce noisy gradients.
+We compute `max_completion_length` dynamically from the measured max prompt length, ensuring the total sequence always fits within `max_seq_length`. This prevents silent truncation of reasoning chains, which would produce noisy gradients.
 
 ### Training Duration
 
 We run for **100 steps** here (`max_steps=100`) — enough to see rewards start climbing, and to verify the training loop works. For production quality, train for 1–3 full epochs (`num_train_epochs=1`, remove `max_steps`).
 
-{% hint style="info" %}
-Watch the `reward` and `rewards/language` columns in the training table. You expect `reward` to climb from \~0 to \~2+ after 100 steps, and the language reward to become increasingly positive as the model adopts Indonesian.
-{% endhint %}
+> ℹ️ Watch the `reward` and `rewards/language` columns in the training table. You expect `reward` to climb from \~0 to \~2+ after 100 steps, and the language reward to become increasingly positive as the model adopts Indonesian.
 
 ```python
+max_prompt_length = maximum_length + 1 # + 1 just in case!
+max_completion_length = max_seq_length - max_prompt_length
+
 from vllm import SamplingParams
-from trl  import GRPOConfig, GRPOTrainer
-import os
-
-# ── Compute dynamic sequence lengths ──────────────────────────────────────────
-max_prompt_length     = max_length_90 + 1              # +1 buffer
-max_completion_length = MAX_SEQ_LENGTH - max_prompt_length
-
-print(f"Sequence length budget:")
-print(f"  MAX_SEQ_LENGTH:        {MA_SEQ_LENGTH}")
-print(f"  max_prompt_length:     {max_prompt_length}")
-print(f"  max_completion_length: {max_completion_length}")
-
-# ── vLLM sampling parameters (used for GRPO rollouts) ─────────────────────────
 vllm_sampling_params = SamplingParams(
-    min_p                    = 0.1,              # Nucleus sampling floor — prevents degenerate tokens
-    top_p                    = 1.0,
-    top_k                    = -1,               # Disabled (use min_p instead)
-    seed                     = 3407,
-    stop                     = [tokenizer.eos_token],
-    include_stop_str_in_output = True,           # Keep EOS in output for clean parsing
+    min_p = 0.1,
+    top_p = 1.0,
+    top_k = -1,
+    seed = 3407,
+    stop = [tokenizer.eos_token],
+    include_stop_str_in_output = True,
 )
 
-# ── GRPO training configuration ───────────────────────────────────────────────
-OUTPUT_DIR = "/workspace/outputs"
-os.makedirs(OUTPUT_DIR, exist_ok=True)
-
+from trl import GRPOConfig, GRPOTrainer
 training_args = GRPOConfig(
-    # vLLM integration
-    vllm_sampling_params       = vllm_sampling_params,
-    temperature                = 1.0,            # High temp for diverse rollout exploration
-
-    # Optimiser
-    learning_rate              = 5e-6,
-    weight_decay               = 0.001,
-    warmup_ratio               = 0.1,
-    lr_scheduler_type          = "linear",
-    optim                      = "adamw_8bit",
-    max_grad_norm              = 1.0,            # Less aggressive clipping than vision notebook
-
-    # Batch / rollout
-    per_device_train_batch_size = 1,
-    gradient_accumulation_steps = 1,             # Increase to 4 for smoother loss curves
-    num_generations             = 4,             # vLLM makes this fast even at 4
-
-    # Sequence lengths
-    max_prompt_length           = max_prompt_length,
-    max_completion_length       = max_completion_length,
-
-    # Duration — 100 steps for validation; use num_train_epochs=1 for production
-    max_steps   = 100,
-    save_steps  = 100,
+    vllm_sampling_params = vllm_sampling_params,
+    temperature = 1.0,
+    learning_rate = 5e-6,
+    weight_decay = 0.001,
+    warmup_ratio = 0.1,
+    lr_scheduler_type = "linear",
+    optim = "adamw_8bit",
     logging_steps = 1,
+    per_device_train_batch_size = 1,
+    gradient_accumulation_steps = 1, # Increase to 4 for smoother training
+    num_generations = 4, # Decrease if out of memory
+    max_prompt_length = max_prompt_length,
+    max_completion_length = max_completion_length,
+    # num_train_epochs = 1, # Set to 1 for a full training run
+    max_steps = 100,
+    save_steps = 100,
+    report_to = "none", # Can use Weights & Biases
+    output_dir = "outputs",
 
-    # Logging
-    report_to  = "none",     # Change to "wandb" to enable Weights & Biases
-    output_dir = OUTPUT_DIR,
+    # For optional training + evaluation
+    # fp16_full_eval = True,
+    # per_device_eval_batch_size = 4,
+    # eval_accumulation_steps = 1,
+    # eval_strategy = "steps",
+    # eval_steps = 1,
 )
-
-print(f"\n✅ Training configuration ready!")
-print(f"   Steps:           {training_args.max_steps}")
-print(f"   Generations:     {training_args.num_generations}")
-print(f"   Effective batch: {training_args.per_device_train_batch_size * training_args.gradient_accumulation_steps}")
 ```
 
 ```python
-# Build the GRPOTrainer with all five reward functions
-# Reward functions are applied in order; their scores are summed.
+# For optional training + evaluation
+# new_dataset = dataset.train_test_split(test_size = 0.01)
 
 trainer = GRPOTrainer(
-    model            = model,
+    model = model,
     processing_class = tokenizer,
-    reward_funcs     = [
-        match_format_exactly,           # +3.0   — binary structural signal
-        match_format_approximately,     # +1.0   — gradient for near-miss format
-        check_answer,                    # +5.0   — string + ratio correctness
-        check_numbers,                   # +3.5   — float extraction correctness
-        format_and_language_reward_func, # +5.0 — Bahasa Indonesia compliance
+    reward_funcs = [
+        match_format_exactly,
+        match_format_approximately,
+        check_answer,
+        check_numbers,
+        format_and_language_reward_func,
     ],
-    args             = training_args,
-    train_dataset    = dataset,
+    args = training_args,
+    train_dataset = dataset,
+
+    # For optional training + evaluation
+    # train_dataset = new_dataset["train"],
+    # eval_dataset = new_dataset["test"],
 )
-
-print("✅ GRPOTrainer initialised. Launching training ...")
-print()
-print("What to watch in the training table:")
-print("  reward           — total reward (aim: climbing from ~0 to 2+)")
-print("  rewards/format   — should rise quickly in first 20 steps")
-print("  rewards/language — Indonesian compliance (may take 50+ steps to rise)")
-print("  completion_length — should stabilise as model learns to close </think>")
-print()
-
-# ─── LAUNCH TRAINING ──────────────────────────────────────────────────────────
 trainer.train()
-print("\n🎉 Training complete!")
 ```
+
+***
 
 ## Section 8 — Inference & Language Compliance Evaluation
 
@@ -739,112 +600,118 @@ We run three comparison experiments:
 Then we run a **batch evaluation on 20 samples** to measure the language compliance rate quantitatively.
 
 ```python
+text = "What is the sqrt of 101?"
+
 from vllm import SamplingParams
-
-inference_params = SamplingParams(
+sampling_params = SamplingParams(
     temperature = 1.0,
-    top_k       = 50,
-    max_tokens  = 1024,
+    top_k = 50,
+    max_tokens = 1024,
 )
-
-# ── Experiment 1: Baseline (no LoRA, no system prompt) ────────────────────────
-print("=== Experiment 1: Baseline — no LoRA, no system prompt ===")
-print("Question: What is the sqrt of 101?")
-print("-" * 60)
-
 output = model.fast_generate(
-    ["What is the sqrt of 101?"],
-    sampling_params = inference_params,
-    lora_request    = None,
+    [text],
+    sampling_params = sampling_params,
+    lora_request = None,
 )[0].outputs[0].text
 
-print(output)
-print("-" * 60)
-print(f"Detected language: {get_lang(output)}")
+output
 ```
 
 ```python
-# Save the LoRA adapters before loading them for inference
-# fast_generate() requires save_lora() before load_lora()
-print("Saving LoRA adapters ...")
-model.save_lora("/workspace/grpo_lora")
-print("✅ LoRA saved to /workspace/grpo_lora")
+model.save_lora("grpo_lora")
+```
+
+{% hint style="info" %}
+`model.save_lora()` is used here instead of `model.save_pretrained()` because we enabled `fast_inference=True` (vLLM mode). The vLLM-backed model uses the Unsloth `save_lora` API.
+{% endhint %}
+
+```python
+from safetensors import safe_open
+
+tensors = {}
+with safe_open("grpo_lora/adapter_model.safetensors", framework = "pt") as f:
+    # Verify both A and B are non zero
+    for key in f.keys():
+        tensor = f.get_tensor(key)
+        n_zeros = (tensor == 0).sum() / tensor.numel()
+        assert(n_zeros.item() != tensor.numel())
 ```
 
 ```python
-# ── Experiment 2: With LoRA, no system prompt ─────────────────────────────────
-print("=== Experiment 2: With LoRA — no system prompt ===")
-print("Question: Solve (x + 2)^2 = 0")
-print("(Testing whether LoRA preserves general math ability)")
-print("-" * 60)
+messages = [
+    {"role": "user",   "content": "Solve (x + 2)^2 = 0"},
+]
 
-messages = [{"role": "user", "content": "Solve (x + 2)^2 = 0"}]
 text = tokenizer.apply_chat_template(
-    messages, add_generation_prompt=True, tokenize=False
+    messages,
+    add_generation_prompt = True, # Must add for generation
+    tokenize = False,
 )
-
+from vllm import SamplingParams
+sampling_params = SamplingParams(
+    temperature = 1.0,
+    top_k = 50,
+    max_tokens = 2048,
+)
 output = model.fast_generate(
     text,
-    sampling_params = inference_params,
-    lora_request    = model.load_lora("/workspace/grpo_lora"),
+    sampling_params = sampling_params,
+    lora_request = model.load_lora("grpo_lora"),
 )[0].outputs[0].text
 
-print(output)
-print("-" * 60)
-print(f"Detected language: {get_lang(output)}")
+output
 ```
 
 ```python
-# ── Experiment 3: With LoRA + system prompt (target deployment mode) ──────────
-print("=== Experiment 3: With LoRA + Indonesian system prompt ===")
-print("Question: Solve (x + 2)^2 = 0")
-print("(Expected: reasoning in Bahasa Indonesia)")
-print("-" * 60)
-
 messages = [
     {"role": "system", "content": system_prompt},
     {"role": "user",   "content": "Solve (x + 2)^2 = 0"},
 ]
-text = tokenizer.apply_chat_template(
-    messages, add_generation_prompt=True, tokenize=False
-)
 
+text = tokenizer.apply_chat_template(
+    messages,
+    add_generation_prompt = True, # Must add for generation
+    tokenize = False,
+)
+from vllm import SamplingParams
+sampling_params = SamplingParams(
+    temperature = 1.0,
+    top_k = 50,
+    max_tokens = 2048,
+)
 output = model.fast_generate(
     text,
-    sampling_params = inference_params,
-    lora_request    = model.load_lora("/workspace/grpo_lora"),
+    sampling_params = sampling_params,
+    lora_request = model.load_lora("grpo_lora"),
 )[0].outputs[0].text
 
-print(output)
-print("-" * 60)
-print(f"Detected language: {get_lang(output)}")
+output
 ```
 
 ```python
-# ── Experiment 4: Control — system prompt but NO LoRA ─────────────────────────
-print("=== Experiment 4: System prompt only — no LoRA (control) ===")
-print("(Does the system prompt alone achieve Indonesian reasoning?)")
-print("-" * 60)
-
 messages = [
     {"role": "system", "content": system_prompt},
     {"role": "user",   "content": "Solve (x + 2)^2 = 0"},
 ]
-text = tokenizer.apply_chat_template(
-    messages, add_generation_prompt=True, tokenize=False
-)
 
-output_no_lora = model.fast_generate(
+text = tokenizer.apply_chat_template(
+    messages,
+    add_generation_prompt = True, # Must add for generation
+    tokenize = False,
+)
+from vllm import SamplingParams
+sampling_params = SamplingParams(
+    temperature = 1.0,
+    top_k = 50,
+    max_tokens = 2048,
+)
+output = model.fast_generate(
     text,
-    sampling_params = inference_params,
-    lora_request    = None,
+    sampling_params = sampling_params,
+    lora_request = None,
 )[0].outputs[0].text
 
-print(output_no_lora)
-print("-" * 60)
-print(f"Detected language: {get_lang(output_no_lora)}")
-print()
-print("Compare Experiments 3 vs 4 — LoRA should show higher Indonesian compliance.")
+output
 ```
 
 ### Batch Language Compliance Evaluation
@@ -852,61 +719,61 @@ print("Compare Experiments 3 vs 4 — LoRA should show higher Indonesian complia
 A single example is anecdotal. We run over **20 randomly sampled problems** and measure the percentage that produce Indonesian reasoning chains — with and without the LoRA.
 
 ```python
-# Batch evaluation: Indonesian language compliance across 20 samples
-sample_dataset = dataset.shuffle(seed=3407).select(range(20))
+sample_dataset = dataset.shuffle(seed = 3407).select(range(20))
+sample_dataset
+```
 
-with_lora_id    = 0
-without_lora_id = 0
+```python
+with_lora_id_count = 0
+without_lora_id_count = 0
 
-print("Running language compliance evaluation on 20 samples ...")
-print("(This takes ~1–2 minutes with vLLM)")
+print("Comparing language usage with and without LoRA on 20 samples:")
 print("=" * 60)
-
-eval_params = SamplingParams(temperature=1.0, top_k=50, max_tokens=512)
 
 for i, sample in enumerate(sample_dataset):
     messages = [
         {"role": "system", "content": system_prompt},
-        {"role": "user",   "content": sample["prompt"][1]["content"]},
+        {"role": "user", "content": sample["prompt"][1]["content"]},
     ]
+
     text = tokenizer.apply_chat_template(
-        messages, add_generation_prompt=True, tokenize=False
+        messages,
+        add_generation_prompt = True,
+        tokenize = False,
     )
 
-    # With LoRA
-    out_lora = model.fast_generate(
-        text, sampling_params=eval_params,
-        lora_request=model.load_lora("/workspace/grpo_lora"),
+    output_with_lora = model.fast_generate(
+        text,
+        sampling_params = sampling_params,
+        lora_request = model.load_lora("grpo_lora"),
     )[0].outputs[0].text
 
-    # Without LoRA
-    out_base = model.fast_generate(
-        text, sampling_params=eval_params,
-        lora_request=None,
+    output_without_lora = model.fast_generate(
+        text,
+        sampling_params = sampling_params,
+        lora_request = None,
     )[0].outputs[0].text
 
-    lang_lora = get_lang(out_lora)
-    lang_base = get_lang(out_base)
+    lang_with_lora = get_lang(output_with_lora)
+    lang_without_lora = get_lang(output_without_lora)
 
-    if lang_lora == "id": with_lora_id    += 1
-    if lang_base == "id": without_lora_id += 1
+    if lang_with_lora == 'id':
+        with_lora_id_count += 1
+    if lang_without_lora == 'id':
+        without_lora_id_count += 1
 
+    # Print progress every 5 samples
     if (i + 1) % 5 == 0:
-        print(f"  Processed {i+1}/20  |  LoRA Indonesian so far: {with_lora_id}  |  Base: {without_lora_id}")
+        print(f"Processed {i + 1}/20 samples...")
 
-print()
-print("=" * 60)
-print("LANGUAGE COMPLIANCE RESULTS (20 samples)")
-print("=" * 60)
-print(f"  With LoRA:    {with_lora_id}/20 Indonesian  ({with_lora_id/20*100:.1f}%)")
-print(f"  Without LoRA: {without_lora_id}/20 Indonesian ({without_lora_id/20*100:.1f}%)")
-print(f"  Improvement:  +{with_lora_id - without_lora_id} responses with LoRA")
-print()
-if with_lora_id > without_lora_id:
-    print("✅ LoRA successfully improved Indonesian language compliance!")
-else:
-    print("ℹ️  Language compliance similar — try training for more steps (500+) for stronger effect.")
+print("\n" + "=" * 60)
+print("RESULTS:")
+print(f"With LoRA - Indonesian responses: {with_lora_id_count}/20 ({with_lora_id_count/20*100:.1f}%)")
+print(f"Without LoRA - Indonesian responses: {without_lora_id_count}/20 ({without_lora_id_count/20*100:.1f}%)")
+print(f"Improvement: +{with_lora_id_count - without_lora_id_count} Indonesian responses with LoRA")
 ```
+
+***
 
 ## Section 9 — Save & Export
 
@@ -923,42 +790,56 @@ else:
 > **Note:** `model.save_lora()` is used here instead of `model.save_pretrained()` because we enabled `fast_inference=True` (vLLM mode). The vLLM-backed model uses the Unsloth `save_lora` API.
 
 ```python
-import os
-LORA_SAVE_DIR = "/workspace/grpo_lora"
-os.makedirs(LORA_SAVE_DIR, exist_ok=True)
+# Merge to 16bit
+if False: model.save_pretrained_merged("deepseek_r1_finetune_16bit", tokenizer, save_method = "merged_16bit",)
+if False: model.push_to_hub_merged("HF_USERNAME/deepseek_r1_finetune_16bit", tokenizer, save_method = "merged_16bit", token = "YOUR_HF_TOKEN")
 
-# ── Option 1: Save LoRA adapters (already done above, confirmed here) ─────────
-print("LoRA adapters location:")
-import subprocess
-result = subprocess.run(f"ls -lh {LORA_SAVE_DIR}", shell=True, capture_output=True, text=True)
-print(result.stdout)
+# Merge to 4bit
+if False: model.save_pretrained_merged("deepseek_r1_finetune_4bit", tokenizer, save_method = "merged_4bit",)
+if False: model.push_to_hub_merged("HF_USERNAME/deepseek_r1_finetune_4bit", tokenizer, save_method = "merged_4bit", token = "YOUR_HF_TOKEN")
+
+# Just LoRA adapters
+if False:
+    model.save_pretrained("deepseek_r1_lora")
+    tokenizer.save_pretrained("deepseek_r1_lora")
+if False:
+    model.push_to_hub("HF_USERNAME/deepseek_r1_lora", token = "YOUR_HF_TOKEN")
+    tokenizer.push_to_hub("HF_USERNAME/deepseek_r1_lora", token = "YOUR_HF_TOKEN")
 ```
+
+### GGUF / llama.cpp Conversion
+
+To save to `GGUF` / `llama.cpp`, we support it natively now! We clone `llama.cpp` and we default save it to `q8_0`. We allow all methods like `q4_k_m`. Use `save_pretrained_gguf` for local saving and `push_to_hub_gguf` for uploading to HF.
+
+Some supported quant methods (full list on our [docs page](https://unsloth.ai/docs/basics/inference-and-deployment/saving-to-gguf)):
+
+* `q8_0` - Fast conversion. High resource use, but generally acceptable.
+* `q4_k_m` - Recommended. Uses Q6\_K for half of the attention.wv and feed\_forward.w2 tensors, else Q4\_K.
+* `q5_k_m` - Recommended. Uses Q6\_K for half of the attention.wv and feed\_forward.w2 tensors, else Q5\_K.
 
 ```python
-# ── Option 2: Push LoRA to HuggingFace Hub ────────────────────────────────────
-# Uncomment and fill in your credentials to publish.
+# Save to 8bit Q8_0
+if False: model.save_pretrained_gguf("deepseek_r1_finetune", tokenizer,)
+# Remember to go to https://huggingface.co/settings/tokens for a token!
+# And change hf to your username!
+if False: model.push_to_hub_gguf("HF_USERNAME/deepseek_r1_finetune", tokenizer, token = "YOUR_HF_TOKEN")
 
-# import os
-# HF_TOKEN = os.environ.get("HF_TOKEN", "YOUR_TOKEN_HERE")
-# model.push_to_hub("your_username/deepseek-r1-qwen3-8b-indonesian-grpo", token=HF_TOKEN)
-# tokenizer.push_to_hub("your_username/deepseek-r1-qwen3-8b-indonesian-grpo", token=HF_TOKEN)
+# Save to 16bit GGUF
+if False: model.save_pretrained_gguf("deepseek_r1_finetune", tokenizer, quantization_method = "f16")
+if False: model.push_to_hub_gguf("HF_USERNAME/deepseek_r1_finetune", tokenizer, quantization_method = "f16", token = "YOUR_HF_TOKEN")
 
-# ── Option 3: Merge to 16-bit float (for vLLM standalone deployment) ──────────
-# if False:
-#     model.save_pretrained_merged("/workspace/model_16bit", tokenizer, save_method="merged_16bit")
-#     print("✅ Merged 16-bit model saved to /workspace/model_16bit")
+# Save to q4_k_m GGUF
+if False: model.save_pretrained_gguf("deepseek_r1_finetune", tokenizer, quantization_method = "q4_k_m")
+if False: model.push_to_hub_gguf("HF_USERNAME/deepseek_r1_finetune", tokenizer, quantization_method = "q4_k_m", token = "YOUR_HF_TOKEN")
 
-# ── Option 4: Merge to 4-bit (smaller deployment) ────────────────────────────
-# if False:
-#     model.save_pretrained_merged("/workspace/model_4bit", tokenizer, save_method="merged_4bit")
-
-# ── Option 5: Export to GGUF (llama.cpp / Ollama) ────────────────────────────
-# if False:
-#     model.save_pretrained_gguf("/workspace/model_gguf", tokenizer, quantization_method="q4_k_m")
-#     # Other options: "q8_0", "f16", "q5_k_m"
-
-print("Uncomment the export option you need and re-run this cell.")
-print()
-print("To copy adapters to your local machine:")
-print("  scp -r root@<POD_IP>:/workspace/grpo_lora ./grpo_lora_local")
+# Save to multiple GGUF options - much faster if you want multiple!
+if False:
+    model.push_to_hub_gguf(
+        "HF_USERNAME/deepseek_r1_finetune", # Change hf to your username!
+        tokenizer,
+        quantization_method = ["q4_k_m", "q8_0", "q5_k_m",],
+        token = "YOUR_HF_TOKEN",
+    )
 ```
+
+Now, use the `deepseek_r1_finetune.Q8_0.gguf` file or `deepseek_r1_finetune.Q4_K_M.gguf` file in llama.cpp.
