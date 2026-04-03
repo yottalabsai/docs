@@ -39,6 +39,8 @@
   * [Pricing](products/ai-explorer/pricing.md)
 * [Inference](products/inference/README.md)
   * [Introduction](products/inference/introduction.md)
+  * [Serverless Inference with LLM](products/inference/serverless-inference-with-llm.md)
+  * [Serverless Inference with Image Generation models](products/inference/serverless-inference-with-image-generation-models.md)
   * [User Interface](products/inference/user-interface.md)
   * [Broker Node](products/inference/broker-node.md)
   * [GPU Worker](products/inference/gpu-worker/README.md)
