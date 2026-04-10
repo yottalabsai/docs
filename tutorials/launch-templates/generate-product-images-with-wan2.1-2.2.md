@@ -28,7 +28,7 @@ The model has been optimized with FP8 precision, keeping it efficient at around 
 
 Choose the **"Swap Product in Character's Hand"** template from the available options.
 
-<figure><img src="../../.gitbook/assets/image (12).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (12) (1).png" alt=""><figcaption></figcaption></figure>
 
 This template is pre-configured with optimized prompts for product replacement tasks.
 {% endstep %}
@@ -42,7 +42,7 @@ Click **"Choose file to upload"** and add two images:
 
 **First image**: Model/scene photo showing a person holding an object
 
-<figure><img src="../../.gitbook/assets/image (10).png" alt="" width="165"><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (10) (1).png" alt="" width="165"><figcaption></figcaption></figure>
 
 **Second image**: Product photo you want to swap in
 
@@ -111,7 +111,7 @@ Click the **"Run"** button and wait 10-30 seconds for processing.
 * Verify lighting and shadows look realistic
 * Re-run with randomized seed for variations
 
-<figure><img src="../../.gitbook/assets/image (11).png" alt="" width="188"><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (11) (1).png" alt="" width="188"><figcaption></figcaption></figure>
 {% endstep %}
 {% endstepper %}
 

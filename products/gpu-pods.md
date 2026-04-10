@@ -20,55 +20,58 @@ When entering the **Pods** page:
     * `Running` – The Pod is running normally.
     * `Terminating` – The Pod is being terminated; resources are being reclaimed.
 
-    <figure><img src="../.gitbook/assets/image (145).png" alt="" width="375"><figcaption></figcaption></figure>
+
+
+    <figure><img src="../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+
+
 *   There are buttons you can use at the bottom:
 
     * :link: `Connect` You can connect your machine to specific ports, such as 8888 for Jupyter Notebook. We currently support both **SSH** and **HTTP** ports.
 
-        <figure><img src="../.gitbook/assets/image (148).png" alt="" width="375"><figcaption></figcaption></figure>
+    <figure><img src="../.gitbook/assets/image (1).png" alt="" width="438"><figcaption></figcaption></figure>
 
-    <figure><img src="../.gitbook/assets/image (149).png" alt="" width="375"><figcaption></figcaption></figure>
+    <figure><img src="../.gitbook/assets/image (10).png" alt="" width="443"><figcaption></figcaption></figure>
 
-    * :notepad\_spiral: `Log`  You can check the container logs to view its current status and identify any errors or issues.
+    * :notepad\_spiral: `Log` You can check the container logs to view its current status and identify any errors or issues.
 
+    <figure><img src="../.gitbook/assets/image (3).png" alt="" width="563"><figcaption></figcaption></figure>
 
-
-    <figure><img src="../.gitbook/assets/image (153).png" alt="" width="375"><figcaption></figcaption></figure>
-
-    * :chart\_with\_upwards\_trend:`Metrics`  This provides real-time monitoring of GPU, CPU, memory, and storage usage to help you track system performance and resource utilization.
+    * :chart\_with\_upwards\_trend:`Metrics` This provides real-time monitoring of GPU, CPU, memory, and storage usage to help you track system performance and resource utilization.
 
     <figure><img src="../.gitbook/assets/image (155).png" alt=""><figcaption></figcaption></figure>
-*   Click the **History** tab to view Pods that have completed within the last 24 hours, which includes:
+* Click the **History** tab to view Pods that have completed within the last 24 hours, which includes:
+  * `Terminated` – The Pod has been deleted.
+  *   `Failed` – Deployment failed. Common causes:
 
-    * `Terminated` – The Pod has been deleted.
-    * `Failed` – Deployment failed. Common causes:
       * Insufficient system resources
       * Invalid image configuration
 
-    <figure><img src="../.gitbook/assets/image (147).png" alt="" width="270"><figcaption></figcaption></figure>
+      <figure><img src="../.gitbook/assets/image (4).png" alt="" width="275"><figcaption></figcaption></figure>
 * There is a search bar where you can use Pod name to find your Pod (fuzzy search supported). You can also use **Pod Status** or **GPU Type** to filter Pods.
 
 ## ⚙️ Deploying a Pod
 
 #### Step-by-Step Guide
 
-*   **Navigate to:** `Compute → Pods`
+* **Navigate to:** `Compute → Pods`
 
-    <figure><img src="../.gitbook/assets/image (157).png" alt=""><figcaption></figcaption></figure>
-* **Click Deploy** (top right).  You’ll enter the **GPU Selection** page.
+<figure><img src="../.gitbook/assets/hasgg.com_annotated_image.png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../.gitbook/assets/image (158).png" alt=""><figcaption></figcaption></figure>
+* **Click Deploy** (top right). You’ll enter the **GPU Selection** page.
+
+<figure><img src="../.gitbook/assets/hasgg.com_annotated_image (1).png" alt=""><figcaption></figcaption></figure>
 
 *   **Select GPU Type**
 
     * Choose a GPU model suitable for your workload.
 
-
+    <figure><img src="../.gitbook/assets/image (6).png" alt=""><figcaption></figcaption></figure>
 *   **Configure Pod**
 
     * Fill in required parameters (fields marked with **`*`** are mandatory).
 
-    <figure><img src="../.gitbook/assets/image (160).png" alt=""><figcaption></figcaption></figure>
+    <figure><img src="../.gitbook/assets/image (7).png" alt=""><figcaption></figcaption></figure>
 
 **Image Requirements**
 
@@ -82,7 +85,7 @@ Here are a few requirements if you want to build your custom image:
 5. **Deploy**\
    Click **Deploy** to complete the process.
 
-<figure><img src="../.gitbook/assets/image (161).png" alt="" width="256"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (8).png" alt="" width="302"><figcaption></figcaption></figure>
 
 ## 💾 **System Volume**
 
@@ -108,7 +111,7 @@ To ensure that the Pod can launch and run smoothly, we recommend using the follo
 {% hint style="info" %}
 The "**For Development**" button is automatically turned on when you are creating a pod.
 
-You can find it and change the settings  beside the pod name bar.
+You can find it and change the settings beside the pod name bar.
 
 System volume is set to 100GB by default.
 {% endhint %}
@@ -119,7 +122,7 @@ System volume is set to 100GB by default.
 * **Persisting Configurations:** Saving changes made in `/etc`.
 * **Retaining Logs:** Keeping logs in `/var` for a specific period.
 
-<figure><img src="../.gitbook/assets/image (162).png" alt="" width="375"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (9).png" alt=""><figcaption></figcaption></figure>
 
 ## 🔌 Connecting to Your Pod
 
@@ -129,9 +132,7 @@ Once the Pod is launched:
 * Availability depends on the **port configuration** defined at deployment.
 * When the container port is **Ready**, the status will update automatically.
 
-<figure><img src="../.gitbook/assets/image (165).png" alt="" width="375"><figcaption></figcaption></figure>
-
-<figure><img src="../.gitbook/assets/image (163).png" alt="" width="375"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (11).png" alt="" width="443"><figcaption></figcaption></figure>
 
 ## 📜 Viewing Logs
 
@@ -141,7 +142,7 @@ Once the Pod is launched:
 
 This helps with debugging deployment or runtime issues.
 
-<figure><img src="../.gitbook/assets/image (166).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (12).png" alt="" width="563"><figcaption></figcaption></figure>
 
 ## 🧊 Pausing or Terminating Pods
 
@@ -239,4 +240,3 @@ You can also manage Pods programmatically via Yotta Labs’ **OpenAPI**.
 
 * [Pod API Reference](https://docs.yottalabs.ai/api-and-sdk/api-guides)
 * [Billing](https://docs.yottalabs.ai/products/billing)
-
