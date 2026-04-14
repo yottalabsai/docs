@@ -83,7 +83,7 @@ RUN pip install -U pip && \
 #### Important Notes
 
 ⚠️ **Do Not Modify `/start.sh`**\
-This script handles initialization for all services (SSH, Jupyter, etc.). Modifying or overriding it will cause the container to fail to start.&#x20;
+This script handles initialization for all services (SSH, Jupyter, etc.). Modifying or overriding it will cause the container to fail to start.
 
 ⚠️ **Set `JUPYTER_PASSWORD`**\
 Required for secure and successful JupyterLab initialization.
@@ -130,13 +130,9 @@ After building and pushing your custom image to your registry:
 Then append any other commands you need.
 {% endhint %}
 
-<figure><img src="../.gitbook/assets/image (95).png" alt=""><figcaption></figcaption></figure>
-
-<figure><img src="../.gitbook/assets/image (50).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (203).png" alt=""><figcaption></figcaption></figure>
 
 Your Pod will now run using your custom-built image — with full SSH and JupyterLab access.
-
-<figure><img src="../.gitbook/assets/image (96).png" alt=""><figcaption></figcaption></figure>
 
 ### Summary
 

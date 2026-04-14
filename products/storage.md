@@ -19,6 +19,7 @@ You can adjust the storage size using the slider or by entering a specific value
 * **Default Free Tier:** 256 GB.
 * **Extra** container storage is charged $0.00005/GB/hr.
 * **Scaling:** Move the slider to the right if your dataset or application requires more local disk space. Or just type in a number in the box above.
+*
 
 <figure><img src="../.gitbook/assets/image (118).png" alt="" width="330"><figcaption></figcaption></figure>
 
@@ -48,4 +49,3 @@ Check this box to enable external storage mounting for your workspace.
 2. Select your preferred storage protocol: Ceph or S3.
 3. Choose the target resource from the dropdown menu.
 4. Enter the desired internal directory in the Mount Path field.
-

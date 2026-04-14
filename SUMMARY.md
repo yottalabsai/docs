@@ -98,6 +98,7 @@
   * [Start Your Local Openclaw Bot with 1 Click](tutorials/launch-templates/start-your-local-openclaw-bot-with-1-click.md)
   * [SkyRL for LLM-as-a-Judge Training](tutorials/launch-templates/skyrl-for-llm-as-a-judge-training.md)
   * [Generating Images with Z-image Model Quickstart](tutorials/launch-templates/generating-images-with-z-image-model-quickstart.md)
+* [trainium serving tutorial](tutorials/trainium-serving-tutorial.md)
 * [Set up MCP server and Agent Skills](tutorials/set-up-mcp-server-and-agent-skills.md)
 * [NemoClaw with Local Inference](tutorials/nemoclaw-with-local-inference.md)
 * [GRPO on GSM8K with SkyRL](tutorials/grpo-on-gsm8k-with-virtual-machine.md)

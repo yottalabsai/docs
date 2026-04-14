@@ -6,11 +6,11 @@ YottaLabs provides an intuitive interface for launching virtual machines with po
 
 ***
 
-<figure><img src="../../.gitbook/assets/image (132).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (204).png" alt=""><figcaption></figcaption></figure>
 
 #### 1. Region Selector
 
-<figure><img src="../../.gitbook/assets/image (133).png" alt="" width="117"><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (205).png" alt=""><figcaption></figcaption></figure>
 
 **What it does:** Selects the geographic location where your virtual machine will be hosted.
 
@@ -23,7 +23,7 @@ YottaLabs provides an intuitive interface for launching virtual machines with po
 
 #### 2. Network Storage
 
-<figure><img src="../../.gitbook/assets/image (134).png" alt="" width="375"><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (206).png" alt="" width="371"><figcaption></figcaption></figure>
 
 **What it does:** Configures persistent network-attached storage for your virtual machine.
 
@@ -38,6 +38,8 @@ YottaLabs provides an intuitive interface for launching virtual machines with po
 ***
 
 #### 3. VRAM Slider
+
+<figure><img src="../../.gitbook/assets/image (213).png" alt="" width="435"><figcaption></figcaption></figure>
 
 **What it does:** Filters instance types based on GPU memory (VRAM) requirements.
 
@@ -80,7 +82,7 @@ RAM is the CPU's general-purpose workspace for running the OS and apps, while VR
 
 Choose different GPU providers:
 
-<figure><img src="../../.gitbook/assets/image (167).png" alt=""><figcaption></figcaption></figure>
+
 
 ***
 
@@ -112,11 +114,3 @@ Choose different GPU providers:
 * Native NVIDIA CUDA support
 
 ***
-
-#### Purchase Option
-
-<figure><img src="../../.gitbook/assets/image (138).png" alt="" width="563"><figcaption></figcaption></figure>
-
-**On-Demand** instances are like traditional cloud computing - you get exactly what you pay for, when you need it, for as long as you need it.
-
-**Spot instances** are spare capacity that cloud providers sell at a discount. The catch? They can be interrupted against your will.

@@ -33,8 +33,9 @@ Quatization aims at transforming high-precision large models (such as FLUX.1-dev
 
 * Click the deploy button on the right side of the page.
 
-<figure><img src="../.gitbook/assets/image (36).png" alt="" width="277"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (215).png" alt=""><figcaption></figcaption></figure>
 
 * Check your in-progress/history tasks here.
 
-<figure><img src="../.gitbook/assets/image (37).png" alt="" width="563"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (216).png" alt=""><figcaption></figcaption></figure>
+
