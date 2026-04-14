@@ -2,7 +2,7 @@
 icon: aws
 ---
 
-# trainium serving tutorial
+# LLM Serving on Yotta Labs with AWS Trainium
 
 > This tutorial walks you through deploying an LLM inference service on the Yotta Labs platform using an **AWS Trainium** Pod.\
 > Reference: [AWS Neuron Docs — vLLM on Neuron](https://awsdocs-neuron.readthedocs-hosted.com/en/latest/libraries/nxd-inference/vllm/index.html) (Neuron SDK 2.29.0)
