@@ -97,6 +97,7 @@
 * [Image & Video Generation](tutorials/image-and-video-generation/README.md)
   * [Generating Images with Z-Image Model Quickstart](tutorials/image-and-video-generation/generating-images-with-z-image-model-quickstart.md)
   * [Generate Product Images with Wan2.1/2.2](tutorials/image-and-video-generation/generate-product-images-with-wan2.1-2.2.md)
+  * [Image Generation with FLUX.1-dev](tutorials/image-and-video-generation/image-generation-with-flux.1-dev.md)
   * [Video Generation with ComfyUI](tutorials/image-and-video-generation/video-generation-with-comfyui.md)
   * [Video Generation with ComfyUI-nunchaku](tutorials/image-and-video-generation/video-generation-with-comfyui-nunchaku.md)
 * [AI Agents](tutorials/ai-agents/README.md)

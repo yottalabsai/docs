@@ -1,7 +1,3 @@
----
-hidden: true
----
+# Image & Video Generation
 
-# Image Generation with FLUX.1-dev
-
-We are currently working on this page to provide you with the best experience. Full content will be available shortly.
+Tutorials for generating images and videos using AI models on Yotta Labs.
