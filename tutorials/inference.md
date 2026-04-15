@@ -1,6 +1,0 @@
----
-icon: thought-bubble
----
-
-# Inference
-
