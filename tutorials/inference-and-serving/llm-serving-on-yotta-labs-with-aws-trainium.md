@@ -26,7 +26,7 @@ Select **Trainium1**:
 | vCPU  | 8          |
 | Price | $1.40 / Hr |
 
-<figure><img src="../.gitbook/assets/image (217).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (217).png" alt=""><figcaption></figcaption></figure>
 
 ## 2. AWS Trainium vs NVIDIA GPU — Key Differences
 
@@ -68,7 +68,7 @@ This image includes:
 * `vllm 0.13.0` with the `vllm-neuron` plugin pre-installed and auto-activated
 * `transformers 4.56.2`, `torch_xla 2.9.0`
 
-<figure><img src="../.gitbook/assets/image (218).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (218).png" alt=""><figcaption></figcaption></figure>
 
 ### 3.2 Ports
 

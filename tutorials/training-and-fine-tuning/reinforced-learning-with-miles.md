@@ -33,7 +33,7 @@ print(f"\n📁 Current directory: {os.getcwd()}")
 
 {% stepper %}
 {% step %}
-### &#x20;Step 1: Environment Setup
+#### Step 1: Environment Setup
 
 ```python
 # Set up our working directory
@@ -75,7 +75,7 @@ Now let's install miles and its dependencies. This might take a few minutes.
 print("\n✅ Miles installation complete!")
 ```
 
-Miles uses Megatron-LM as one of its training backends.&#x20;
+Miles uses Megatron-LM as one of its training backends.
 
 ```python
 %cd {WORK_DIR}
@@ -100,7 +100,7 @@ print(f"✅ Megatron-LM added to Python path")
 {% endstep %}
 
 {% step %}
-### Prepare Models and Datasets
+#### Prepare Models and Datasets
 
 We'll be working with:
 
@@ -108,9 +108,9 @@ We'll be working with:
 * **Training Data:** dapo-math-17k (17,000 math problems)
 * **Evaluation Data:** aime-2024 (American Invitational Mathematics Examination)
 
-These downloads can take a while depending on your connection.&#x20;
+These downloads can take a while depending on your connection.
 
-Let's organize our downloads neatly.&#x20;
+Let's organize our downloads neatly.
 
 ```python
 # Create directories for models and data
@@ -184,7 +184,7 @@ else:
 {% endstep %}
 
 {% step %}
-### Model Weight Conversion
+#### Model Weight Conversion
 
 Miles uses Megatron for training, which requires a specific weight format. We need to convert our Hugging Face model to Megatron's `torch_dist` format.
 
@@ -247,12 +247,10 @@ if not os.path.exists(CONVERTED_MODEL_PATH):
 else:
     print(f"✅ Converted model already exists at: {CONVERTED_MODEL_PATH}")
 ```
-
-
 {% endstep %}
 
 {% step %}
-### Understanding Training Parameters
+#### Understanding Training Parameters
 
 Before we start training, let's take a moment to understand what's going on under the hood. Trust me, this will make everything click.
 
@@ -318,12 +316,10 @@ validate_training_params(
     num_steps=1
 )
 ```
-
-
 {% endstep %}
 
 {% step %}
-### Prepare Your Training Script
+#### Prepare Your Training Script
 
 Alright, time to put it all together.
 
@@ -392,11 +388,11 @@ print(f"   • {TRAINING_CONFIG['n_samples_per_prompt']} samples per prompt")
 print(f"   • Total samples per rollout: {TRAINING_CONFIG['rollout_batch_size'] * TRAINING_CONFIG['n_samples_per_prompt']}")
 ```
 
-<figure><img src="../../.gitbook/assets/image (21).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (20).png" alt=""><figcaption></figcaption></figure>
 {% endstep %}
 
 {% step %}
-### Start Ray and Launch Training
+#### Start Ray and Launch Training
 
 Now for the exciting part - let's actually start training.
 
@@ -561,33 +557,33 @@ else:
 {% endstep %}
 
 {% step %}
-### Understanding What's Happening
+#### Understanding What's Happening
 
-While training runs, let me explain what's happening behind the scenes.&#x20;
+While training runs, let me explain what's happening behind the scenes.
 
-#### The GRPO Algorithm
+**The GRPO Algorithm**
 
 Miles uses GRPO (Group Relative Policy Optimization) by default. Here's what's happening in each iteration:
 
-✅**Sampling Phase**&#x20;
+✅**Sampling Phase**
 
 * Model generates multiple responses for each prompt
 * Each response gets a reward score from the reward model
 * We collect both good and bad responses
 
-✅**Advantage Calculation**&#x20;
+✅**Advantage Calculation**
 
 * Compare each response's reward within its group
 * Responses better than the group average get positive advantages
 * Poor responses get negative advantages
 
-✅**Policy Update**&#x20;
+✅**Policy Update**
 
 * Update the model to increase probability of high-advantage responses
 * Decrease probability of low-advantage responses
 * Use PPO-style clipping to prevent drastic changes
 
-✅**Evaluation**&#x20;
+✅**Evaluation**
 
 * Every few rollouts, test on the AIME dataset
 * Track progress and save checkpoints

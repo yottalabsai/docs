@@ -2,7 +2,7 @@
 
 ## Introduction
 
-&#x20;In this guide, you will gain hands-on experience generating an **AI video** inspired by the **Stranger Things** universe. We’ll guide you step-by-step through the process of creating a video using a single image of **Max** and transforming it into a dynamic video sequence. Let’s get started!
+In this guide, you will gain hands-on experience generating an **AI video** inspired by the **Stranger Things** universe. We’ll guide you step-by-step through the process of creating a video using a single image of **Max** and transforming it into a dynamic video sequence. Let’s get started!
 
 ***
 
@@ -15,7 +15,7 @@
     <figure><img src="../../.gitbook/assets/image (120).png" alt="" width="563"><figcaption></figcaption></figure>
 2. **Create a New Pod**:
    * Click on **Deploy** to create a new Pod for your task.
-   * In the list of available GPUs, select your favourite GPU.&#x20;
+   * In the list of available GPUs, select your favourite GPU.
    * Enter a **project name**.
 3.  **Choose Template**:
 
@@ -41,7 +41,7 @@
 
     * In the Comfy UI interface, you’ll see several mainstream models. Since we want to generate a video from a single image, choose the **ByteDance Image-to-Video model**. This model is specifically designed for creating dynamic videos from still images, like the one you’ll be using for **Max**.
 
-    <figure><img src="../../.gitbook/assets/image (123).png" alt="" width="563"><figcaption></figcaption></figure>
+    <figure><img src="../../.gitbook/assets/image (122).png" alt="" width="563"><figcaption></figcaption></figure>
 
 ***
 

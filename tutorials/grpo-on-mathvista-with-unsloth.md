@@ -1,7 +1,3 @@
----
-icon: brain-circuit
----
-
 # GRPO on MathVista with Unsloth
 
 > :sloth:This tutorial is created based on [Unsloth official notebooks](https://unsloth.ai/docs/get-started/unsloth-notebooks).&#x20;

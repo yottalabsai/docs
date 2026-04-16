@@ -8,7 +8,7 @@ Only tasks in the **Running** state can be accessed.
 
 <figure><img src="../../.gitbook/assets/image (178).png" alt="" width="563"><figcaption></figcaption></figure>
 
-<figure><img src="../../.gitbook/assets/image (182).png" alt="" width="563"><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (181).png" alt="" width="563"><figcaption></figcaption></figure>
 
 Example: Access via `curl`
 
@@ -44,4 +44,3 @@ curl --location 'https://2wmczkcst63e.yottadeos.com/v1/chat/completions' \
 {% hint style="info" %}
 The base URL is unique to your task (e.g. `https://2t5y1srid9mo.yottadeos.com`). Replace the `localhost` in the URL of your local deployment to get the full URL (e.g. in the above example, it would be `https://2t5y1srid9mo.yottadeos.com/v1/chat/completions`) of your service managed by the serverless task.
 {% endhint %}
-

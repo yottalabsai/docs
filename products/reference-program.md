@@ -28,16 +28,16 @@ When someone clicks your referral link and creates a new Yotta Labs account, the
 
 3. **Activation Requirements:**
 
-&#x20;For the referral to be successful and rewards to be granted, your referred user must meet such thresholds :
+For the referral to be successful and rewards to be granted, your referred user must meet such thresholds :
 
 * **Top up a total of $5 credits ($2 welcome credit for new users not included)**
-* **Consume $2  on compute jobs within 4 weeks of signup**
+* **Consume $2 on compute jobs within 4 weeks of signup**
 
-4. **Earn Referral Bonus**:&#x20;
+4. **Earn Referral Bonus**:
 
 Once your referred user meets the activation requirements, $5 in Referral Bonus is automatically added to your referral bonus in your organization.
 
-5. **Claim Your Credits**:&#x20;
+5. **Claim Your Credits**:
 
 Click the "Claim" button to convert your Available Bonus into usable compute credits. Once claimed, the amount moves to **Claimed Credits** and adds up to your organization's **Balance** on **Billing** pag&#x65;**.**
 
@@ -47,7 +47,7 @@ Click the "Claim" button to convert your Available Bonus into usable compute cre
 Remember, **Available Bonus + Claimed Credits = Total Referral Bonus**.
 {% endhint %}
 
-6. **See your claim history**&#x20;
+6. **See your claim history**
 
 You can check your the date, amount and currency of your past claiming at the **Claim History** part.
 
@@ -70,9 +70,7 @@ Users are strictly prohibited from engaging in fraudulent or abusive behavior to
 1. Self-referrals using accounts under the same control or clearly associated with each other
 2. Any top-up activities that obviously lack genuine business purposes
 
-
-
-> ### _Platform Rights & Legal Disclaimer_
+> #### _Platform Rights & Legal Disclaimer_
 >
 > _Yotta Labs reserves the right to protect the integrity of the referral program through appropriate enforcement measures. We may delay credit distribution pending verification, revoke credits that were issued based on fraudulent or non-compliant activities, and suspend or terminate accounts of organizations found to be in violation of program rules. These measures ensure fairness for all legitimate users of the platform._
 >

@@ -1,6 +1,6 @@
 # Fine-tuning Orpheus\_(3B)-TTS with Unsloth
 
-> :sloth:This tutorial is created based on [Unsloth official notebooks](https://unsloth.ai/docs/get-started/unsloth-notebooks).&#x20;
+> :sloth:This tutorial is created based on [Unsloth official notebooks](https://unsloth.ai/docs/get-started/unsloth-notebooks).
 
 Welcome to the Orpheus text-to-speech model fine-tuning tutorial. I'll walk you through the entire process step by step, from zero to having your own custom-trained TTS model up and running.
 
@@ -14,7 +14,7 @@ First things first - this tutorial is designed to run on pods with our official 
 
 {% stepper %}
 {% step %}
-### Step 1: Installing Dependencies
+#### Step 1: Installing Dependencies
 
 This part's a bit boring but crucial. We need to install a bunch of libraries. Run this in your `/workspace/notebook.ipynb`:
 
@@ -37,7 +37,7 @@ After installation, restart your kernel (Kernel → Restart Kernel in Jupyter).
 {% endstep %}
 
 {% step %}
-### Loading the Model
+#### Loading the Model
 
 We're using the Unsloth framework, which is awesome because it's fast and memory-efficient. The base model is `orpheus-3b-0.1-ft`, which has about 3 billion parameters:
 
@@ -55,11 +55,11 @@ model, tokenizer = FastLanguageModel.from_pretrained(
 
 You'll see something like this :arrow\_down: This indicates that unsloth has successfully started and loaded the model's safetensors.
 
-<figure><img src="../../.gitbook/assets/image (23).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (22).png" alt=""><figcaption></figcaption></figure>
 {% endstep %}
 
 {% step %}
-### Setting Up LoRA
+#### Setting Up LoRA
 
 LoRA is a lifesaver - it lets us train only a small portion (1-10%) of the model's parameters, drastically reducing training costs:
 
@@ -89,11 +89,11 @@ You'll see this after running the cell above:
 {% endstep %}
 
 {% step %}
-### Preparing Your Data (Important!)
+#### Preparing Your Data (Important!)
 
 This is the most complex part of the whole pipeline, and where things most often go wrong. We need to convert audio into tokens the model can understand.
 
-#### :checkered\_flag:Data Format Requirements
+:checkered\_flag:**Data Format Requirements**
 
 * **Single speaker**: You need `text` and `audio` fields
 * **Multi-speaker**: You need `source` (speaker name), `text`, and `audio` fields
@@ -109,7 +109,7 @@ dataset = load_dataset("MrDragonFox/Elise", split="train")
 # dataset = load_dataset("json", data_files="your_data.json", split="train")
 ```
 
-#### :checkered\_flag:Audio Encoding (SNAC)
+:checkered\_flag:**Audio Encoding (SNAC)**
 
 We now use the SNAC model to convert audio waveforms into discrete tokens. Don't let the code volume intimidate you - the concept is simple:
 
@@ -179,7 +179,7 @@ dataset = dataset.filter(lambda x: x["codes_list"] is not None)
 dataset = dataset.filter(lambda x: len(x["codes_list"]) > 0)
 ```
 
-#### :checkered\_flag:Removing Duplicate Frames
+:checkered\_flag:**Removing Duplicate Frames**
 
 This is a small optimization - removing consecutive duplicate audio frames speeds up training:
 
@@ -201,7 +201,7 @@ def remove_duplicate_frames(example):
 dataset = dataset.map(remove_duplicate_frames)
 ```
 
-#### :checkered\_flag:Building Input Sequences
+:checkered\_flag:**Building Input Sequences**
 
 Final step - combine text and audio tokens into the format the model expects:
 
@@ -251,7 +251,7 @@ If you're training a multi-speaker model (like the original orpheus), remember t
 {% endstep %}
 
 {% step %}
-### Training Time
+#### Training Time
 
 Configure your training parameters:
 
@@ -314,7 +314,7 @@ print(f"Peak memory usage: {used_memory} GB")
 {% endstep %}
 
 {% step %}
-### Testing Your Model
+#### Testing Your Model
 
 Time to hear how it sounds!
 
@@ -479,7 +479,7 @@ How does it sound :hugging: ?If it's not great, you might need to:
 {% endstep %}
 {% endstepper %}
 
-### :grey\_question:FAQ&#x20;
+### :grey\_question:FAQ
 
 #### Q: Running out of memory?
 

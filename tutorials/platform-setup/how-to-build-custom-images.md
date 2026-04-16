@@ -23,7 +23,7 @@ graph TD
 
 {% stepper %}
 {% step %}
-### Prepare a Working Directory
+#### Prepare a Working Directory
 
 ```bash
 # Navigate to a proper directory
@@ -34,7 +34,7 @@ cd tutorial
 {% endstep %}
 
 {% step %}
-### Create Dockerfile
+#### Create Dockerfile
 
 ```bash
 # Create Dockerfile and edit it.
@@ -75,7 +75,7 @@ Make sure to replace the base image with the one appropriate for your project (f
 {% endstep %}
 
 {% step %}
-### Build Docker Image
+#### Build Docker Image
 
 ```bash
 # Build the custom image
@@ -96,7 +96,7 @@ custom       latest    a57d0d735be4   5 minutes ago  15.2GB
 {% endstep %}
 
 {% step %}
-### Test Local Run
+#### Test Local Run
 
 ```bash
 # Run with GPU support
@@ -123,7 +123,7 @@ Key log indicators to look for:
 {% endstep %}
 
 {% step %}
-### Push to Docker Hub
+#### Push to Docker Hub
 
 ```bash
 # Login to Docker Hub (if not logged in)
@@ -138,7 +138,7 @@ docker push <user-name>/vllm-yotta:latest
 {% endstep %}
 
 {% step %}
-### Create Private Template&#x20;
+#### Create Private Template
 
 Visit Compute -> Launch Templates -> Private -> Create
 
@@ -158,7 +158,7 @@ Hit Save. You will see a template card — click Deploy to create a pod.
 {% endstep %}
 
 {% step %}
-### Verification & Testing
+#### Verification & Testing
 
 Replace SERVER\_IP with your Yotta Labs server IP.
 

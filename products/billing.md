@@ -52,7 +52,7 @@ We support a variety of payment options for global accessibility:
 
 **It's disabled by default.** To enable it, turn on the feature switch and adjust the threshold. Hit "save" to save your preferences.
 
-<figure><img src="../.gitbook/assets/image (111).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (110).png" alt=""><figcaption></figcaption></figure>
 
 ## Billing History
 

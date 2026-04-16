@@ -6,9 +6,9 @@ icon: crab
 
 **Hardware:** NVIDIA RTX 6000 Ada (48 GB VRAM)
 
-&#x20;**Model:** Qwen3.5-35B-A3B (MoE, Q6\_K quantization, \~138 tok/s)&#x20;
+**Model:** Qwen3.5-35B-A3B (MoE, Q6\_K quantization, \~138 tok/s)
 
-**Stack:** llama.cpp → OpenShell inference routing → OpenClaw agent&#x20;
+**Stack:** llama.cpp → OpenShell inference routing → OpenClaw agent
 
 **Tested:** March23 2026, NemoClaw 2026.3.11, OpenShell 0.0.13
 
@@ -77,7 +77,7 @@ nemoclaw onboard
 
 At step 4, just choose a random model here as we'll use a local model by configuring manually.
 
-<figure><img src="../.gitbook/assets/image-20260323191341781.png" alt="" width="563"><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image-20260323191341781.png" alt="" width="563"><figcaption></figcaption></figure>
 
 Accept the suggested presets (pypi, npm) when prompted. When onboarding finishes:
 
@@ -314,7 +314,7 @@ openshell sandbox connect my-assistant
 Test the inference endpoint directly.
 
 {% hint style="info" %}
-&#x20;Do not use `--noproxy` — the proxy needs to intercept this request.
+Do not use `--noproxy` — the proxy needs to intercept this request.
 {% endhint %}
 
 ```bash
@@ -477,4 +477,3 @@ openclaw agent --agent main --local -m "your prompt here" --session-id test
 # ── Sandbox: exit ─────────────────────────────────────────────────
 exit
 ```
-

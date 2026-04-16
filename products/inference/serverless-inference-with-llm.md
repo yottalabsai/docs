@@ -45,7 +45,7 @@ This tutorial uses **QUEUE mode**, which is the standard mode for the Serverless
 
 {% stepper %}
 {% step %}
-### Create a Serverless Endpoint
+#### Create a Serverless Endpoint
 
 Send a `POST` request to `/v2/serverless` to create your endpoint. This provisions a worker container running `vllm/vllm-openai:latest` and starts the vLLM server.
 
@@ -109,7 +109,7 @@ Save the `id` field — you will need it for all subsequent requests.
 {% endstep %}
 
 {% step %}
-### Wait for the Endpoint to Be Ready
+#### Wait for the Endpoint to Be Ready
 
 The worker needs time to pull the Docker image and download model weights from Hugging Face. Poll the endpoint status until it shows `RUNNING`.
 
@@ -131,7 +131,7 @@ INFO: Application startup complete.
 {% endstep %}
 
 {% step %}
-### Call the Inference Endpoint
+#### Call the Inference Endpoint
 
 Once the endpoint is `RUNNING`, you will find its domain in the endpoint details (e.g. `39q67x443xvy.yottadeos.com`). Call it directly using your YottaLabs API key as a Bearer token:
 
@@ -183,7 +183,7 @@ The response is a standard OpenAI chat completion object, fully compatible with 
 {% endstep %}
 
 {% step %}
-### Using the OpenAI Python SDK
+#### Using the OpenAI Python SDK
 
 Call your endpoint with the OpenAI SDK by overriding `base_url` and passing your API key:
 

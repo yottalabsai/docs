@@ -14,13 +14,13 @@ This guide will illustrate how to deploy and use the OpenClaw-vLLM Docker image,
 
 ### :checkered\_flag:Requirements
 
-* Recommended(default) setting of GPUs:  4 \* RTX 5090&#x20;
+* Recommended(default) setting of GPUs: 4 \* RTX 5090
 * Make sure you have at least 80GB of VRAM
 
 {% hint style="info" %}
 If you use more/less GPUs, please alter here
 
-![](<../../.gitbook/assets/image (169).png>)
+<img src="../../.gitbook/assets/image (168).png" alt="" data-size="original">
 {% endhint %}
 
 * Docker or compatible container runtime
@@ -28,7 +28,7 @@ If you use more/less GPUs, please alter here
 
 {% stepper %}
 {% step %}
-### Deploy the container
+#### Deploy the container
 
 Launch the image on your GPU instance. The container automatically:
 
@@ -37,12 +37,12 @@ Launch the image on your GPU instance. The container automatically:
 3. Launches OpenClaw Gateway on port 18789
 
 {% hint style="info" %}
-Startup should take a while as vLLM loads the model into GPU memory. Go grab a coffee :coffee: ! &#x20;
+Startup should take a while as vLLM loads the model into GPU memory. Go grab a coffee :coffee: !
 {% endhint %}
 {% endstep %}
 
 {% step %}
-#### SSH Tunnel Configuration
+**SSH Tunnel Configuration**
 
 OpenClaw Gateway is configured in `mode: "local"`, listening on `localhost`.
 
@@ -72,7 +72,7 @@ ssh -L 8001:localhost:8001 -L 18789:localhost:18789 \
 {% endstep %}
 
 {% step %}
-### Access Services
+#### Access Services
 
 Visit URL: http://localhost:18789
 
@@ -94,4 +94,3 @@ Check the logs:
 ```bash
 tail -f /workspace/vllm.log
 ```
-

@@ -2,7 +2,7 @@
 icon: bolt
 ---
 
-# Set up MCP server and Agent Skills
+# AI Agents
 
 > **Objective:** Create a GPU Pod on YottaLabs using RTX 5090, PyTorch, and JupyterLab through natural language with Cursor's MCP integration.
 
@@ -18,7 +18,7 @@ Follow these 5 steps to create and access your GPU Pod:
 
 Before you begin, ensure you have the following:
 
-&#x20;**1.Node.js >= 18**
+**1.Node.js >= 18**
 
 * **Check your version:** Run `node --version` in terminal
 * **Not installed?** Download from [nodejs.org](https://nodejs.org/)
@@ -29,7 +29,7 @@ Before you begin, ensure you have the following:
 * Go to **Settings** → **Access Keys**
 * Copy our apu keys securely
 
-<figure><img src="../.gitbook/assets/image (170).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (170).png" alt=""><figcaption></figcaption></figure>
 
 **3.Cursor IDE**
 
@@ -39,7 +39,7 @@ Before you begin, ensure you have the following:
 
 <details>
 
-<summary>Step 2: Configure MCP Server </summary>
+<summary>Step 2: Configure MCP Server</summary>
 
 Configure the Yotta MCP server in Cursor to enable natural language GPU management.
 
@@ -87,7 +87,7 @@ After saving the configuration:
 
 <details>
 
-<summary>Step 3: Create Your GPU Pod </summary>
+<summary>Step 3: Create Your GPU Pod</summary>
 
 Now you can create a GPU Pod using natural language through Cursor Composer.
 
@@ -105,7 +105,7 @@ PyTorch image, enable JupyterLab, and set password to yotta2025
 
 3. **Let AI handle it** - The AI will call the `pod_create` tool with appropriate parameters
 
-**Key Parameters Reference ( just an example )**&#x20;
+**Key Parameters Reference ( just an example )**
 
 <table><thead><tr><th width="155.24237060546875">Parameter</th><th width="112.6060791015625">Description</th><th>Example Value</th></tr></thead><tbody><tr><td><code>name</code></td><td>Pod name</td><td><code>pytorch-rtx5090-jupyter</code></td></tr><tr><td><code>image</code></td><td>Docker image</td><td><code>yottalabsai/pytorch:2.8.0-py3.11-cuda12.8.1-cudnn-devel-ubuntu22.04-2025081902</code></td></tr><tr><td><code>gpuType</code></td><td>GPU type</td><td><code>NVIDIA_RTX_5090_32G</code></td></tr><tr><td><code>gpuCount</code></td><td>Number of GPUs</td><td><code>1</code></td></tr><tr><td><code>environmentVars</code></td><td>Environment variables</td><td><code>JUPYTER_PASSWORD</code> (required)</td></tr><tr><td><code>expose</code></td><td>Ports to expose</td><td><code>22</code> (SSH), <code>8888</code> (JupyterLab)</td></tr><tr><td><code>regions</code></td><td>Preferred regions</td><td><code>["us-east-1", "us-east-2"]</code></td></tr></tbody></table>
 
@@ -113,7 +113,7 @@ PyTorch image, enable JupyterLab, and set password to yotta2025
 
 <details>
 
-<summary>Step 4: Wait for Pod Creation </summary>
+<summary>Step 4: Wait for Pod Creation</summary>
 
 After submitting your request, you'll receive a response confirming the pod creation.
 
@@ -139,7 +139,7 @@ After submitting your request, you'll receive a response confirming the pod crea
 }
 ```
 
-&#x20;**Status Progression**
+**Status Progression**
 
 Your pod will go through these states:
 
@@ -154,7 +154,7 @@ Your pod will go through these states:
 
 Once the pod status changes to **RUNNING**, you can access it.
 
-&#x20;**Via Yotta Console**
+**Via Yotta Console**
 
 1. Open [Yotta Console](https://console.yottalabs.ai)
 2. Navigate to **Compute** → **Pods**
@@ -171,7 +171,7 @@ Once the pod status changes to **RUNNING**, you can access it.
 
 Once your pod is running, you can manage it using **natural language** commands in Cursor Composer:
 
-#### &#x20;List All Pods
+#### List All Pods
 
 ```
 List all my Yotta pods
@@ -193,7 +193,7 @@ Pause pod pytorch-rtx5090-jupyter
 **Tip:** Pause pods when not in use to save costs!
 {% endhint %}
 
-#### &#x20;Delete Pod
+#### Delete Pod
 
 ```
 Delete pod pytorch-rtx5090-jupyter
@@ -202,4 +202,3 @@ Delete pod pytorch-rtx5090-jupyter
 {% hint style="info" %}
 **Warning:** This action is irreversible!
 {% endhint %}
-

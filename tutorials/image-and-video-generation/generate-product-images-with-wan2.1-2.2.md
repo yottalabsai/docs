@@ -10,11 +10,11 @@
 * Foundational capabilities for static-to-animated content
 * Suitable for basic video generation tasks
 
-Enter **Wan 2.2 Animate** — and this is where things get really exciting. With a **14 billion parameters** under the hood, this model is significantly more powerful and nuanced than its predecessor.&#x20;
+Enter **Wan 2.2 Animate** — and this is where things get really exciting. With a **14 billion parameters** under the hood, this model is significantly more powerful and nuanced than its predecessor.
 
 **What makes it special?**
 
-&#x20;It offers dual noise modes that give you creative control: high noise when you want imaginative, artistic variations, and low noise when you need faithful, precise reproduction of your source material.&#x20;
+It offers dual noise modes that give you creative control: high noise when you want imaginative, artistic variations, and low noise when you need faithful, precise reproduction of your source material.
 
 The model has been optimized with FP8 precision, keeping it efficient at around 28GB while maintaining exceptional quality. And if you're in a hurry, the LightX2V LoRA acceleration can deliver results in just 4 steps — that's roughly 10 times faster than traditional approaches.
 
@@ -24,7 +24,7 @@ The model has been optimized with FP8 precision, keeping it efficient at around 
 
 {% stepper %}
 {% step %}
-### Select Template
+#### Select Template
 
 Choose the **"Swap Product in Character's Hand"** template from the available options.
 
@@ -34,7 +34,7 @@ This template is pre-configured with optimized prompts for product replacement t
 {% endstep %}
 
 {% step %}
-### &#x20;Upload Images
+#### Upload Images
 
 Click **"Choose file to upload"** and add two images:
 
@@ -42,7 +42,7 @@ Click **"Choose file to upload"** and add two images:
 
 **First image**: Model/scene photo showing a person holding an object
 
-<figure><img src="../../.gitbook/assets/image (10) (1).png" alt="" width="165"><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (9) (1).png" alt="" width="165"><figcaption></figcaption></figure>
 
 **Second image**: Product photo you want to swap in
 
@@ -58,7 +58,7 @@ Match angles between images for natural results
 {% endstep %}
 
 {% step %}
-### Configure Node Settings
+#### Configure Node Settings
 
 Review the node configuration on the right side:
 
@@ -95,7 +95,7 @@ any text, formatting, or conversational requests.
 {% endstep %}
 
 {% step %}
-### Run and Generate
+#### Run and Generate
 
 Click the **"Run"** button and wait 10-30 seconds for processing.
 

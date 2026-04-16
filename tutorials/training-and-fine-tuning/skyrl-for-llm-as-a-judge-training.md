@@ -1,13 +1,13 @@
 # SkyRL for LLM-as-a-Judge Training
 
-### What is  LLM-as-a-Judge About?
+### What is LLM-as-a-Judge About?
 
 Imagine teaching a student mathematics. The traditional approach is to show them correct answers and have them memorize it. But a smarter method is: let them solve problems on their own, then have a "judge teacher" evaluate whether their answers are good or not. Reward good work and correct mistakes. **That's exactly what we're doing here!**
 
 We're using the SkyRL framework to train a small language model `Qwen2.5-1.5B` to solve math problems (GSM8K dataset). `GPT-4o-mini` acts as the "judge teacher," evaluating the quality of the model's answers.
 
 {% hint style="info" %}
-_**The GSM8K (Grade School Math 8K) dataset** is a collection of 8.5K high-quality, linguistically diverse grade school math word problems. This dataset was created to support the task of question answering on basic mathematical problems that require multi-step reasoning._&#x20;
+_**The GSM8K (Grade School Math 8K) dataset** is a collection of 8.5K high-quality, linguistically diverse grade school math word problems. This dataset was created to support the task of question answering on basic mathematical problems that require multi-step reasoning._
 
 _It looks like:_
 
@@ -25,7 +25,7 @@ _It looks like:_
 
 {% stepper %}
 {% step %}
-### Environment Check&#x20;
+#### Environment Check
 
 ```python
 # Start a pod and connect to 8888 jupyterlab port.Start a new notebook.
@@ -50,7 +50,7 @@ Checks if the `SkyRL` folder exists in the current directory
 {% endstep %}
 
 {% step %}
-### &#x20;Locate Key Files
+#### Locate Key Files
 
 ```python
 # Navigate to SkyRL's training code directory
@@ -84,7 +84,7 @@ for file in files_to_check:
 {% endstep %}
 
 {% step %}
-### Prepare Training Data&#x20;
+#### Prepare Training Data
 
 ```python
 # Organize raw math problem data into a format the model can "digest"
@@ -114,7 +114,7 @@ print("\nVerifying dataset:")
 {% endstep %}
 
 {% step %}
-### Install System Dependencies&#x20;
+#### Install System Dependencies
 
 ```bash
 # Install libnuma-dev
@@ -127,7 +127,7 @@ NUMA (Non-Uniform Memory Access) library optimizes memory access performance
 {% endstep %}
 
 {% step %}
-### Configure API Keys&#x20;
+#### Configure API Keys
 
 ```python
 # Create .env.llm_judge configuration file
@@ -154,7 +154,7 @@ print("\nFile content:")
 {% endstep %}
 
 {% step %}
-### Start Training!&#x20;
+#### Start Training!
 
 Here comes the coolest part.
 
@@ -211,7 +211,7 @@ uv run --isolated --extra vllm --env-file .env.llm_judge -m examples.llm_as_a_ju
 
 ***
 
-### &#x20;How Does the Training Process Work?
+### How Does the Training Process Work?
 
 #### 1️⃣ **Generation Phase**
 
@@ -237,7 +237,7 @@ Based on the judge's scores, the student model adjusts its "problem-solving stra
 Repeat for 20 rounds (20 epochs), the student model gradually learns problem-solving skills
 
 {% hint style="info" %}
-Need more information? Check these:&#x20;
+Need more information? Check these:
 
 * [SkyRL GitHub Repository](https://github.com/skyworkai/skyrl)
 * [GSM8K Dataset Paper](https://arxiv.org/abs/2110.14168)

@@ -29,7 +29,7 @@ You can adjust the storage size using the slider or by entering a specific value
 
 Check this box to enable external storage mounting for your workspace.
 
-<figure><img src="../.gitbook/assets/image (117).png" alt="" width="344"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (116).png" alt="" width="344"><figcaption></figcaption></figure>
 
 * **Storage Type:**
   * Ceph: Best for high-performance block/file storage and standard file system operations.

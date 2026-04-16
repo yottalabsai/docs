@@ -1,7 +1,3 @@
----
-icon: whale
----
-
 # Fine-tune a Reasoning Model to Think in Target Language with Unsloth
 
 > 🦥 This tutorial is created based on [Unsloth official notebooks](https://unsloth.ai/docs/get-started/unsloth-notebooks).

@@ -16,7 +16,7 @@
 **You should put your service port in the HTTP Port field. The worker will be in Running status only when the port is ready.**
 {% endhint %}
 
-<figure><img src="../../.gitbook/assets/image (193).png" alt="" width="375"><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (192).png" alt="" width="375"><figcaption></figcaption></figure>
 
 {% hint style="success" %}
 **Recommendation:** choose GPUs from multiple regions to maximize redundancy and disaster recovery
@@ -33,7 +33,7 @@
 ### Queue Mode
 
 {% hint style="warning" %}
-You should put the port used for your service health check  in the HTTP Port field. The worker will be in Running status only when the port is ready.
+You should put the port used for your service health check in the HTTP Port field. The worker will be in Running status only when the port is ready.
 {% endhint %}
 
 <figure><img src="../../.gitbook/assets/image (197).png" alt="" width="375"><figcaption></figcaption></figure>

@@ -9,7 +9,7 @@ Only deployments in the **Stopped** state can be edited.
     * Click the **⋮ (Menu)** on the top-right corner of the card.
     * Select **View Config** to open the configuration modal.
 
-    <figure><img src="../../.gitbook/assets/image (184).png" alt=""><figcaption></figcaption></figure>
+    <figure><img src="../../.gitbook/assets/image (183).png" alt=""><figcaption></figcaption></figure>
 * Scroll to the bottom of the page and you will see the **Edit** button
 
 <figure><img src="../../.gitbook/assets/image (186).png" alt="" width="375"><figcaption></figcaption></figure>

@@ -20,11 +20,7 @@ When entering the **Pods** page:
     * `Running` – The Pod is running normally.
     * `Terminating` – The Pod is being terminated; resources are being reclaimed.
 
-
-
     <figure><img src="../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
-
-
 *   There are buttons you can use at the bottom:
 
     * :link: `Connect` You can connect your machine to specific ports, such as 8888 for Jupyter Notebook. We currently support both **SSH** and **HTTP** ports.
@@ -66,7 +62,7 @@ When entering the **Pods** page:
 
     * Choose a GPU model suitable for your workload.
 
-    <figure><img src="../.gitbook/assets/image (6).png" alt=""><figcaption></figcaption></figure>
+    <figure><img src="../.gitbook/assets/image (5).png" alt=""><figcaption></figcaption></figure>
 *   **Configure Pod**
 
     * Fill in required parameters (fields marked with **`*`** are mandatory).
@@ -132,7 +128,7 @@ Once the Pod is launched:
 * Availability depends on the **port configuration** defined at deployment.
 * When the container port is **Ready**, the status will update automatically.
 
-<figure><img src="../.gitbook/assets/image (11).png" alt="" width="443"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (10).png" alt="" width="443"><figcaption></figcaption></figure>
 
 ## 📜 Viewing Logs
 

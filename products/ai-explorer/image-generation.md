@@ -23,7 +23,7 @@ icon: file-image
 3. **Flexible Usage**: Whether you're creating digital art, designing concepts, or generating images for various applications, **Yotta Labs AI Explorer - Image Generation** provides the flexibility to create high-quality visuals that perfectly match your vision. You can adjust key parameters like model selection and guidance scale to fine-tune your results.
 4. **User-Friendly Interface**: The intuitive interface allows you to easily input text descriptions and tweak settings to generate the images you need. It's designed to be accessible for both beginners and advanced users, making it a versatile tool for various creative projects
 
-<figure><img src="../../.gitbook/assets/image (60).png" alt=""><figcaption><p>AI Explorer / Image</p></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (59).png" alt=""><figcaption><p>AI Explorer / Image</p></figcaption></figure>
 
 <figure><img src="../../.gitbook/assets/image (61).png" alt=""><figcaption><p>choose a AI image model</p></figcaption></figure>
 

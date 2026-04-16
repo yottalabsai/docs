@@ -85,9 +85,9 @@
   * [Get Started in LLM Training with Pytorch 2.8.0](tutorials/training-and-fine-tuning/get-started-in-llm-training-with-pytorch-2.8.0.md)
   * [Accelerating PyTorch Training with TorchDynamo and JIT](tutorials/training-and-fine-tuning/accelerating-pytorch-training-with-torchdynamo-and-jit.md)
   * [Fine-tuning Orpheus\_(3B)-TTS with Unsloth](tutorials/training-and-fine-tuning/fine-tuning-orpheus_-3b-tts-with-unsloth.md)
-  * [GRPO on GSM8K with SkyRL](tutorials/training-and-fine-tuning/grpo-on-gsm8k-with-virtual-machine.md)
-  * [GRPO on MathVista with Unsloth](tutorials/training-and-fine-tuning/grpo-on-mathvista-with-unsloth.md)
-  * [Fine-tune a Reasoning Model to Think in Target Language with Unsloth](tutorials/training-and-fine-tuning/fine-tune-a-reasoning-model-to-think-in-target-language-with-unsloth.md)
+  * [GRPO on GSM8K with SkyRL](tutorials/grpo-on-gsm8k-with-virtual-machine.md)
+  * [GRPO on MathVista with Unsloth](tutorials/grpo-on-mathvista-with-unsloth.md)
+  * [Fine-tune a Reasoning Model to Think in Target Language with Unsloth](tutorials/fine-tune-a-reasoning-model-to-think-in-target-language-with-unsloth.md)
   * [SkyRL for LLM-as-a-Judge Training](tutorials/training-and-fine-tuning/skyrl-for-llm-as-a-judge-training.md)
   * [Reinforced Learning with Miles](tutorials/training-and-fine-tuning/reinforced-learning-with-miles.md)
 * [Inference & Serving](tutorials/inference-and-serving/README.md)
@@ -104,6 +104,9 @@
   * [NemoClaw with Local Inference](tutorials/ai-agents/nemoclaw-with-local-inference.md)
   * [Buiding Your Own Chatbot in Feishu with Openclaw-lite](tutorials/ai-agents/buiding-your-own-chatbot-in-feishu-with-openclaw-lite.md)
   * [Start Your Local Openclaw Bot with 1 Click](tutorials/ai-agents/start-your-local-openclaw-bot-with-1-click.md)
+* [Skypilot](tutorials/skypilot/README.md)
+  * [Getting started with YottaLabs on SkyPilot](tutorials/skypilot/getting-started-with-yottalabs-on-skypilot.md)
+  * [Training a simple MNIST model on YottaLabs with SkyPilot](tutorials/skypilot/training-a-simple-mnist-model-on-yottalabs-with-skypilot.md)
 
 ## Technology
 

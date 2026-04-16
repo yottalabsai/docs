@@ -1,8 +1,4 @@
----
-icon: rainbow
----
-
-# GRPO on GSM8K with Virtual Machine
+# GRPO on GSM8K with SkyRL
 
 This guide shows how to run a **working SkyRL training job on YottaLabs** virtual machine using:
 

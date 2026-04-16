@@ -6,7 +6,7 @@ icon: location-arrow
 
 ### **Introduction**
 
-This comprehensive guide explains how to use YottaLabs’ **Serverless** feature to quickly and reliably deploy **Qwen3-0.6B** model as containerized services  in a production environment.
+This comprehensive guide explains how to use YottaLabs’ **Serverless** feature to quickly and reliably deploy **Qwen3-0.6B** model as containerized services in a production environment.
 
 ***
 
@@ -18,7 +18,7 @@ Yotta Labs is a one-stop platform for AI application development. This Serverles
 * **Self-healing (Fault tolerance)**
 * **Multi-GPU scheduling**
 
-Unlike traditional static deployments, Serverless abstracts computing units (**Workers**) into stateless service instances that can be dynamically scaled.&#x20;
+Unlike traditional static deployments, Serverless abstracts computing units (**Workers**) into stateless service instances that can be dynamically scaled.
 
 ***
 
@@ -71,7 +71,7 @@ You can specify the **GPU Type** (e.g. RTX 4090), **GPU Count** per worker (1–
 
 Once the status changes to **Running**, YottaLabs generates a unique HTTPS URL. Copy the url provided in the box above.
 
-<figure><img src="../../.gitbook/assets/image (33).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (32).png" alt=""><figcaption></figcaption></figure>
 
 Use a `curl` command to test the service, for example:
 
@@ -92,5 +92,4 @@ curl -X POST "https://32tkdcwyscmx.yottadeos.com/v1/chat/completions" \
 
 A successful response confirms that the VLLM inference engine, Tokenizer, and CUDA acceleration path are all functioning correctly.
 
-<figure><img src="../../.gitbook/assets/image (35).png" alt=""><figcaption></figcaption></figure>
-
+<figure><img src="../../.gitbook/assets/image (34).png" alt=""><figcaption></figcaption></figure>
