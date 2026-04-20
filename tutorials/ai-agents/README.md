@@ -1,5 +1,5 @@
 ---
-icon: bolt
+icon: user-hat-tie
 ---
 
 # AI Agents

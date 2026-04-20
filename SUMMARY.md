@@ -104,7 +104,7 @@
   * [NemoClaw with Local Inference](tutorials/ai-agents/nemoclaw-with-local-inference.md)
   * [Buiding Your Own Chatbot in Feishu with Openclaw-lite](tutorials/ai-agents/buiding-your-own-chatbot-in-feishu-with-openclaw-lite.md)
   * [Start Your Local Openclaw Bot with 1 Click](tutorials/ai-agents/start-your-local-openclaw-bot-with-1-click.md)
-* [Skypilot](tutorials/skypilot/README.md)
+* [SkyPilot](tutorials/skypilot/README.md)
   * [Getting started with YottaLabs on SkyPilot](tutorials/skypilot/getting-started-with-yottalabs-on-skypilot.md)
   * [Training a simple MNIST model on YottaLabs with SkyPilot](tutorials/skypilot/training-a-simple-mnist-model-on-yottalabs-with-skypilot.md)
 

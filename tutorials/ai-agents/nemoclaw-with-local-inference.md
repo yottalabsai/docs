@@ -1,7 +1,3 @@
----
-icon: crab
----
-
 # NemoClaw with Local Inference
 
 **Hardware:** NVIDIA RTX 6000 Ada (48 GB VRAM)
