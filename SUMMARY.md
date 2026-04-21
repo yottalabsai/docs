@@ -52,7 +52,7 @@
   * [Pricing](products/inference/pricing.md)
 * [Fine-Tune](products/fine-tune.md)
 * [Agent](products/agent.md)
-* [Reference Program](products/reference-program.md)
+* [Referrals](products/reference-program.md)
 * [Billing](products/billing.md)
 
 ## API & SDK

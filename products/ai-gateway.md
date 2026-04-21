@@ -10,11 +10,11 @@ icon: door-closed
 
 AI Gateway on Yottalabs is a unified API aggregator that brings together models from Google DeepMind, ByteDance, Z.AI, and more under one roof.
 
-<figure><img src="../.gitbook/assets/image (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 The category tabs at the top of the model list let you quickly filter models by type — choose from `All`, `LLM`, `Text-To-Image`, `Text-To-Video`, `Image-To-Video`, or browse by `Publishers` using the dropdown.
 
-<figure><img src="../.gitbook/assets/image (1) (1) (1).png" alt="" width="357"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (1) (1) (1) (1).png" alt="" width="357"><figcaption></figcaption></figure>
 
 Simply click any tab to instantly narrow down the model catalog to what's relevant for your use case.
 

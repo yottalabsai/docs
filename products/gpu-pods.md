@@ -20,12 +20,12 @@ When entering the **Pods** page:
     * `Running` – The Pod is running normally.
     * `Terminating` – The Pod is being terminated; resources are being reclaimed.
 
-    <figure><img src="../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+    <figure><img src="../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
 *   There are buttons you can use at the bottom:
 
     * :link: `Connect` You can connect your machine to specific ports, such as 8888 for Jupyter Notebook. We currently support both **SSH** and **HTTP** ports.
 
-    <figure><img src="../.gitbook/assets/image (1).png" alt="" width="438"><figcaption></figcaption></figure>
+    <figure><img src="../.gitbook/assets/image (1) (1).png" alt="" width="438"><figcaption></figcaption></figure>
 
     <figure><img src="../.gitbook/assets/image (10).png" alt="" width="443"><figcaption></figcaption></figure>
 
