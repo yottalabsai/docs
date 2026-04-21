@@ -26,3 +26,12 @@ Below are the reference values for the pricing field of the currently integrated
 | glm 5             | token | $0.95 | $3.04  | $0.19  | Support context caching |
 | Seedream 4.5      | image |       | $0.38  |        |                         |
 
+### 3. Common Questions
+
+**Q: Why don't image generation models use token billing?**
+
+The computational resource consumption of image generation models mainly depends on image resolution and generation quantity, with little correlation to the number of prompt text tokens. Therefore, the original providers all charge based on "per image." Some models (such as DALL·E 3) have different pricing for different resolutions, expressed through the resolution\_tiers array.
+
+**Q: Can per\_image and resolution\_tiers coexist?**
+
+No. They are mutually exclusive: use per\_image if all model resolutions have the same price; use resolution\_tiers if different resolutions have different prices. If both exist simultaneously, the data layer should validate and report an error.
