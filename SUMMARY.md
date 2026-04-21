@@ -51,6 +51,7 @@
     * [FAQs](products/inference/gpu-worker/faqs.md)
   * [Pricing](products/inference/pricing.md)
 * [Fine-Tune](products/fine-tune.md)
+* [Agent](products/agent.md)
 * [Reference Program](products/reference-program.md)
 * [Billing](products/billing.md)
 
