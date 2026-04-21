@@ -94,7 +94,7 @@
   * [Guide to Serverless](tutorials/inference-and-serving/guide-to-serverless.md)
   * [Queue-based Serverless Quickstart](tutorials/inference-and-serving/queue-based-serverless-quickstart.md)
   * [LLM Serving on Yotta Labs with AWS Trainium](tutorials/inference-and-serving/llm-serving-on-yotta-labs-with-aws-trainium.md)
-  * [Crowdcent](https://docs.crowdcent.com/tutorials/advanced-multi-data-slots/)
+  * [Multi-Source Ensemble for Crypto Ranking](https://docs.crowdcent.com/tutorials/advanced-multi-data-slots/)
 * [Image & Video Generation](tutorials/image-and-video-generation/README.md)
   * [Generating Images with Z-Image Model Quickstart](tutorials/image-and-video-generation/generating-images-with-z-image-model-quickstart.md)
   * [Generate Product Images with Wan2.1/2.2](tutorials/image-and-video-generation/generate-product-images-with-wan2.1-2.2.md)
