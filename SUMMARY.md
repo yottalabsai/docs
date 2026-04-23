@@ -94,7 +94,7 @@
   * [Guide to Serverless](tutorials/inference-and-serving/guide-to-serverless.md)
   * [Queue-based Serverless Quickstart](tutorials/inference-and-serving/queue-based-serverless-quickstart.md)
   * [LLM Serving on Yotta Labs with AWS Trainium](tutorials/inference-and-serving/llm-serving-on-yotta-labs-with-aws-trainium.md)
-  * [Running DFlash with Qwen3.6-35B-A3B with RTX PRO 6000](tutorials/inference-and-serving/running-dflash-with-qwen3.6-35b-a3b-with-rtx-pro-6000.md)
+  * [Running DFlash with Qwen3.6-35B-A3B on RTX PRO 6000](tutorials/inference-and-serving/running-dflash-with-qwen3.6-35b-a3b-on-rtx-pro-6000.md)
   * [Multi-Source Ensemble for Crypto Ranking](https://docs.crowdcent.com/tutorials/advanced-multi-data-slots/)
 * [Image & Video Generation](tutorials/image-and-video-generation/README.md)
   * [Generating Images with Z-Image Model Quickstart](tutorials/image-and-video-generation/generating-images-with-z-image-model-quickstart.md)
