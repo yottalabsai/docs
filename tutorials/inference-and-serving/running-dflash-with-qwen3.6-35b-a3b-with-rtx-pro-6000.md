@@ -1,3 +1,7 @@
+---
+icon: d
+---
+
 # Running DFlash with Qwen3.6-35B-A3B with RTX PRO 6000
 
 **DFlash** is a speculative decoding framework from [Z Lab](https://z-lab.ai/projects/dflash/) that uses a lightweight block diffusion model to draft multiple tokens in parallel, delivering **up to 6× lossless inference acceleration** over standard autoregressive decoding — and up to 2.5× faster than EAGLE-3. This guide walks you through deploying `Qwen3.6-35B-A3B` with DFlash on a Yotta Labs GPU Pod, using the `pod-templates-jupyterlab` template.
