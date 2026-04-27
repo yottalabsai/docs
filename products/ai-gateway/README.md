@@ -10,11 +10,15 @@ icon: door-closed
 
 AI Gateway on Yottalabs is a unified API aggregator that brings together models from Google DeepMind, ByteDance, Z.AI, and more under one roof.
 
-<figure><img src="../../.gitbook/assets/image (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
 
 The category tabs at the top of the model list let you quickly filter models by type — choose from `All`, `LLM`, `Text-To-Image`, `Text-To-Video`, `Image-To-Video`, or browse by `Publishers` using the dropdown.
 
-<figure><img src="../../.gitbook/assets/image (1) (1) (1) (1).png" alt="" width="357"><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (2).png" alt="" width="563"><figcaption></figcaption></figure>
+
+<figure><img src="../../.gitbook/assets/image (1).png" alt="" width="110"><figcaption></figcaption></figure>
+
+
 
 Simply click any tab to instantly narrow down the model catalog to what's relevant for your use case.
 
@@ -28,7 +32,7 @@ Nano Banana Pro is Google DeepMind's text-to-image model built for precision and
 
 #### :banana:**Playground**
 
-<figure><img src="../../.gitbook/assets/image (3) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (3) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 The Playground is your zero-setup sandbox. No API key configuration, no environment setup — just type a prompt and run it!
 
@@ -135,7 +139,7 @@ Open any text editor (Notepad, VS Code, or anything you have on hand). Paste the
 Save the file as `run.py` in a folder of your choice, for example:
 
 ```
-D:\python\ssh\run.py
+D:\yottalabs\run.py
 ```
 {% endstep %}
 
@@ -145,7 +149,7 @@ D:\python\ssh\run.py
 Open **Command Prompt** (search "cmd" in the Windows Start menu). Navigate to the folder where you saved the file, then run it:
 
 ```bash
-cd D:\python\ssh
+cd D:\yottalabs
 python run.py
 ```
 
