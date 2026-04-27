@@ -32,7 +32,7 @@
 * [Quantization](products/quantization.md)
 * [Storage](products/storage/README.md)
   * [Buckets](products/storage/buckets.md)
-  * [Volume](products/storage/volume.md)
+  * [Volumes](products/storage/volumes.md)
 * [AI Gateway](products/ai-gateway/README.md)
   * [Pricing](products/ai-gateway/pricing.md)
 * [AI Explorer](products/ai-explorer/README.md)
