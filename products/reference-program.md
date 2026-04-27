@@ -16,7 +16,7 @@ When someone signs up using your unique referral link and fits our bonus conditi
 
 Access your organization's referral link from your organization's account dashboard and share it with new users to create their own account.
 
-<figure><img src="../.gitbook/assets/image (3).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (3) (1).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 Each organization has one unique Referral Link that is permanently bound to that Org and cannot be changed.

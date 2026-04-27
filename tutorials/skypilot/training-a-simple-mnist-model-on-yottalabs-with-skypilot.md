@@ -142,7 +142,7 @@ sky logs mnist-demo
 
 You should see output that looks something like this:
 
-<figure><img src="../../.gitbook/assets/image (11).png" alt="" width="563"><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (11) (2).png" alt="" width="563"><figcaption></figcaption></figure>
 
 The exact numbers will vary, but the important pattern is that the loss should go down and the test accuracy should rise to a high value.&#x20;
 

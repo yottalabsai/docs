@@ -89,7 +89,7 @@ As the job runs, you don’t need to manually connect to anything. SkyPilot mana
 
 You'll see something like:
 
-<figure><img src="../../.gitbook/assets/image (6).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (6) (2).png" alt=""><figcaption></figcaption></figure>
 
 ***
 

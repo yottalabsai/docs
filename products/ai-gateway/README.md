@@ -10,13 +10,13 @@ icon: door-closed
 
 AI Gateway on Yottalabs is a unified API aggregator that brings together models from Google DeepMind, ByteDance, Z.AI, and more under one roof.
 
-<figure><img src="../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (19).png" alt=""><figcaption></figcaption></figure>
 
 The category tabs at the top of the model list let you quickly filter models by type — choose from `All`, `LLM`, `Text-To-Image`, `Text-To-Video`, `Image-To-Video`, or browse by `Publishers` using the dropdown.
 
-<figure><img src="../../.gitbook/assets/image (2).png" alt="" width="563"><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (2) (1).png" alt="" width="563"><figcaption></figcaption></figure>
 
-<figure><img src="../../.gitbook/assets/image (1).png" alt="" width="110"><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1) (1).png" alt="" width="110"><figcaption></figcaption></figure>
 
 
 
@@ -32,7 +32,7 @@ Nano Banana Pro is Google DeepMind's text-to-image model built for precision and
 
 #### :banana:**Playground**
 
-<figure><img src="../../.gitbook/assets/image (3) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (3) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 The Playground is your zero-setup sandbox. No API key configuration, no environment setup — just type a prompt and run it!
 
@@ -101,7 +101,7 @@ The Playground is your zero-setup sandbox. No API key configuration, no environm
   * **Resolution** sets the output quality: `1K`, `2K`, or `4K`. Higher resolution means more detail and larger file size. For quick prototyping, 1K is fine. For anything going into production — print, large-format display, or high-DPI screens — go 2K or 4K.
   * **Output Format** is straightforward: `PNG` for lossless quality with transparency support, `JPEG` for smaller file sizes when you don't need a transparent background. **When in doubt, PNG is the safer default.**
 
-<figure><img src="../../.gitbook/assets/image (4) (1).png" alt="" width="440"><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (4) (1) (1).png" alt="" width="440"><figcaption></figcaption></figure>
 
 * **Run**: Hit **Run** to generate.
 * **Output & Download**: Generated images render directly in the panel. Use the download icon in the top-right corner of the output to save your result locally.

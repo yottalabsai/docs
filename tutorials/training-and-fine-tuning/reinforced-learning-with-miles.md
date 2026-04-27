@@ -150,7 +150,7 @@ else:
     print(f"✅ Model already exists at: {MODEL_PATH}")
 ```
 
-<figure><img src="../../.gitbook/assets/image (17).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (17) (1).png" alt=""><figcaption></figcaption></figure>
 
 The dapo-math-17k dataset contains 17,000 math problems. Great for training our model to think mathematically.
 
@@ -165,7 +165,7 @@ else:
     print(f"✅ Training data already exists at: {TRAIN_DATA_PATH}")
 ```
 
-<figure><img src="../../.gitbook/assets/image (18).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (18) (1).png" alt=""><figcaption></figcaption></figure>
 
 The AIME-2024 dataset will help us evaluate how well our model is learning. Think of it as the final exam.
 
@@ -180,7 +180,7 @@ else:
     print(f"✅ Evaluation data already exists at: {EVAL_DATA_PATH}")
 ```
 
-<figure><img src="../../.gitbook/assets/image (19).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (19) (1).png" alt=""><figcaption></figcaption></figure>
 {% endstep %}
 
 {% step %}

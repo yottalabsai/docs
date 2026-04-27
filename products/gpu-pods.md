@@ -20,18 +20,18 @@ When entering the **Pods** page:
     * `Running` – The Pod is running normally.
     * `Terminating` – The Pod is being terminated; resources are being reclaimed.
 
-    <figure><img src="../.gitbook/assets/image (1) (1).png" alt=""><figcaption></figcaption></figure>
+    <figure><img src="../.gitbook/assets/image (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 *   There are buttons you can use at the bottom:
 
     * :link: `Connect` You can connect your machine to specific ports, such as 8888 for Jupyter Notebook. We currently support both **SSH** and **HTTP** ports.
 
-    <figure><img src="../.gitbook/assets/image (1) (1) (1).png" alt="" width="438"><figcaption></figcaption></figure>
+    <figure><img src="../.gitbook/assets/image (1) (1) (1) (1).png" alt="" width="438"><figcaption></figcaption></figure>
 
-    <figure><img src="../.gitbook/assets/image (10).png" alt="" width="443"><figcaption></figcaption></figure>
+    <figure><img src="../.gitbook/assets/image (10) (1).png" alt="" width="443"><figcaption></figcaption></figure>
 
     * :notepad\_spiral: `Log` You can check the container logs to view its current status and identify any errors or issues.
 
-    <figure><img src="../.gitbook/assets/image (3) (1).png" alt="" width="563"><figcaption></figcaption></figure>
+    <figure><img src="../.gitbook/assets/image (3) (1) (1).png" alt="" width="563"><figcaption></figcaption></figure>
 
     * :chart\_with\_upwards\_trend:`Metrics` This provides real-time monitoring of GPU, CPU, memory, and storage usage to help you track system performance and resource utilization.
 
@@ -43,7 +43,7 @@ When entering the **Pods** page:
       * Insufficient system resources
       * Invalid image configuration
 
-      <figure><img src="../.gitbook/assets/image (4).png" alt="" width="275"><figcaption></figcaption></figure>
+      <figure><img src="../.gitbook/assets/image (4) (1).png" alt="" width="275"><figcaption></figcaption></figure>
 * There is a search bar where you can use Pod name to find your Pod (fuzzy search supported). You can also use **Pod Status** or **GPU Type** to filter Pods.
 
 ## ⚙️ Deploying a Pod
@@ -62,12 +62,12 @@ When entering the **Pods** page:
 
     * Choose a GPU model suitable for your workload.
 
-    <figure><img src="../.gitbook/assets/image (5).png" alt=""><figcaption></figcaption></figure>
+    <figure><img src="../.gitbook/assets/image (5) (1).png" alt=""><figcaption></figcaption></figure>
 *   **Configure Pod**
 
     * Fill in required parameters (fields marked with **`*`** are mandatory).
 
-    <figure><img src="../.gitbook/assets/image (7).png" alt=""><figcaption></figcaption></figure>
+    <figure><img src="../.gitbook/assets/image (7) (1).png" alt=""><figcaption></figcaption></figure>
 
 **Image Requirements**
 
@@ -81,7 +81,7 @@ Here are a few requirements if you want to build your custom image:
 5. **Deploy**\
    Click **Deploy** to complete the process.
 
-<figure><img src="../.gitbook/assets/image (8).png" alt="" width="302"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (8) (1).png" alt="" width="302"><figcaption></figcaption></figure>
 
 ## 💾 **System Volume**
 
@@ -118,7 +118,7 @@ System volume is set to 100GB by default.
 * **Persisting Configurations:** Saving changes made in `/etc`.
 * **Retaining Logs:** Keeping logs in `/var` for a specific period.
 
-<figure><img src="../.gitbook/assets/image (9).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (9) (1).png" alt=""><figcaption></figcaption></figure>
 
 ## 🔌 Connecting to Your Pod
 
@@ -128,7 +128,7 @@ Once the Pod is launched:
 * Availability depends on the **port configuration** defined at deployment.
 * When the container port is **Ready**, the status will update automatically.
 
-<figure><img src="../.gitbook/assets/image (10).png" alt="" width="443"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (10) (1).png" alt="" width="443"><figcaption></figcaption></figure>
 
 ## 📜 Viewing Logs
 
@@ -138,7 +138,7 @@ Once the Pod is launched:
 
 This helps with debugging deployment or runtime issues.
 
-<figure><img src="../.gitbook/assets/image (12).png" alt="" width="563"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (12) (1).png" alt="" width="563"><figcaption></figcaption></figure>
 
 ## 🧊 Pausing or Terminating Pods
 
