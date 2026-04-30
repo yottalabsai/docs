@@ -98,6 +98,7 @@
   * [LLM Serving on Yotta Labs with AWS Trainium](tutorials/inference-and-serving/llm-serving-on-yotta-labs-with-aws-trainium.md)
   * [Running DFlash with Qwen3.6-35B-A3B on RTX PRO 6000](tutorials/inference-and-serving/running-dflash-with-qwen3.6-35b-a3b-on-rtx-pro-6000.md)
   * [Multi-Source Ensemble for Crypto Ranking](https://docs.crowdcent.com/tutorials/advanced-multi-data-slots/)
+  * [Run DeepSeek V4 Flash/Pro on B300](tutorials/inference-and-serving/run-deepseek-v4-flash-pro-on-b300.md)
 * [Image & Video Generation](tutorials/image-and-video-generation/README.md)
   * [Generating Images with Z-Image Model Quickstart](tutorials/image-and-video-generation/generating-images-with-z-image-model-quickstart.md)
   * [Generate Product Images with Wan2.1/2.2](tutorials/image-and-video-generation/generate-product-images-with-wan2.1-2.2.md)
