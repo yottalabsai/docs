@@ -85,7 +85,7 @@ Video Model KV Cache Distribution (Extremely Non-Uniform):
 
 To address this challenge, researchers from UC Berkeley, MIT, NVIDIA, Amazon, and University of Texas at Austin introduce Quant VideoGen, an innovative framework that exploits the inherent spatial-temporal redundancy in video content. The key insight is that adjacent video frames and spatially nearby regions exhibit high similarity, enabling aggressive compression.
 
-<figure><img src="../../.gitbook/assets/image (35).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (35).png" alt=""><figcaption><p>Figure from <a href="https://arxiv.org/abs/2602.02958">Xi et al., 2026</a></p></figcaption></figure>
 
 The solution comprises two main components:&#x20;
 
