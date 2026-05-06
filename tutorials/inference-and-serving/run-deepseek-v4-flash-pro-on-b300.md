@@ -4,7 +4,7 @@ icon: whale
 
 # Run DeepSeek V4 Flash/Pro on B300
 
-Target hardware: **8× B300 (192GB each, 1.5TB total VRAM)**\
+Target hardware: **8\* B300 (native)** or **8× H200 (192GB each, 1.5TB total VRAM)**\
 Covers **V4-Flash** (284B / 13B active, \~146GB) and **V4-Pro** (1.6T / 49B active, \~960GB)\
 Both models are MIT licensed.
 
@@ -22,12 +22,12 @@ For V4-Pro, 8× HGX B300 is the its native FP4 execution, full 1M context, no mo
 
 ### Pod Settings
 
-| Field             | Value                                   |
-| ----------------- | --------------------------------------- |
-| **GPU Type**      | B300                                    |
-| **GPU Count**     | 8                                       |
-| **Image**         | `lmsysorg/sglang:deepseek-v4-blackwell` |
-| **System Volume** | ≥ 300 GB (Flash) / ≥ 1.2 TB (Pro)       |
+| Field             | Value                                |
+| ----------------- | ------------------------------------ |
+| **GPU Type**      | H200                                 |
+| **GPU Count**     | 8                                    |
+| **Image**         | `lmsysorg/sglang:deepseek-v4-hopper` |
+| **System Volume** | ≥ 300 GB (Flash) / ≥ 1.2 TB (Pro)    |
 
 {% hint style="warning" %}
 **System volume sizing rule:** The SGLang Blackwell image is \~15GB. Yotta Labs requires volume ≥ image size × 3, plus model weights plus buffer:
@@ -85,7 +85,7 @@ Visit each link and click **"Access repository"**:
 
 ```bash
 nvidia-smi
-# Expected: 8× B300, driver ≥ 570, CUDA ≥ 12.8
+# Expected: 8*B300 / 8*H200, driver ≥ 570, CUDA ≥ 12.8
 ```
 
 ***
@@ -159,9 +159,9 @@ Decide which image to use based on what GPUs you chose:
 
 > Chart from [https://docs.sglang.io/cookbook/autoregressive/DeepSeek/DeepSeek-V4](https://docs.sglang.io/cookbook/autoregressive/DeepSeek/DeepSeek-V4)
 
-**Key points for B300 (Blackwell):**
+**Key points for H200 :**
 
-* Use image `lmsysorg/sglang:deepseek-v4-b300`
+* Use image `lmsysorg/sglang:deepseek-v4-hopper`
 * Use official `deepseek-ai/` checkpoints (native FP4+FP8)
 * Enable `--moe-runner-backend flashinfer_mxfp4` for FP4 expert kernel
 * Mount model as `-v /home/ubuntu/models/<model>:/workspace/model` and pass `--model-path /workspace/model`
@@ -169,7 +169,7 @@ Decide which image to use based on what GPUs you chose:
 
 {% tabs %}
 {% tab title="V4-Flash" %}
-#### 4a. V4-Flash on 8× B300
+#### 4a. V4-Flash on 8× H200
 
 ```bash
 sudo docker run -d --gpus all \
@@ -177,9 +177,10 @@ sudo docker run -d --gpus all \
   --ipc=host \
   -p 8000:8000 \
   -e HF_TOKEN=$HF_TOKEN \
+  -e SGLANG_DSV4_FP4_EXPERTS=0 \
   -e PYTORCH_ALLOC_CONF=expandable_segments:True \
-  -v /home/ubuntu/models/deepseek-v4-flash:/workspace/model \
-  lmsysorg/sglang:deepseek-v4-blackwell \
+  -v /home/ubuntu/models/deepseek-v4-flash-fp8:/workspace/model \
+  lmsysorg/sglang:deepseek-v4-hopper \
   python3 -m sglang.launch_server \
     --model-path /workspace/model \
     --served-model-name deepseek-v4-flash \
@@ -187,9 +188,8 @@ sudo docker run -d --gpus all \
     --host 0.0.0.0 \
     --port 8000 \
     --trust-remote-code \
-    --mem-fraction-static 0.88 \
-    --context-length 524288 \
-    --moe-runner-backend flashinfer_mxfp4 \
+    --mem-fraction-static 0.85 \
+    --context-length 131072 \
     --speculative-algo EAGLE \
     --speculative-num-steps 3 \
     --speculative-eagle-topk 1 \
@@ -200,7 +200,7 @@ sudo docker run -d --gpus all \
 {% endtab %}
 
 {% tab title="V4-Pro" %}
-#### 4b. V4-Pro on 8× B200 ← Full "满血" model
+#### 4b. V4-Pro on 8× H200&#x20;
 
 ```bash
 sudo docker run -d --gpus all \
@@ -208,9 +208,10 @@ sudo docker run -d --gpus all \
   --ipc=host \
   -p 8000:8000 \
   -e HF_TOKEN=$HF_TOKEN \
+  -e SGLANG_DSV4_FP4_EXPERTS=0 \
   -e PYTORCH_ALLOC_CONF=expandable_segments:True \
-  -v /home/ubuntu/models/deepseek-v4-pro:/workspace/model \
-  lmsysorg/sglang:deepseek-v4-blackwell \
+  -v /home/ubuntu/models/deepseek-v4-pro-fp8:/workspace/model \
+  lmsysorg/sglang:deepseek-v4-hopper \
   python3 -m sglang.launch_server \
     --model-path /workspace/model \
     --served-model-name deepseek-v4-pro \
@@ -218,9 +219,8 @@ sudo docker run -d --gpus all \
     --host 0.0.0.0 \
     --port 8000 \
     --trust-remote-code \
-    --mem-fraction-static 0.85 \
-    --context-length 131072 \
-    --moe-runner-backend flashinfer_mxfp4 \
+    --mem-fraction-static 0.75 \
+    --context-length 32768 \
     --speculative-algo EAGLE \
     --speculative-num-steps 3 \
     --speculative-eagle-topk 1 \
@@ -241,21 +241,7 @@ sudo docker logs -f $(sudo docker ps -q)
 # Ready when you see: "The server is fired up and ready to roll!"
 ```
 
-### Key Flag Reference
 
-| Flag                                          | Purpose                                                 |
-| --------------------------------------------- | ------------------------------------------------------- |
-| `--tp 8`                                      | Tensor parallelism across all 8 B300s                   |
-| `--moe-runner-backend flashinfer_mxfp4`       | **Required on B300** — enables FP4 MoE kernel           |
-| `--mem-fraction-static`                       | VRAM fraction for weights; leave 0.12–0.15 for KV cache |
-| `--context-length`                            | Start at 131072, increase if VRAM allows                |
-| `--speculative-algo EAGLE`                    | Speculative decoding, \~2.5× token accept rate          |
-| `--shm-size 64g`                              | Shared memory for inter-GPU comms (use 64g for Pro)     |
-| `PYTORCH_ALLOC_CONF=expandable_segments:True` | Reduces memory fragmentation                            |
-
-***
-
-## 5. Verify the Server
 
 ### Health check
 
@@ -363,7 +349,7 @@ for chunk in response:
 ## Summary Cheat Sheet
 
 ```
-Hardware:   8× B200 (Blackwell — native FP4+FP8)
+Hardware:   8*B300(native) /8*H200
 Image:      lmsysorg/sglang:deepseek-v4-blackwell
 Docker:     always  sudo docker  (not docker)
 Models:     /home/ubuntu/models/   (not /root/)
@@ -373,8 +359,8 @@ Path flag:  --model-path /workspace/model
 Flash:   deepseek-ai/DeepSeek-V4-Flash   ~146GB   --tp 8   512K+ context
 Pro:     deepseek-ai/DeepSeek-V4-Pro     ~960GB   --tp 8   128K→1M context
 
-MoE flag:   --moe-runner-backend flashinfer_mxfp4   ← required on B200
-Sampling:   temperature=1.0  top_p=1.0              ← do not change
+MoE flag:   --moe-runner-backend flashinfer_mxfp4   ← required on B300
+Sampling:   temperature=1.0  top_p=1.0              
 
 Download:   hf download deepseek-ai/<model> --local-dir /home/ubuntu/models/<model> --token $HF_TOKEN
 Resume:     pkill -f "hf download" && find /home/ubuntu/models -name "*.lock" -delete && re-run
