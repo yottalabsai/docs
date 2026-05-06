@@ -1,15 +1,6 @@
 # Quant-VideoGen on RTX 5090
 
-**Based on** &#x20;
-
-```latex
-@article{xi2026quant,
-  title={Quant VideoGen: Auto-Regressive Long Video Generation via 2-Bit KV-Cache Quantization},
-  author={Xi, Haocheng and Yang, Shuo and Zhao, Yilong and Li, Muyang and Cai, Han and Li, Xingyang and Lin, Yujun and Zhang, Zhuoyang and Zhang, Jintao and Li, Xiuyu and others},
-  journal={arXiv preprint arXiv:2602.02958},
-  year={2026}
-}
-```
+**Based on** _Quant-VideoGen:Auto-Regressive Long Video Generation via 2-Bit KV-Cache Quantization_ by Xi et al. (2026).
 
 **ArXiv Link:** [https://arxiv.org/abs/2602.02958v1](https://arxiv.org/abs/2602.02958v1)
 
