@@ -1,8 +1,8 @@
-# Sparse-VideoGen on RTX 5090
+# Sparse-VideoGen on NVIDIA H200
 
 Based on [Sparse VideoGen2 (Xi et al., NeurIPS 2025 Spotlight)](https://arxiv.org/abs/2505.18875).
 
-Sparse VideoGen 2 (SVG2) is a training-free inference acceleration framework for video diffusion transformers. Rather than changing model weights, it exploits the inherent sparsity in 3D full attention — identifying which tokens actually matter via semantic-aware sparse attention and flash k-means clustering — to deliver roughly **2× end-to-end speedup** with minimal visual quality loss. It supports HunyuanVideo and Wan 2.1 (T2V and I2V), all of which fit on a single RTX 5090.
+Sparse VideoGen 2 (SVG2) is a training-free inference acceleration framework for video diffusion transformers. Rather than changing model weights, it exploits the inherent sparsity in 3D full attention — identifying which tokens actually matter via semantic-aware sparse attention and flash k-means clustering — to deliver roughly **2× end-to-end speedup** with minimal visual quality loss. It supports HunyuanVideo and Wan 2.1 (T2V and I2V), all of which fit on H200 GPU.
 
 ***
 
@@ -12,7 +12,7 @@ Log in to the [Yotta Labs Console](https://console.yottalabs.ai/), go to **Compu
 
 | Setting       | Value                 |
 | ------------- | --------------------- |
-| GPU           | RTX 5090              |
+| GPU           | H200                  |
 | Template      | `pytorch` (CUDA 12.8) |
 | System Volume | 150 GB minimum        |
 
