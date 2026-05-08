@@ -448,8 +448,6 @@ bash scripts/HY-WorldPlay/run_bf16.sh
 
 #### View Output in JupyterLab Notebook
 
-python
-
 ```python
 import glob, os
 from IPython.display import Video, display
@@ -471,12 +469,14 @@ else:
 
 ***
 
+Check one of our ouput files  `segment_2`
+
+<figure><img src="../../.gitbook/assets/image (50).png" alt=""><figcaption></figcaption></figure>
+
+{% file src="../../.gitbook/assets/segment_2.mp4" %}
+
 ### Troubleshooting
 
 * **LongCat: `IndexError: list index out of range`** The base clip is missing. Run `bash scripts/LongCat/base.sh` first before running `run_bf16.sh` or `run_qvg.sh`.
 * **LongCat: `CUDA out of memory` on H200** Make sure you have 2× H200. The model weights alone total \~83 GB and cannot be split across GPUs with the current single-process setup.
 * **HY-WorldPlay: `CUDA out of memory` on RTX 5090** Confirm `--offload_text_encoder` is present in the script. Check with:
-
-```bash
-grep offload scripts/HY-WorldPlay/run_qvg.sh
-```
