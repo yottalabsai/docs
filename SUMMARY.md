@@ -107,6 +107,7 @@
   * [Video Generation with ComfyUI-nunchaku](tutorials/image-and-video-generation/video-generation-with-comfyui-nunchaku.md)
   * [Quant-VideoGen on RTX 5090](tutorials/image-and-video-generation/quant-videogen-on-rtx-5090.md)
   * [Sparse-VideoGen on NVIDIA H200](tutorials/image-and-video-generation/sparse-videogen-on-nvidia-h200.md)
+  * [3DGRUT on A100: Build your own 3D Scene Reconstruction](tutorials/image-and-video-generation/3dgrut-on-a100-build-your-own-3d-scene-reconstruction.md)
 * [AI Agents](tutorials/ai-agents/README.md)
   * [NemoClaw with Local Inference](tutorials/ai-agents/nemoclaw-with-local-inference.md)
   * [Buiding Your Own Chatbot in Feishu with Openclaw-lite](tutorials/ai-agents/buiding-your-own-chatbot-in-feishu-with-openclaw-lite.md)
