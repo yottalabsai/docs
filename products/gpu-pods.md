@@ -12,15 +12,21 @@ icon: bolt
 
 #### Pod Page Overview
 
-When entering the **Pods** page:
+By default, the system displays Pods with an **In Progress** status, which includes the following states:
 
-*   The system by default displays Pods in **In Progress** state, including:
+* **Preparing**: Resources are being prepared
+* **Initializing**: Resources are being allocated and the Pod is being deployed
+* **Running**: The Pod is running
+* **Stopping**: The Pod is being paused and resources are being reclaimed
+* **Stopped**: The Pod has been paused
+* **Terminating**: The Pod is being terminated and resources are being reclaimed
+* **Terminated**: The Pod has been terminated
+* **Failed**: The Pod failed to deploy. Common causes include:
+  * **Insufficient system resources**
+  * **Invalid image configuration**
 
-    * `Initializing` – Resources are being allocated; the Pod is deploying.
-    * `Running` – The Pod is running normally.
-    * `Terminating` – The Pod is being terminated; resources are being reclaimed.
+<figure><img src="../.gitbook/assets/image (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
-    <figure><img src="../.gitbook/assets/image (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 *   There are buttons you can use at the bottom:
 
     * :link: `Connect` You can connect your machine to specific ports, such as 8888 for Jupyter Notebook. We currently support both **SSH** and **HTTP** ports.
