@@ -189,23 +189,15 @@ If you want to remove the Pod completely:
 #### Formula
 
 ```
-Pod hourly cost = (GPU unit price × number of GPUs)
-                + (Disk hourly rate × GB size)
-                + (Volume hourly rate × GB size)
+Hourly Pod cost = (GPU unit price per hour × number of GPUs) +
+                  (Container Storage unit price per GB per hour × GB exceeding the free quota)
 ```
 
-#### Deduction Rules
+**Charges:**
 
-* Billing starts once the Pod is **Running**.
-* When balance nears **$0**, all active Pods will be **terminated automatically**.
-* To avoid charges:
-  * Use **Pause** to temporarily suspend (still charges for persistent volumes).
-  * Use **Terminate** to completely stop billing.
-
-| Action        | Billing Behavior                             |
-| ------------- | -------------------------------------------- |
-| **Pause**     | Charges continue for Volumes (Stopped state) |
-| **Terminate** | No charges (Terminated state)                |
+* Your balance will be deducted once a Pod starts running.
+* Once your balance drops to near $0, all running Pods will be terminated.
+* If you no longer need a running Pod, you can Pause or Terminate it.
 
 ***
 
