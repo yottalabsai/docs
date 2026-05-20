@@ -2,7 +2,7 @@
 
 ### Navigating to Buckets
 
-<figure><img src="../../.gitbook/assets/image.png" alt="" width="143"><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (3).png" alt="" width="143"><figcaption></figcaption></figure>
 
 ***
 
@@ -12,7 +12,7 @@ After selecting **Buckets** from the navigation, you will land on the Buckets Li
 
 #### Table Columns
 
-<figure><img src="../../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 | COLUMN             | DESCRIPTION                                                                                 |
 | ------------------ | ------------------------------------------------------------------------------------------- |
@@ -28,7 +28,7 @@ After selecting **Buckets** from the navigation, you will land on the Buckets Li
 
 ### + Creating a New Bucket
 
-<figure><img src="../../.gitbook/assets/image (2).png" alt="" width="291"><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (2) (1).png" alt="" width="291"><figcaption></figcaption></figure>
 
 
 
@@ -47,7 +47,7 @@ Click the **+ Create** button in the top-right corner of the Buckets List page t
 
 Clicking the name of any bucket in the list opens the **Bucket Detail** page. This page shows all files stored within that specific bucket and provides tools to upload new files.
 
-<figure><img src="../../.gitbook/assets/image (3).png" alt="" width="563"><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (3) (1).png" alt="" width="563"><figcaption></figcaption></figure>
 
 #### Table Columns
 

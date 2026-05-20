@@ -25,19 +25,19 @@ By default, the system displays Pods with an **In Progress** status, which inclu
   * **Insufficient system resources**
   * **Invalid image configuration**
 
-<figure><img src="../.gitbook/assets/image (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 *   There are buttons you can use at the bottom:
 
     * :link: `Connect` You can connect your machine to specific ports, such as 8888 for Jupyter Notebook. We currently support both **SSH** and **HTTP** ports.
 
-    <figure><img src="../.gitbook/assets/image (1) (1) (1) (1).png" alt="" width="438"><figcaption></figcaption></figure>
+    <figure><img src="../.gitbook/assets/image (1) (1) (1) (1) (1).png" alt="" width="438"><figcaption></figcaption></figure>
 
     <figure><img src="../.gitbook/assets/image (10) (1).png" alt="" width="443"><figcaption></figcaption></figure>
 
     * :notepad\_spiral: `Log` You can check the container logs to view its current status and identify any errors or issues.
 
-    <figure><img src="../.gitbook/assets/image (3) (1) (1).png" alt="" width="563"><figcaption></figcaption></figure>
+    <figure><img src="../.gitbook/assets/image (3) (1) (1) (1).png" alt="" width="563"><figcaption></figcaption></figure>
 
     * :chart\_with\_upwards\_trend:`Metrics` This provides real-time monitoring of GPU, CPU, memory, and storage usage to help you track system performance and resource utilization.
 

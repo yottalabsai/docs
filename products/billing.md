@@ -21,15 +21,15 @@ We support a variety of payment options for global accessibility:
 
 1. **Navigate to the Billing section from the left-hand menu**
 
-<figure><img src="../.gitbook/assets/billing 1.png" alt=""><figcaption><p>billing</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image.png" alt="" width="149"><figcaption></figcaption></figure>
 
 2. **Enter the amount you wish to top up**
 
-<figure><img src="../.gitbook/assets/image (65).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
 
 3. **Select your preferred payment method and provide the required details**
 
-<figure><img src="../.gitbook/assets/image (66).png" alt=""><figcaption><p>payment</p></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (2).png" alt=""><figcaption></figcaption></figure>
 
 4. **Confirm the payment to instantly add credit to your account**
 
@@ -42,7 +42,7 @@ We support a variety of payment options for global accessibility:
 
 **It's disabled by default.** To enable it, turn on the feature switch and adjust threshold amount and auto-pay amount. Hit "save" to save your preferences.
 
-<figure><img src="../.gitbook/assets/image (109).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (147).png" alt=""><figcaption></figcaption></figure>
 
 ## Low-Balance Alert
 
@@ -52,7 +52,7 @@ We support a variety of payment options for global accessibility:
 
 **It's disabled by default.** To enable it, turn on the feature switch and adjust the threshold. Hit "save" to save your preferences.
 
-<figure><img src="../.gitbook/assets/image (110).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (151).png" alt=""><figcaption></figcaption></figure>
 
 ## Billing History
 
@@ -60,7 +60,7 @@ To track your transactions, see our **Billing History** board.
 
 Hit "Export" and a pdf file of your billing history will be downloaded.
 
-<figure><img src="../.gitbook/assets/image (112).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (152).png" alt=""><figcaption></figcaption></figure>
 
 Use the dropdown menu to filter your billing history based on different time periods. You can view the data of several options:
 
@@ -68,4 +68,4 @@ Use the dropdown menu to filter your billing history based on different time per
 2. **Week** – View billing data on a weekly basis.
 3. **Month** – View billing data on a monthly basis.
 
-<figure><img src="../.gitbook/assets/image (113).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (153).png" alt=""><figcaption></figcaption></figure>

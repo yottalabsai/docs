@@ -16,7 +16,7 @@ The category tabs at the top of the model list let you quickly filter models by 
 
 <figure><img src="../../.gitbook/assets/image (74).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../.gitbook/assets/image (1) (1).png" alt="" width="110"><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1) (1) (1).png" alt="" width="110"><figcaption></figcaption></figure>
 
 
 
@@ -32,7 +32,7 @@ Nano Banana Pro is Google DeepMind's text-to-image model built for precision and
 
 #### :banana:**Playground**
 
-<figure><img src="../../.gitbook/assets/image (3) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (3) (1) (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 The Playground is your zero-setup sandbox. No API key configuration, no environment setup — just type a prompt and run it!
 
