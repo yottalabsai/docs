@@ -6,17 +6,19 @@ icon: handshake-angle
 
 ### Referral Bonus
 
-Referral Bonus are rewards you earn by inviting others to join Yotta Labs.
+Referral Bonus are rewards you and your invited friends earn by inviting them to join Yotta Labs.
 
-When someone signs up using your unique referral link and fits our bonus conditions, your organization will receive credits that can be applied toward your future compute usage on our platform.
+When someone signs up using your unique referral link and fits our bonus conditions, your organization and your referral's organization will both receive credits that can be applied toward your future compute usage on our platform.
 
 #### How Referral Works <a href="#how-referral-works" id="how-referral-works"></a>
 
 1. **Share Your Referral Link with New Users:**
 
-Access your organization's referral link from your organization's account dashboard and share it with new users to create their own account.
+Click on the `share` button and share the referral link to your friends via X(Twitter), Facebook or Reddit.
 
-<figure><img src="../.gitbook/assets/image (3) (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (182).png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../.gitbook/assets/image (165).png" alt="" width="116"><figcaption></figcaption></figure>
 
 {% hint style="info" %}
 Each organization has one unique Referral Link that is permanently bound to that Org and cannot be changed.
@@ -24,27 +26,37 @@ Each organization has one unique Referral Link that is permanently bound to that
 
 2. **New User Registration:**
 
-When someone clicks your referral link and creates a new Yotta Labs account, they become your referred user.
+When someone clicks your referral link and creates a new Yotta Labs account with a third-party account, they become your referred user. **Their account status so far is only `registered`  , not `valid` yet.**&#x20;
 
-3. **Activation Requirements:**
+<figure><img src="../.gitbook/assets/image (211).png" alt="" width="375"><figcaption></figcaption></figure>
 
-For the referral to be successful and rewards to be granted, your referred user must meet such thresholds :
+3. **Validation Requirements:**
 
-* **Top up a total of $5 credits ($2 welcome credit for new users not included)**
-* **Consume $2 on compute jobs within 4 weeks of signup**
+For the referral to be successful and rewards to be granted, your referred user must first register and then become **valid referrals** under the following conditions :
+
+* **Sign up with a third-party account (Google / GitHub)**
+* **Top up a total of $5 credits in four weeks ($2 welcome credit for new users not included)**
 
 4. **Earn Referral Bonus**:
 
-Once your referred user meets the activation requirements, $5 in Referral Bonus is automatically added to your referral bonus in your organization.
+Once the referred user meets the activation requirements, the **corresponding tier bonus** will be automatically added to your referral bonus in your organization.
+
+Meanwhile, the referral's organization will receive **3 credits** as their bonus as well.
+
+For specific bonus tiers, please refer to the image below.
+
+<figure><img src="../.gitbook/assets/image (193).png" alt="" width="501"><figcaption></figcaption></figure>
+
+The more people your invite, the more bonus you'll receive **until you reach an upper limit of 40 people!**&#x20;
 
 5. **Claim Your Credits**:
 
 Click the "Claim" button to convert your Available Bonus into usable compute credits. Once claimed, the amount moves to **Claimed Credits** and adds up to your organization's **Balance** on **Billing** pag&#x65;**.**
 
-<figure><img src="../.gitbook/assets/image (141).png" alt="" width="563"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (208).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
-Remember, **Available Bonus + Claimed Credits = Total Referral Bonus**.
+Remember, **Available Bonus + Compute Credits = Total Referral Bonus**.
 {% endhint %}
 
 6. **See your claim history**
@@ -54,21 +66,23 @@ You can check your the date, amount and currency of your past claiming at the **
 <figure><img src="../.gitbook/assets/image (142).png" alt=""><figcaption></figcaption></figure>
 
 {% hint style="info" %}
-There's no limit to how many users you can refer. So the more you share, the more you can offset your compute costs!
-
-The referred user must consume $2 on compute jobs within the organization of which he/she is the owner.
-
 Anyone belong to the organization can share the link, and all bonus is earned and claimed within the organization account.
-
-Referral counts and bonuses are verified and updated every 48 hours. If your bonuses don't appear immediately in your dashboard, please wait for the system to update.
 {% endhint %}
 
-### Prohibited Activities
+7. **See your Referral Credit Claim History**
 
-Users are strictly prohibited from engaging in fraudulent or abusive behavior to manipulate the referral program:
+Your can check the total number and register dates of your referred users and whether they've become valid users at the **Referral Credit Claim History** page. Don't hesitate to reach out if they stuck in `registered` status!
 
-1. Self-referrals using accounts under the same control or clearly associated with each other
-2. Any top-up activities that obviously lack genuine business purposes
+<figure><img src="../.gitbook/assets/image (212).png" alt=""><figcaption></figcaption></figure>
+
+### Risk control policy
+
+Users are strictly prohibited from engaging in fraudulent or abusive behavior to manipulate the referral program. Once an invited user is identified as such problematic user:
+
+1. That invited user will no longer be eligible to receive the $3 reward.
+2. For the referrer:
+   1. That invited user will not be counted toward the referral count, valid referral count, or referral history.
+   2. No referral bonus will be granted to the referrer as a result of that invited user becoming a valid referral.
 
 > #### _Platform Rights & Legal Disclaimer_
 >

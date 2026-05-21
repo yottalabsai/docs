@@ -336,10 +336,10 @@ Navigate to the Permission Management page and import the following configuratio
 
 ***
 
-If you cannot connect in persistent connection mode for the first time,see this following tip:&#x20;
+If you cannot connect in persistent connection mode for the first time,see this following tip:
 
 {% hint style="info" %}
-#### Local Setup: Create `lark.py`
+**Local Setup: Create `lark.py`**
 
 Create a file named `lark.py` and paste the following code:
 
