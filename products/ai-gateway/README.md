@@ -16,7 +16,7 @@ The category tabs at the top of the model list let you quickly filter models by 
 
 <figure><img src="../../.gitbook/assets/image (74).png" alt=""><figcaption></figcaption></figure>
 
-<figure><img src="../../.gitbook/assets/image (1) (1) (1).png" alt="" width="110"><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1) (1) (1) (1).png" alt="" width="110"><figcaption></figcaption></figure>
 
 
 

@@ -21,11 +21,11 @@ We support a variety of payment options for global accessibility:
 
 1. **Navigate to the Billing section from the left-hand menu**
 
-<figure><img src="../.gitbook/assets/image.png" alt="" width="149"><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (1).png" alt="" width="149"><figcaption></figcaption></figure>
 
 2. **Enter the amount you wish to top up**
 
-<figure><img src="../.gitbook/assets/image (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../.gitbook/assets/image (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 3. **Select your preferred payment method and provide the required details**
 

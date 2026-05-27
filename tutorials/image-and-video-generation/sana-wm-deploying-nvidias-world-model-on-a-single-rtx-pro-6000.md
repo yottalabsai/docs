@@ -266,7 +266,15 @@ python inference_video_scripts/inference_sana_wm.py \
 
 If you get a `FOV outside [25°, 120°]` error, the model couldn't reliably estimate camera intrinsics from your image. Try a different starting image with clearer perspective depth, or pass `--intrinsics` explicitly with a `(3, 3)` numpy array.&#x20;
 {% endstep %}
+
+{% step %}
+### See the Result
+
+<figure><img src="../../.gitbook/assets/image.png" alt="" width="563"><figcaption></figcaption></figure>
+{% endstep %}
 {% endstepper %}
+
+{% file src="../../.gitbook/assets/output_generated.mp4" %}
 
 ### Troubleshooting
 

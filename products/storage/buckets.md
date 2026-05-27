@@ -12,7 +12,7 @@ After selecting **Buckets** from the navigation, you will land on the Buckets Li
 
 #### Table Columns
 
-<figure><img src="../../.gitbook/assets/image (1) (1).png" alt=""><figcaption></figcaption></figure>
+<figure><img src="../../.gitbook/assets/image (1) (1) (1).png" alt=""><figcaption></figcaption></figure>
 
 | COLUMN             | DESCRIPTION                                                                                 |
 | ------------------ | ------------------------------------------------------------------------------------------- |
