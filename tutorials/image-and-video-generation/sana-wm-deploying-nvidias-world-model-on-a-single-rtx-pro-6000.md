@@ -120,6 +120,9 @@ pip install -e .
 Here's where things get a little tricky. The default inference script fetches everything from HuggingFace automatically — but that includes the LTX-2 refiner (37.8 GB), which will fill your disk before you even get to inference. We'll download only what we actually need: the config, the Stage-1 DiT, and the VAE.
 
 ```bash
+sed -i 's|vae_pretrained: hf://Efficient-Large-Model/SANA-WM_bidirectional|vae_pretrained: /home/user/Sana/checkpoints/SANA-WM|' \
+  ./checkpoints/SANA-WM/config.yaml
+  
 hf download Efficient-Large-Model/SANA-WM_bidirectional \
   config.yaml \
   dit/sana_wm_1600m_720p.safetensors \
@@ -131,9 +134,6 @@ hf download Efficient-Large-Model/SANA-WM_bidirectional \
 This downloads about 13 GB total and takes a couple of minutes. Once it's done, there's one more fix needed: the `config.yaml` points the VAE path to `hf://`, which would trigger a full repo download again at runtime. Patch it to use the local path instead:
 
 ```bash
-sed -i 's|vae_pretrained: hf://Efficient-Large-Model/SANA-WM_bidirectional|vae_pretrained: /home/user/Sana/checkpoints/SANA-WM|' \
-  ./checkpoints/SANA-WM/config.yaml
-
 # Verify the fix
 grep "vae_pretrained" ./checkpoints/SANA-WM/config.yaml
 ```
