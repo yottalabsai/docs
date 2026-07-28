@@ -79,6 +79,7 @@
   * [VMs](api-and-sdk/api-reference-v2/vms.md)
   * [Serverless](api-and-sdk/api-reference-v2/serverless.md)
   * [Metrics](api-and-sdk/api-reference-v2/metrics.md)
+  * [Reserves](api-and-sdk/api-reference-v2/reserves.md)
   * [Volume](api-and-sdk/api-reference-v2/volume.md)
 
 ## Tutorials
